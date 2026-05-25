@@ -45,6 +45,7 @@ Existing flashcard tools are powerful but complex, with steep learning curves an
 ## User & Persona
 
 ### Primary persona
+
 A professional learning new skills — someone upskilling in a new programming language, preparing for a certification, or absorbing domain knowledge for a career shift. They have study material (articles, documentation, notes) and know spaced repetition works, but the manual flashcard creation process is too slow and too tedious to sustain alongside a full-time job. They want to paste their material and get usable flashcards immediately.
 
 ## Access Control
@@ -54,31 +55,37 @@ Login via email + password or OAuth. Flat user model — all users have the same
 ## Success Criteria
 
 ### Primary
+
 - End-to-end flow works: a user can paste text, get AI-generated flashcards, review/edit them, save to collection, and study with spaced repetition scheduling.
 - 75% of AI-generated flashcards are accepted by the user (quality bar for AI generation).
 - 75% of flashcards are created using AI rather than manually (proves AI removes the bottleneck).
 
 ### Secondary
+
 - Users return for a second study session (retention signal — the tool earned a habit).
 
 ### Guardrails
+
 - Study progress is never lost — SR scheduling state and card edits persist reliably across sessions.
 
 ## Functional Requirements
 
 ### Authentication
+
 - FR-001: User can create an account using email + password or OAuth. Priority: must-have
   > Socrates: No counter-argument; auth is necessary for per-user flashcard storage.
 - FR-002: User can log in and log out. Priority: must-have
   > Socrates: No counter-argument; login/logout is basic auth hygiene for multi-user web apps.
 
 ### AI Generation
+
 - FR-003: User can paste source text and trigger AI flashcard generation. Priority: must-have
   > Socrates: No counter-argument; paste-and-generate is the core value proposition.
 - FR-004: User can review AI-generated flashcards — accept, edit, or reject each one, with a bulk "accept all" shortcut. Priority: must-have
   > Socrates: Counter-argument considered: "per-card review is slow for 20+ cards — batch accept might better match the 'fast' value prop." Resolution: kept per-card review for quality control, but added a bulk "accept all" shortcut for users who trust the AI output.
 
 ### Flashcard Management
+
 - FR-005: User can manually create a flashcard (front/back). Priority: must-have
   > Socrates: No counter-argument; manual creation is a simple, low-cost safety net.
 - FR-006: User can browse their flashcard collection with basic text search. Priority: must-have
@@ -89,6 +96,7 @@ Login via email + password or OAuth. Flat user model — all users have the same
   > Socrates: No counter-argument; delete is basic CRUD essential for user-owned collections.
 
 ### Study Session
+
 - FR-009: User can start a study session using spaced repetition scheduling. Priority: must-have
   > Socrates: No counter-argument; SR is core to the product identity.
 - FR-010: User can rate their recall during study to feed the SR algorithm. Priority: must-have
@@ -103,6 +111,7 @@ Login via email + password or OAuth. Flat user model — all users have the same
 - **Then** they see a list of proposed flashcards they can accept, edit, or reject
 
 #### Acceptance Criteria
+
 - AI generates flashcards with distinct front (question/prompt) and back (answer) sides
 - User can edit any card's front or back before accepting
 - Rejected cards are discarded, not saved
