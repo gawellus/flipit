@@ -291,14 +291,14 @@ jobs:
 
 ### 5.2 Podłączenie repozytorium do Workers Builds
 
-- [ ] Cloudflare Dashboard → Workers & Pages → Worker `flipit` → Settings → Builds → Connect
-- [ ] Wybrać GitHub → autoryzować Cloudflare GitHub App na repozytorium `flipit`
-- [ ] Skonfigurować:
+- [x] Cloudflare Dashboard → Workers & Pages → Worker `flipit` → Settings → Builds → Connect
+- [x] Wybrać GitHub → autoryzować Cloudflare GitHub App na repozytorium `flipit`
+- [x] Skonfigurować:
   - **Production branch:** `main`
   - **Build command:** `npm run build`
   - **Deploy command:** `npx wrangler deploy`
   - **Root directory:** `/` (root projektu)
-- [ ] Zapisać konfigurację
+- [x] Zapisać konfigurację
 - **Weryfikacja:** w sekcji Builds pojawi się status "Connected" z nazwą repozytorium
 - **Edge case (Cloudflare GitHub App):** Cloudflare instaluje swoją GitHub App na repozytorium. Jeśli repo jest w organizacji, potrzebujesz uprawnień admina org do zatwierdzenia instalacji
 - **Edge case (istniejący Worker):** Worker musi już istnieć (utworzony w Fazie 4 przez `wrangler deploy`). Workers Builds podłącza się do istniejącego Workera, nie tworzy nowego
@@ -307,8 +307,8 @@ jobs:
 
 Workers Builds potrzebuje zmiennych `SUPABASE_URL` i `SUPABASE_KEY` w trakcie budowania (Astro `astro:env/server` je odczytuje).
 
-- [ ] Cloudflare Dashboard → Worker `flipit` → Settings → Builds → Environment variables
-- [ ] Dodać zmienne dla triggera **Production**:
+- [x] Cloudflare Dashboard → Worker `flipit` → Settings → Builds → Environment variables
+- [x] Dodać zmienne dla triggera **Production**:
   - `SUPABASE_URL` = Project URL z Fazy 2.4 (`is_secret: true`)
   - `SUPABASE_KEY` = anon key z Fazy 2.4 (`is_secret: true`)
 - [ ] (Opcjonalnie) Dodać te same zmienne dla triggera **Preview**
