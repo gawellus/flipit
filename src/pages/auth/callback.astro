@@ -1,12 +1,11 @@
 ---
 import { createClient } from "@/lib/supabase";
-import type { EmailOtpType } from "@supabase/supabase-js";
 
 const supabase = createClient(Astro.request.headers, Astro.cookies);
 
 if (supabase) {
   const token_hash = Astro.url.searchParams.get("token_hash");
-  const type = Astro.url.searchParams.get("type") as EmailOtpType | null;
+  const type = Astro.url.searchParams.get("type");
 
   if (token_hash && type) {
     const { error } = await supabase.auth.verifyOtp({ token_hash, type });
