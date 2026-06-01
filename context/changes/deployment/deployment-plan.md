@@ -140,21 +140,21 @@ Korzystamy z **darmowego planu Workers Free**.
 
 **Uwaga:** ten krok wymaga znajomości URL Workera — jeśli nie jest znany, wrócić tu po pierwszym deployu (Faza 4.5).
 
-- [ ] Supabase Dashboard → Authentication → URL Configuration
-- [ ] Ustawić "Site URL" na `https://flipit.<subdomain>.workers.dev`
-- [ ] Dodać do "Redirect URLs":
+- [x] Supabase Dashboard → Authentication → URL Configuration
+- [x] Ustawić "Site URL" na `https://flipit.pmorawiak.workers.dev`
+- [x] Dodać do "Redirect URLs":
   - `http://localhost:4321` (Astro dev)
   - `http://localhost:8787` (wrangler dev)
-  - `https://flipit.<subdomain>.workers.dev` (produkcja)
+  - `https://flipit.pmorawiak.workers.dev` (produkcja)
 - **Weryfikacja:** Site URL jest ustawiony i pasuje dokładnie do URL Workera (z `https://`)
 - **Edge case:** Supabase wymaga **exact match** URL-i — różnica w trailing slash, http vs https, lub subdomain = błąd `redirect URL mismatch`
 - **Support:** `<subdomain>` to subdomena Cloudflare konta — zobaczysz ją po pierwszym deployu
 
 ### 2.3 Szablon emaila potwierdzającego
 
-- [ ] Supabase Dashboard → Authentication → Email Templates
-- [ ] Wybrać "Confirm signup"
-- [ ] Zmienić link potwierdzający na:
+- [x] Supabase Dashboard → Authentication → Email Templates
+- [x] Wybrać "Confirm signup"
+- [x] Zmienić link potwierdzający na:
   ```
   {{ .SiteURL }}/auth/callback?token_hash={{ .TokenHash }}&type=email
   ```
@@ -164,9 +164,9 @@ Korzystamy z **darmowego planu Workers Free**.
 
 ### 2.4 Zapisanie credentials
 
-- [ ] Skopiować **Project URL** → to jest `SUPABASE_URL`
-- [ ] Skopiować **anon public key** → to jest `SUPABASE_KEY`
-- [ ] Przechować bezpiecznie (menedżer haseł), NIGDY w git
+- [x] Skopiować **Project URL** → to jest `SUPABASE_URL`
+- [x] Skopiować **anon public key** → to jest `SUPABASE_KEY`
+- [x] Przechować bezpiecznie (menedżer haseł), NIGDY w git
 - **Weryfikacja:** URL zaczyna się od `https://`, klucz od `eyJ...`
 
 ---
@@ -219,15 +219,15 @@ Cel: zweryfikować konfigurację zanim zautomatyzujemy w CI.
 - [x] Sprawdzić, że strona główna ładuje się (SSR działa)
 - [x] Przejść na `/auth/signin` — strona się renderuje
 - [x] Przejść na `/dashboard` — redirect na `/auth/signin` (ochrona middleware działa)
-- [ ] Zarejestrować się prawdziwym emailem:
-  1. [ ] Formularz wysyła POST do `/api/auth/signup`
-  2. [ ] Redirect na `/auth/confirm-email`
-  3. [ ] Email przychodzi z linkiem potwierdzającym
-  4. [ ] Kliknięcie linku prowadzi do `/auth/callback`
-  5. [ ] Token jest wymieniony, redirect na `/dashboard`
-  6. [ ] Dashboard wyświetla email użytkownika
-- [ ] Wylogować się — redirect na `/`
-- [ ] Zalogować się ponownie — sukces
+- [x] Zarejestrować się prawdziwym emailem:
+  1. [x] Formularz wysyła POST do `/api/auth/signup`
+  2. [x] Redirect na `/auth/confirm-email`
+  3. [x] Email przychodzi z linkiem potwierdzającym
+  4. [x] Kliknięcie linku prowadzi do `/auth/callback`
+  5. [x] Token jest wymieniony, redirect na `/dashboard`
+  6. [x] Dashboard wyświetla email użytkownika
+- [x] Wylogować się — redirect na `/`
+- [x] Zalogować się ponownie — sukces
 - **Edge case (SSR/500 errors):** uruchomić `npx wrangler tail` w osobnym terminalu i odwiedzić stronę — błędy runtime pojawią się w logu
 - **Edge case (auth redirect fail):** sprawdzić, że Supabase Site URL (Faza 2.2) pasuje DOKŁADNIE do URL Workera
 - **Edge case (cookies nie ustawiane):** Workers domyślnie serwują po HTTPS — cookies z flagą `Secure` działają. Problem może być przy `http://` (lokalnie przez `wrangler dev`)
@@ -359,7 +359,7 @@ push do main
 
 ---
 
-## Faza 6: Procedura rollback
+## Faza 6: Procedura rollback ⏳ Nice to have — zalecane przed pierwszym hotfixem
 
 ### 6.1 Mechanika rollback
 
@@ -384,7 +384,7 @@ push do main
 
 ---
 
-## Faza 7: Monitoring po deployu
+## Faza 7: Monitoring po deployu ⏳ Nice to have — przydatne przy debugowaniu produkcji
 
 ### 7.1 Monitoring bazowy
 
@@ -408,7 +408,7 @@ push do main
 
 ---
 
-## Faza 8: Custom domain (opcjonalna, post-MVP)
+## Faza 8: Custom domain ⏳ Nice to have — po MVP, gdy będzie własna domena
 
 ### 8.1 Dodanie domeny do Cloudflare
 
@@ -459,10 +459,10 @@ Faza 8 (custom domain) ── opcjonalna, po MVP
 
 ## Akcje wymagające ręcznej interwencji (human-only)
 
-- [ ] Logowanie GitHub CLI (Faza -1.1)
-- [ ] Zmiana szablonu emaila w Supabase (Faza 2.3)
-- [ ] Podłączenie repo do Workers Builds w dashboardzie Cloudflare (Faza 5.2)
-- [ ] Konfiguracja zmiennych build-time w Workers Builds (Faza 5.3)
+- [x] Logowanie GitHub CLI (Faza -1.1)
+- [x] Zmiana szablonu emaila w Supabase (Faza 2.3)
+- [x] Podłączenie repo do Workers Builds w dashboardzie Cloudflare (Faza 5.2)
+- [x] Konfiguracja zmiennych build-time w Workers Builds (Faza 5.3)
 - [ ] (Opcjonalnie) Branch Protection Rule na GitHub (Faza 5.6)
 - [ ] Rotacja Supabase service-role key (jeśli kiedykolwiek potrzebna)
 - [ ] Usunięcie Workera z Cloudflare
