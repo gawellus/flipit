@@ -334,31 +334,31 @@ This is the first database migration in the project. After creating the migratio
 
 #### Automated
 
-- [x] 2.1 TypeScript compiles: `npx astro check`
-- [x] 2.2 Lint passes: `npm run lint`
-- [x] 2.3 Build succeeds: `npm run build`
+- [x] 2.1 TypeScript compiles: `npx astro check` — b80f627
+- [x] 2.2 Lint passes: `npm run lint` — b80f627
+- [x] 2.3 Build succeeds: `npm run build` — b80f627
 
 #### Manual
 
-- [x] 2.4 POST /api/generations returns flashcard proposals with valid text
-- [x] 2.5 POST /api/generations returns 401 without auth
-- [x] 2.6 POST /api/generations returns 400 for empty or oversized text
+- [x] 2.4 POST /api/generations returns flashcard proposals with valid text — b80f627
+- [x] 2.5 POST /api/generations returns 401 without auth — b80f627
+- [x] 2.6 POST /api/generations returns 400 for empty or oversized text — b80f627
 
 ### Phase 3: Generation Page & Review Interface
 
 #### Automated
 
-- [ ] 3.1 TypeScript compiles: `npx astro check`
-- [ ] 3.2 Lint passes: `npm run lint`
-- [ ] 3.3 Build succeeds: `npm run build`
+- [x] 3.1 TypeScript compiles: `npx astro check`
+- [x] 3.2 Lint passes: `npm run lint`
+- [x] 3.3 Build succeeds: `npm run build`
 
 #### Manual
 
-- [ ] 3.4 Full happy path: paste → generate → review → accept/edit/reject → save → verify in DB
-- [ ] 3.5 Bulk "accept all" works and enables save button
-- [ ] 3.6 Rejecting all cards shows appropriate save feedback
-- [ ] 3.7 Editing card front/back persists correctly after save
-- [ ] 3.8 Unauthenticated access to /generate redirects to sign-in
-- [ ] 3.9 Character counter enforces 10,000 char limit
-- [ ] 3.10 Error state shows message with retry button on LLM failure
-- [ ] 3.11 "Generate" link appears in topbar for authenticated users only
+- [x] 3.4 Full happy path: paste → generate → review → accept/edit/reject → save → verify in DB
+- [x] 3.5 Bulk "accept all" works and enables save button
+- [x] 3.6 Rejecting all cards shows appropriate save feedback
+- [x] 3.7 Editing card front/back persists correctly after save
+- [x] 3.8 Unauthenticated access to /generate redirects to sign-in
+- [x] 3.9 Character counter enforces 10,000 char limit
+- [x] 3.10 Error state shows message with retry button on LLM failure
+- [x] 3.11 "Generate" link appears in topbar for authenticated users only
