@@ -348,17 +348,17 @@ This is the first database migration in the project. After creating the migratio
 
 #### Automated
 
-- [x] 3.1 TypeScript compiles: `npx astro check`
-- [x] 3.2 Lint passes: `npm run lint`
-- [x] 3.3 Build succeeds: `npm run build`
+- [x] 3.1 TypeScript compiles: `npx astro check` — 801edce
+- [x] 3.2 Lint passes: `npm run lint` — 801edce
+- [x] 3.3 Build succeeds: `npm run build` — 801edce
 
 #### Manual
 
-- [x] 3.4 Full happy path: paste → generate → review → accept/edit/reject → save → verify in DB
-- [x] 3.5 Bulk "accept all" works and enables save button
-- [x] 3.6 Rejecting all cards shows appropriate save feedback
-- [x] 3.7 Editing card front/back persists correctly after save
-- [x] 3.8 Unauthenticated access to /generate redirects to sign-in
-- [x] 3.9 Character counter enforces 10,000 char limit
-- [x] 3.10 Error state shows message with retry button on LLM failure
-- [x] 3.11 "Generate" link appears in topbar for authenticated users only
+- [x] 3.4 Full happy path: paste → generate → review → accept/edit/reject → save → verify in DB — 801edce
+- [x] 3.5 Bulk "accept all" works and enables save button — 801edce
+- [x] 3.6 Rejecting all cards shows appropriate save feedback — 801edce
+- [x] 3.7 Editing card front/back persists correctly after save — 801edce
+- [x] 3.8 Unauthenticated access to /generate redirects to sign-in — 801edce
+- [x] 3.9 Character counter enforces 10,000 char limit — 801edce
+- [x] 3.10 Error state shows message with retry button on LLM failure — 801edce
+- [x] 3.11 "Generate" link appears in topbar for authenticated users only — 801edce
