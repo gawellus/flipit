@@ -30,7 +30,9 @@ export function FlashcardReview({ proposals, generationId, onSaveComplete }: Pro
 
   function handleAcceptAll() {
     setCards((prev) =>
-      prev.map((c) => (c.status === "pending" || c.status === "rejected" ? { ...c, status: "accepted" } : c)),
+      prev.map((c) =>
+        c.status === "pending" || c.status === "rejected" || c.status === "editing" ? { ...c, status: "accepted" } : c,
+      ),
     );
   }
 

@@ -1,7 +1,8 @@
-import { OPENROUTER_API_KEY } from "astro:env/server";
+import { OPENROUTER_API_KEY, OPENROUTER_MODEL } from "astro:env/server";
 import type { FlashcardProposal } from "@/types";
 
 const OPENROUTER_API_URL = "https://openrouter.ai/api/v1/chat/completions";
+const DEFAULT_MODEL = "google/gemini-3.5-flash";
 
 const SYSTEM_PROMPT = `You are a flashcard generator. Given study text, create flashcards that help a student learn the key concepts.
 
@@ -10,11 +11,11 @@ Rules:
 - Create one card per distinct concept — do not repeat or overlap.
 - Keep the front concise (ideally one sentence or question).
 - Keep the back focused and clear (1-3 sentences).
-- Return ONLY a JSON array of objects with "front" and "back" keys.
-- No markdown, no code fences, no extra text — just the raw JSON array.
+- Return a JSON object with a single key "flashcards" containing an array of objects with "front" and "back" keys.
+- No markdown, no code fences, no extra text — just the raw JSON object.
 
 Example output:
-[{"front":"What is photosynthesis?","back":"The process by which green plants convert sunlight, water, and CO2 into glucose and oxygen."}]`;
+{"flashcards":[{"front":"What is photosynthesis?","back":"The process by which green plants convert sunlight, water, and CO2 into glucose and oxygen."}]}`;
 
 export async function generateFlashcards(sourceText: string): Promise<FlashcardProposal[]> {
   if (!OPENROUTER_API_KEY) {
@@ -28,7 +29,7 @@ export async function generateFlashcards(sourceText: string): Promise<FlashcardP
       Authorization: `Bearer ${OPENROUTER_API_KEY}`,
     },
     body: JSON.stringify({
-      model: "google/gemini-3.5-flash",
+      model: (OPENROUTER_MODEL as string | undefined) ?? DEFAULT_MODEL,
       messages: [
         { role: "system", content: SYSTEM_PROMPT },
         { role: "user", content: sourceText },
