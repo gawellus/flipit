@@ -321,14 +321,14 @@ This is the first database migration in the project. After creating the migratio
 
 #### Automated
 
-- [ ] 1.1 Migration applies cleanly: `npx supabase db reset`
-- [ ] 1.2 TypeScript compiles: `npx astro check`
-- [ ] 1.3 Lint passes: `npm run lint`
+- [x] 1.1 Migration applies cleanly: `npx supabase db reset`
+- [x] 1.2 TypeScript compiles: `npx astro check`
+- [x] 1.3 Lint passes: `npm run lint`
 
 #### Manual
 
-- [ ] 1.4 RLS blocks cross-user access in Supabase Studio
-- [ ] 1.5 FK constraint rejects invalid user_id UUIDs
+- [x] 1.4 RLS blocks cross-user access in Supabase Studio
+- [x] 1.5 FK constraint rejects invalid user_id UUIDs
 
 ### Phase 2: AI Generation Backend
 
