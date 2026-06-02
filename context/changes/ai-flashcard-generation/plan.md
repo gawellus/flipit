@@ -321,28 +321,28 @@ This is the first database migration in the project. After creating the migratio
 
 #### Automated
 
-- [x] 1.1 Migration applies cleanly: `npx supabase db reset`
-- [x] 1.2 TypeScript compiles: `npx astro check`
-- [x] 1.3 Lint passes: `npm run lint`
+- [x] 1.1 Migration applies cleanly: `npx supabase db reset` — 51b3114
+- [x] 1.2 TypeScript compiles: `npx astro check` — 51b3114
+- [x] 1.3 Lint passes: `npm run lint` — 51b3114
 
 #### Manual
 
-- [x] 1.4 RLS blocks cross-user access in Supabase Studio
-- [x] 1.5 FK constraint rejects invalid user_id UUIDs
+- [x] 1.4 RLS blocks cross-user access in Supabase Studio — 51b3114
+- [x] 1.5 FK constraint rejects invalid user_id UUIDs — 51b3114
 
 ### Phase 2: AI Generation Backend
 
 #### Automated
 
-- [ ] 2.1 TypeScript compiles: `npx astro check`
-- [ ] 2.2 Lint passes: `npm run lint`
-- [ ] 2.3 Build succeeds: `npm run build`
+- [x] 2.1 TypeScript compiles: `npx astro check`
+- [x] 2.2 Lint passes: `npm run lint`
+- [x] 2.3 Build succeeds: `npm run build`
 
 #### Manual
 
-- [ ] 2.4 POST /api/generations returns flashcard proposals with valid text
-- [ ] 2.5 POST /api/generations returns 401 without auth
-- [ ] 2.6 POST /api/generations returns 400 for empty or oversized text
+- [x] 2.4 POST /api/generations returns flashcard proposals with valid text
+- [x] 2.5 POST /api/generations returns 401 without auth
+- [x] 2.6 POST /api/generations returns 400 for empty or oversized text
 
 ### Phase 3: Generation Page & Review Interface
 
