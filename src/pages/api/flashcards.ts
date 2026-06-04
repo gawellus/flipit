@@ -8,11 +8,12 @@ const SaveFlashcardsSchema = z.object({
   flashcards: z
     .array(
       z.object({
-        front: z.string().min(1, "front cannot be empty"),
-        back: z.string().min(1, "back cannot be empty"),
+        front: z.string().min(1, "front cannot be empty").max(2000, "front cannot exceed 2000 characters"),
+        back: z.string().min(1, "back cannot be empty").max(2000, "back cannot exceed 2000 characters"),
       }),
     )
-    .min(1, "flashcards array cannot be empty"),
+    .min(1, "flashcards array cannot be empty")
+    .max(50, "flashcards array cannot exceed 50 items"),
 });
 
 export const prerender = false;

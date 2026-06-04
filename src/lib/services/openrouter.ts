@@ -29,7 +29,7 @@ export async function generateFlashcards(sourceText: string): Promise<FlashcardP
       Authorization: `Bearer ${OPENROUTER_API_KEY}`,
     },
     body: JSON.stringify({
-      model: (OPENROUTER_MODEL as string | undefined) ?? DEFAULT_MODEL,
+      model: OPENROUTER_MODEL ?? DEFAULT_MODEL,
       messages: [
         { role: "system", content: SYSTEM_PROMPT },
         { role: "user", content: sourceText },

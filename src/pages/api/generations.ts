@@ -48,9 +48,8 @@ export const POST: APIRoute = async (context) => {
       status: 200,
       headers: { "Content-Type": "application/json" },
     });
-  } catch (err) {
-    const message = err instanceof Error ? err.message : "Flashcard generation failed";
-    return new Response(JSON.stringify({ error: message }), {
+  } catch {
+    return new Response(JSON.stringify({ error: "Flashcard generation failed. Please try again." }), {
       status: 500,
       headers: { "Content-Type": "application/json" },
     });
