@@ -354,36 +354,36 @@ Build the `/flashcards` page as an Astro page with a React island for the intera
 
 #### Automated
 
-- [x] 2.1 npm run lint passes with no type errors
-- [x] 2.2 All endpoints return correct status codes
-- [x] 2.3 Auth guard returns 401 for unauthenticated requests
+- [x] 2.1 npm run lint passes with no type errors — db8e7c7
+- [x] 2.2 All endpoints return correct status codes — db8e7c7
+- [x] 2.3 Auth guard returns 401 for unauthenticated requests — db8e7c7
 
 #### Manual
 
-- [ ] 2.4 GET /api/flashcards returns paginated list
-- [ ] 2.5 GET /api/flashcards?page=2&pageSize=5 returns correct page
-- [ ] 2.6 GET /api/flashcards?search=term filters correctly
-- [ ] 2.7 PATCH updates card and updated_at changes
-- [ ] 2.8 DELETE removes card, second DELETE returns 404
-- [ ] 2.9 POST with source manual creates card without generation_id
-- [ ] 2.10 POST with source ai still works (backwards compatible)
+- [x] 2.4 GET /api/flashcards returns paginated list
+- [x] 2.5 GET /api/flashcards?page=2&pageSize=5 returns correct page
+- [x] 2.6 GET /api/flashcards?search=term filters correctly
+- [x] 2.7 PATCH updates card and updated_at changes
+- [x] 2.8 DELETE removes card, second DELETE returns 404
+- [x] 2.9 POST with source manual creates card without generation_id
+- [x] 2.10 POST with source ai still works (backwards compatible)
 
 ### Phase 3: Collection Page & UI Components
 
 #### Automated
 
-- [ ] 3.1 npm run lint passes
-- [ ] 3.2 npm run build succeeds
-- [ ] 3.3 No TypeScript errors in new components
+- [x] 3.1 npm run lint passes
+- [x] 3.2 npm run build succeeds
+- [x] 3.3 No TypeScript errors in new components
 
 #### Manual
 
-- [ ] 3.4 Navigate to /flashcards from Topbar
-- [ ] 3.5 Create manual flashcard via inline form
-- [ ] 3.6 Edit card inline — save persists, cancel reverts
-- [ ] 3.7 Delete card with inline confirmation
-- [ ] 3.8 Search filters results after debounce
-- [ ] 3.9 Pagination navigation works correctly
-- [ ] 3.10 Empty states display correctly
-- [ ] 3.11 AI-generated cards appear in collection after generate flow
-- [ ] 3.12 Unauthenticated user redirected to sign-in
+- [x] 3.4 Navigate to /flashcards from Topbar
+- [x] 3.5 Create manual flashcard via inline form
+- [x] 3.6 Edit card inline — save persists, cancel reverts
+- [x] 3.7 Delete card with inline confirmation
+- [x] 3.8 Search filters results after debounce
+- [x] 3.9 Pagination navigation works correctly
+- [x] 3.10 Empty states display correctly
+- [x] 3.11 AI-generated cards appear in collection after generate flow
+- [x] 3.12 Unauthenticated user redirected to sign-in

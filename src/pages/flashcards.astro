@@ -1,0 +1,14 @@
+---
+import Layout from "@/layouts/Layout.astro";
+import Topbar from "@/components/Topbar.astro";
+import FlashcardsView from "@/components/flashcards/FlashcardsView";
+---
+
+<Layout title="My Flashcards">
+  <div class="bg-cosmic min-h-screen p-4">
+    <div class="mx-auto max-w-4xl">
+      <Topbar />
+      <FlashcardsView client:load />
+    </div>
+  </div>
+</Layout>
