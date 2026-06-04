@@ -1,5 +1,5 @@
 import type { SupabaseClient } from "@supabase/supabase-js";
-import type { Flashcard, CreateFlashcardInput } from "@/types";
+import type { Flashcard, CreateFlashcardInput, PaginatedResponse } from "@/types";
 
 export async function createFlashcards(
   supabase: SupabaseClient,
@@ -25,4 +25,78 @@ export async function createFlashcards(
   }
 
   return data as Flashcard[];
+}
+
+export async function listFlashcards(
+  supabase: SupabaseClient,
+  userId: string,
+  options: { page: number; pageSize: number; search?: string },
+): Promise<PaginatedResponse<Flashcard>> {
+  const { page, pageSize, search } = options;
+  const from = (page - 1) * pageSize;
+  const to = from + pageSize - 1;
+
+  let query = supabase
+    .from("flashcards")
+    .select("*", { count: "exact" })
+    .eq("user_id", userId)
+    .order("created_at", { ascending: false })
+    .range(from, to);
+
+  if (search) {
+    const escaped = search.replace(/%/g, "\\%").replace(/_/g, "\\_");
+    const pattern = `%${escaped}%`;
+    query = query.or(`front.ilike.${pattern},back.ilike.${pattern}`);
+  }
+
+  const { data, count, error } = await query;
+
+  if (error) {
+    throw new Error(`Failed to list flashcards: ${error.message}`);
+  }
+
+  const totalCount = count ?? 0;
+
+  return {
+    data: data as Flashcard[],
+    page,
+    pageSize,
+    totalCount,
+    totalPages: Math.ceil(totalCount / pageSize),
+  };
+}
+
+export async function updateFlashcard(
+  supabase: SupabaseClient,
+  userId: string,
+  flashcardId: string,
+  updates: { front?: string; back?: string },
+): Promise<Flashcard> {
+  const result = await supabase
+    .from("flashcards")
+    .update(updates)
+    .eq("id", flashcardId)
+    .eq("user_id", userId)
+    .select()
+    .single();
+
+  if (result.error) {
+    throw new Error(`Failed to update flashcard: ${result.error.message}`);
+  }
+
+  return result.data as Flashcard;
+}
+
+export async function deleteFlashcard(supabase: SupabaseClient, userId: string, flashcardId: string): Promise<void> {
+  const { error } = await supabase
+    .from("flashcards")
+    .delete()
+    .eq("id", flashcardId)
+    .eq("user_id", userId)
+    .select()
+    .single();
+
+  if (error) {
+    throw new Error(`Failed to delete flashcard: ${error.message}`);
+  }
 }
