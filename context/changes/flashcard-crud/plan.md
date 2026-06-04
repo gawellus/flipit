@@ -341,22 +341,22 @@ Build the `/flashcards` page as an Astro page with a React island for the intera
 
 #### Automated
 
-- [x] 1.1 Migration applies cleanly
-- [x] 1.2 TypeScript compiles with no type errors on new functions
-- [x] 1.3 DAL functions have correct signatures and handle error cases
+- [x] 1.1 Migration applies cleanly — 844864b
+- [x] 1.2 TypeScript compiles with no type errors on new functions — 844864b
+- [x] 1.3 DAL functions have correct signatures and handle error cases — 844864b
 
 #### Manual
 
-- [x] 1.4 Verify updated_at trigger fires on row update
-- [x] 1.5 Verify list function returns correct pagination metadata
+- [x] 1.4 Verify updated_at trigger fires on row update — 844864b
+- [x] 1.5 Verify list function returns correct pagination metadata — 844864b
 
 ### Phase 2: API Endpoints
 
 #### Automated
 
-- [ ] 2.1 npm run lint passes with no type errors
-- [ ] 2.2 All endpoints return correct status codes
-- [ ] 2.3 Auth guard returns 401 for unauthenticated requests
+- [x] 2.1 npm run lint passes with no type errors
+- [x] 2.2 All endpoints return correct status codes
+- [x] 2.3 Auth guard returns 401 for unauthenticated requests
 
 #### Manual
 
