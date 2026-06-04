@@ -2,6 +2,7 @@ import type { APIRoute } from "astro";
 import { z } from "zod";
 import { createClient } from "@/lib/supabase";
 import { createFlashcards, listFlashcards, updateFlashcard, deleteFlashcard } from "@/lib/services/flashcards";
+import { NotFoundError } from "@/lib/errors";
 
 const SaveFlashcardsSchema = z
   .object({
@@ -197,8 +198,8 @@ export const PATCH: APIRoute = async (context) => {
       headers: { "Content-Type": "application/json" },
     });
   } catch (err) {
+    const status = err instanceof NotFoundError ? 404 : 500;
     const message = err instanceof Error ? err.message : "Failed to update flashcard";
-    const status = message.includes("Failed to update flashcard") ? 404 : 500;
     return new Response(JSON.stringify({ error: message }), {
       status,
       headers: { "Content-Type": "application/json" },
@@ -251,8 +252,8 @@ export const DELETE: APIRoute = async (context) => {
       headers: { "Content-Type": "application/json" },
     });
   } catch (err) {
+    const status = err instanceof NotFoundError ? 404 : 500;
     const message = err instanceof Error ? err.message : "Failed to delete flashcard";
-    const status = message.includes("Failed to delete flashcard") ? 404 : 500;
     return new Response(JSON.stringify({ error: message }), {
       status,
       headers: { "Content-Type": "application/json" },

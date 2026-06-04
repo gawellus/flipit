@@ -1,5 +1,6 @@
 import type { SupabaseClient } from "@supabase/supabase-js";
 import type { Flashcard, CreateFlashcardInput, PaginatedResponse } from "@/types";
+import { NotFoundError } from "@/lib/errors";
 
 export async function createFlashcards(
   supabase: SupabaseClient,
@@ -44,7 +45,7 @@ export async function listFlashcards(
     .range(from, to);
 
   if (search) {
-    const escaped = search.replace(/%/g, "\\%").replace(/_/g, "\\_");
+    const escaped = search.replace(/%/g, "\\%").replace(/_/g, "\\_").replace(/,/g, "\\,").replace(/\./g, "\\.");
     const pattern = `%${escaped}%`;
     query = query.or(`front.ilike.${pattern},back.ilike.${pattern}`);
   }
@@ -81,6 +82,9 @@ export async function updateFlashcard(
     .single();
 
   if (result.error) {
+    if (result.error.code === "PGRST116") {
+      throw new NotFoundError("Flashcard not found");
+    }
     throw new Error(`Failed to update flashcard: ${result.error.message}`);
   }
 
@@ -97,6 +101,9 @@ export async function deleteFlashcard(supabase: SupabaseClient, userId: string, 
     .single();
 
   if (error) {
+    if (error.code === "PGRST116") {
+      throw new NotFoundError("Flashcard not found");
+    }
     throw new Error(`Failed to delete flashcard: ${error.message}`);
   }
 }
