@@ -139,58 +139,45 @@ export async function processReview(
   const reviewLog = result.log;
 
   // eslint-disable-next-line @typescript-eslint/no-unsafe-assignment
-  const { data: updatedState, error: updateError } = await supabase
-    .from("flashcard_sr_state")
-    .update({
-      difficulty: updatedCard.difficulty,
-      due: updatedCard.due.toISOString(),
-      // eslint-disable-next-line @typescript-eslint/no-deprecated
-      elapsed_days: updatedCard.elapsed_days,
-      lapses: updatedCard.lapses,
-      last_review: updatedCard.last_review?.toISOString() ?? null,
-      learning_steps: updatedCard.learning_steps,
-      reps: updatedCard.reps,
-      scheduled_days: updatedCard.scheduled_days,
-      stability: updatedCard.stability,
-      state: updatedCard.state,
-    })
-    .eq("flashcard_id", flashcardId)
-    .eq("user_id", userId)
-    .select()
-    .single();
+  const { data: rpcResult, error: rpcError } = await supabase.rpc("process_review", {
+    p_flashcard_id: flashcardId,
+    p_user_id: userId,
+    p_difficulty: updatedCard.difficulty,
+    p_due: updatedCard.due.toISOString(),
+    // eslint-disable-next-line @typescript-eslint/no-deprecated
+    p_elapsed_days: updatedCard.elapsed_days,
+    p_lapses: updatedCard.lapses,
+    p_last_review: updatedCard.last_review?.toISOString() ?? null,
+    p_learning_steps: updatedCard.learning_steps,
+    p_reps: updatedCard.reps,
+    p_scheduled_days: updatedCard.scheduled_days,
+    p_stability: updatedCard.stability,
+    p_state: updatedCard.state,
+    p_log_rating: reviewLog.rating,
+    p_log_state: reviewLog.state,
+    p_log_difficulty: reviewLog.difficulty,
+    p_log_stability: reviewLog.stability,
+    p_log_due: reviewLog.due.toISOString(),
+    // eslint-disable-next-line @typescript-eslint/no-deprecated
+    p_log_elapsed_days: reviewLog.elapsed_days,
+    // eslint-disable-next-line @typescript-eslint/no-deprecated
+    p_log_last_elapsed_days: reviewLog.last_elapsed_days,
+    p_log_scheduled_days: reviewLog.scheduled_days,
+    p_log_learning_steps: reviewLog.learning_steps,
+    p_log_review: reviewLog.review.toISOString(),
+  });
 
-  if (updateError) {
-    throw new Error(`Failed to update SR state: ${updateError.message}`);
+  if (rpcError) {
+    if (rpcError.message.includes("Flashcard not found")) {
+      throw new NotFoundError("Flashcard not found");
+    }
+    throw new Error(`Failed to process review: ${rpcError.message}`);
   }
 
-  // eslint-disable-next-line @typescript-eslint/no-unsafe-assignment
-  const { data: logData, error: logError } = await supabase
-    .from("review_logs")
-    .insert({
-      flashcard_id: flashcardId,
-      user_id: userId,
-      rating: reviewLog.rating,
-      state: reviewLog.state,
-      difficulty: reviewLog.difficulty,
-      stability: reviewLog.stability,
-      due: reviewLog.due.toISOString(),
-      // eslint-disable-next-line @typescript-eslint/no-deprecated
-      elapsed_days: reviewLog.elapsed_days,
-      // eslint-disable-next-line @typescript-eslint/no-deprecated
-      last_elapsed_days: reviewLog.last_elapsed_days,
-      scheduled_days: reviewLog.scheduled_days,
-      learning_steps: reviewLog.learning_steps,
-      review: reviewLog.review.toISOString(),
-    })
-    .select()
-    .single();
-
-  if (logError) {
-    throw new Error(`Failed to insert review log: ${logError.message}`);
-  }
+  const rpcData = rpcResult as unknown as { card: FlashcardSRState; log: ReviewLog };
 
   return {
-    card: updatedState as unknown as FlashcardSRState,
-    log: logData as unknown as ReviewLog,
+    card: rpcData.card,
+    log: rpcData.log,
   };
 }

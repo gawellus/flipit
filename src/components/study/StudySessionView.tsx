@@ -1,4 +1,4 @@
-import { useEffect, useState } from "react";
+import { useCallback, useEffect, useState } from "react";
 import { fsrs, Rating } from "ts-fsrs";
 import type { StudyCard, IntervalPreview } from "@/types";
 import { FlashcardDisplay } from "./FlashcardDisplay";
@@ -54,6 +54,7 @@ function computePreviews(card: StudyCard): IntervalPreview[] {
 export default function StudySessionView({ collectionId }: { collectionId: string }) {
   const [state, setState] = useState<State>({ step: "loading" });
   const [isRating, setIsRating] = useState(false);
+  const [refreshKey, setRefreshKey] = useState(0);
 
   useEffect(() => {
     let cancelled = false;
@@ -87,7 +88,12 @@ export default function StudySessionView({ collectionId }: { collectionId: strin
     return () => {
       cancelled = true;
     };
-  }, [collectionId]);
+  }, [collectionId, refreshKey]);
+
+  const handleRetry = useCallback(() => {
+    setState({ step: "loading" });
+    setRefreshKey((k) => k + 1);
+  }, []);
 
   function handleFlip() {
     if (state.step !== "studying") return;
@@ -127,28 +133,6 @@ export default function StudySessionView({ collectionId }: { collectionId: strin
     } finally {
       setIsRating(false);
     }
-  }
-
-  function handleRetry() {
-    setState({ step: "loading" });
-    fetch(`/api/study/${collectionId}`)
-      .then(async (res) => {
-        if (!res.ok) {
-          const data = (await res.json()) as { error?: string };
-          throw new Error(data.error ?? "Failed to load study session");
-        }
-        return res.json() as Promise<{ cards: StudyCard[]; nextDue: string | null }>;
-      })
-      .then((data) => {
-        if (data.cards.length === 0) {
-          setState({ step: "empty", nextDue: data.nextDue });
-        } else {
-          setState({ step: "studying", cards: data.cards, currentIndex: 0, flipped: false, previews: [] });
-        }
-      })
-      .catch((err: unknown) => {
-        setState({ step: "error", message: err instanceof Error ? err.message : "Network error" });
-      });
   }
 
   return (

@@ -13,37 +13,29 @@ export async function createCollection(supabase: SupabaseClient, userId: string,
 }
 
 export async function listCollections(supabase: SupabaseClient, userId: string): Promise<CollectionWithCounts[]> {
-  const { data, error } = await supabase
-    .from("collections")
-    .select("*")
-    .eq("user_id", userId)
-    .order("created_at", { ascending: false });
+  const [collectionsResult, countsResult, dueCountsResult] = await Promise.all([
+    supabase.from("collections").select("*").eq("user_id", userId).order("created_at", { ascending: false }),
+    supabase.from("flashcards").select("collection_id").eq("user_id", userId).not("collection_id", "is", null),
+    supabase
+      .from("flashcard_sr_state")
+      .select("flashcard_id, flashcards!inner(collection_id)")
+      .eq("user_id", userId)
+      .lte("due", new Date().toISOString()),
+  ]);
 
-  if (error) {
-    throw new Error(`Failed to list collections: ${error.message}`);
+  if (collectionsResult.error) {
+    throw new Error(`Failed to list collections: ${collectionsResult.error.message}`);
+  }
+  if (countsResult.error) {
+    throw new Error(`Failed to count flashcards: ${countsResult.error.message}`);
+  }
+  if (dueCountsResult.error) {
+    throw new Error(`Failed to count due cards: ${dueCountsResult.error.message}`);
   }
 
-  const collections = data as Collection[];
-
-  const { data: counts, error: countsError } = await supabase
-    .from("flashcards")
-    .select("collection_id")
-    .eq("user_id", userId)
-    .not("collection_id", "is", null);
-
-  if (countsError) {
-    throw new Error(`Failed to count flashcards: ${countsError.message}`);
-  }
-
-  const { data: dueCounts, error: dueError } = await supabase
-    .from("flashcard_sr_state")
-    .select("flashcard_id, flashcards!inner(collection_id)")
-    .eq("user_id", userId)
-    .lte("due", new Date().toISOString());
-
-  if (dueError) {
-    throw new Error(`Failed to count due cards: ${dueError.message}`);
-  }
+  const collections = collectionsResult.data as Collection[];
+  const counts = countsResult.data;
+  const dueCounts = dueCountsResult.data;
 
   const cardCountMap = new Map<string, number>();
   for (const row of counts) {

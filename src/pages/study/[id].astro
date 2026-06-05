@@ -2,13 +2,20 @@
 import Layout from "@/layouts/Layout.astro";
 import Topbar from "@/components/Topbar.astro";
 import StudySessionView from "@/components/study/StudySessionView";
+
+const UUID_RE = /^[0-9a-f]{8}-[0-9a-f]{4}-[0-9a-f]{4}-[0-9a-f]{4}-[0-9a-f]{12}$/i;
+const collectionId = Astro.params.id;
+
+if (!collectionId || !UUID_RE.test(collectionId)) {
+  return new Response(null, { status: 404 });
+}
 ---
 
 <Layout title="Study Session">
   <div class="bg-cosmic min-h-screen p-4">
     <div class="mx-auto max-w-4xl">
       <Topbar />
-      <StudySessionView client:load collectionId={Astro.params.id ?? ""} />
+      <StudySessionView client:load collectionId={collectionId} />
     </div>
   </div>
 </Layout>
