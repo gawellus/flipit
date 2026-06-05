@@ -529,25 +529,25 @@ Flow:
 
 #### Automated
 
-- [x] 2.1 Linting passes: `npm run lint`
-- [x] 2.2 Build succeeds: `npm run build`
-- [x] 2.3 Collections CRUD works via API
+- [x] 2.1 Linting passes: `npm run lint` — 5344dac
+- [x] 2.2 Build succeeds: `npm run build` — 5344dac
+- [x] 2.3 Collections CRUD works via API — 5344dac
 
 #### Manual
 
-- [x] 2.4 Create, list, delete collections in UI
-- [x] 2.5 Assign flashcards to collections from flashcards page
+- [x] 2.4 Create, list, delete collections in UI — 5344dac
+- [x] 2.5 Assign flashcards to collections from flashcards page — 5344dac
 - [ ] 2.6 /study page shows collections with correct due counts
-- [x] 2.7 Delete collection preserves cards (unassigned)
-- [x] 2.8 Unauthenticated /study redirects to sign-in
+- [x] 2.7 Delete collection preserves cards (unassigned) — 5344dac
+- [x] 2.8 Unauthenticated /study redirects to sign-in — 5344dac
 
 ### Phase 3: Study Session Backend
 
 #### Automated
 
-- [ ] 3.1 Linting passes: `npm run lint`
-- [ ] 3.2 Build succeeds: `npm run build`
-- [ ] 3.3 ts-fsrs imports resolve
+- [x] 3.1 Linting passes: `npm run lint`
+- [x] 3.2 Build succeeds: `npm run build`
+- [x] 3.3 ts-fsrs imports resolve
 
 #### Manual
 
