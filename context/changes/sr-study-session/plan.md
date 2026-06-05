@@ -537,7 +537,7 @@ Flow:
 
 - [x] 2.4 Create, list, delete collections in UI — 5344dac
 - [x] 2.5 Assign flashcards to collections from flashcards page — 5344dac
-- [ ] 2.6 /study page shows collections with correct due counts
+- [x] 2.6 /study page shows collections with correct due counts
 - [x] 2.7 Delete collection preserves cards (unassigned) — 5344dac
 - [x] 2.8 Unauthenticated /study redirects to sign-in — 5344dac
 
@@ -545,28 +545,28 @@ Flow:
 
 #### Automated
 
-- [x] 3.1 Linting passes: `npm run lint`
-- [x] 3.2 Build succeeds: `npm run build`
-- [x] 3.3 ts-fsrs imports resolve
+- [x] 3.1 Linting passes: `npm run lint` — 10f8e21
+- [x] 3.2 Build succeeds: `npm run build` — 10f8e21
+- [x] 3.3 ts-fsrs imports resolve — 10f8e21
 
 #### Manual
 
-- [ ] 3.4 GET /api/study/[id] returns due cards with SR state
-- [ ] 3.5 POST /api/study/review processes rating and returns updated state
-- [ ] 3.6 SR state and review log persisted correctly after rating
-- [ ] 3.7 Different ratings produce different scheduling intervals
+- [x] 3.4 GET /api/study/[id] returns due cards with SR state
+- [x] 3.5 POST /api/study/review processes rating and returns updated state
+- [x] 3.6 SR state and review log persisted correctly after rating
+- [x] 3.7 Different ratings produce different scheduling intervals
 
 ### Phase 4: Study Session UI
 
 #### Automated
 
-- [ ] 4.1 Linting passes: `npm run lint`
-- [ ] 4.2 Build succeeds: `npm run build`
+- [x] 4.1 Linting passes: `npm run lint`
+- [x] 4.2 Build succeeds: `npm run build`
 
 #### Manual
 
-- [ ] 4.3 Study session flow works end-to-end (flip → rate → next card)
-- [ ] 4.4 Rating buttons show correct interval previews
-- [ ] 4.5 Empty state shows next due date
-- [ ] 4.6 Session complete shows reviewed count and next due date
-- [ ] 4.7 No regressions in existing features (CRUD, generation, auth)
+- [x] 4.3 Study session flow works end-to-end (flip → rate → next card)
+- [x] 4.4 Rating buttons show correct interval previews
+- [x] 4.5 Empty state shows next due date
+- [x] 4.6 Session complete shows reviewed count and next due date
+- [x] 4.7 No regressions in existing features (CRUD, generation, auth)

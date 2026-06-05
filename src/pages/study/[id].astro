@@ -1,0 +1,14 @@
+---
+import Layout from "@/layouts/Layout.astro";
+import Topbar from "@/components/Topbar.astro";
+import StudySessionView from "@/components/study/StudySessionView";
+---
+
+<Layout title="Study Session">
+  <div class="bg-cosmic min-h-screen p-4">
+    <div class="mx-auto max-w-4xl">
+      <Topbar />
+      <StudySessionView client:load collectionId={Astro.params.id ?? ""} />
+    </div>
+  </div>
+</Layout>
