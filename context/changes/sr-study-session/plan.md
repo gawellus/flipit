@@ -537,7 +537,7 @@ Flow:
 
 - [x] 2.4 Create, list, delete collections in UI — 5344dac
 - [x] 2.5 Assign flashcards to collections from flashcards page — 5344dac
-- [x] 2.6 /study page shows collections with correct due counts
+- [x] 2.6 /study page shows collections with correct due counts — 8f42b77
 - [x] 2.7 Delete collection preserves cards (unassigned) — 5344dac
 - [x] 2.8 Unauthenticated /study redirects to sign-in — 5344dac
 
@@ -551,22 +551,22 @@ Flow:
 
 #### Manual
 
-- [x] 3.4 GET /api/study/[id] returns due cards with SR state
-- [x] 3.5 POST /api/study/review processes rating and returns updated state
-- [x] 3.6 SR state and review log persisted correctly after rating
-- [x] 3.7 Different ratings produce different scheduling intervals
+- [x] 3.4 GET /api/study/[id] returns due cards with SR state — 8f42b77
+- [x] 3.5 POST /api/study/review processes rating and returns updated state — 8f42b77
+- [x] 3.6 SR state and review log persisted correctly after rating — 8f42b77
+- [x] 3.7 Different ratings produce different scheduling intervals — 8f42b77
 
 ### Phase 4: Study Session UI
 
 #### Automated
 
-- [x] 4.1 Linting passes: `npm run lint`
-- [x] 4.2 Build succeeds: `npm run build`
+- [x] 4.1 Linting passes: `npm run lint` — 8f42b77
+- [x] 4.2 Build succeeds: `npm run build` — 8f42b77
 
 #### Manual
 
-- [x] 4.3 Study session flow works end-to-end (flip → rate → next card)
-- [x] 4.4 Rating buttons show correct interval previews
-- [x] 4.5 Empty state shows next due date
-- [x] 4.6 Session complete shows reviewed count and next due date
-- [x] 4.7 No regressions in existing features (CRUD, generation, auth)
+- [x] 4.3 Study session flow works end-to-end (flip → rate → next card) — 8f42b77
+- [x] 4.4 Rating buttons show correct interval previews — 8f42b77
+- [x] 4.5 Empty state shows next due date — 8f42b77
+- [x] 4.6 Session complete shows reviewed count and next due date — 8f42b77
+- [x] 4.7 No regressions in existing features (CRUD, generation, auth) — 8f42b77
