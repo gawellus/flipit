@@ -514,32 +514,32 @@ Flow:
 
 #### Automated
 
-- [x] 1.1 Migration applies cleanly: `npx supabase db reset`
-- [x] 1.2 TypeScript types compile: `npm run lint`
-- [x] 1.3 Existing flashcard CRUD still works
+- [x] 1.1 Migration applies cleanly: `npx supabase db reset` — dd6b83b
+- [x] 1.2 TypeScript types compile: `npm run lint` — dd6b83b
+- [x] 1.3 Existing flashcard CRUD still works — dd6b83b
 
 #### Manual
 
-- [ ] 1.4 Tables exist in Supabase Studio with correct columns/types
-- [ ] 1.5 RLS policies enforce user isolation across all new tables
-- [ ] 1.6 flashcard_sr_state rows exist for pre-existing flashcards after bootstrap
-- [ ] 1.7 New flashcard auto-creates SR state row via trigger
+- [x] 1.4 Tables exist in Supabase Studio with correct columns/types — dd6b83b
+- [x] 1.5 RLS policies enforce user isolation across all new tables — dd6b83b
+- [x] 1.6 flashcard_sr_state rows exist for pre-existing flashcards after bootstrap — dd6b83b
+- [x] 1.7 New flashcard auto-creates SR state row via trigger — dd6b83b
 
 ### Phase 2: Collections Backend & Minimal UI
 
 #### Automated
 
-- [ ] 2.1 Linting passes: `npm run lint`
-- [ ] 2.2 Build succeeds: `npm run build`
-- [ ] 2.3 Collections CRUD works via API
+- [x] 2.1 Linting passes: `npm run lint`
+- [x] 2.2 Build succeeds: `npm run build`
+- [x] 2.3 Collections CRUD works via API
 
 #### Manual
 
-- [ ] 2.4 Create, list, delete collections in UI
-- [ ] 2.5 Assign flashcards to collections from flashcards page
+- [x] 2.4 Create, list, delete collections in UI
+- [x] 2.5 Assign flashcards to collections from flashcards page
 - [ ] 2.6 /study page shows collections with correct due counts
-- [ ] 2.7 Delete collection preserves cards (unassigned)
-- [ ] 2.8 Unauthenticated /study redirects to sign-in
+- [x] 2.7 Delete collection preserves cards (unassigned)
+- [x] 2.8 Unauthenticated /study redirects to sign-in
 
 ### Phase 3: Study Session Backend
 

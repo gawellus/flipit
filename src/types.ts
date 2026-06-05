@@ -2,6 +2,7 @@ export interface Flashcard {
   id: string;
   user_id: string;
   generation_id: string | null;
+  collection_id: string | null;
   front: string;
   back: string;
   source: "ai" | "manual";

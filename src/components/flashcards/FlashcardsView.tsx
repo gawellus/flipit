@@ -1,5 +1,5 @@
 import { useCallback, useEffect, useState } from "react";
-import type { Flashcard, PaginatedResponse } from "@/types";
+import type { Collection, Flashcard, PaginatedResponse } from "@/types";
 import { SearchInput } from "./SearchInput";
 import { CreateFlashcardForm } from "./CreateFlashcardForm";
 import { FlashcardListItem } from "./FlashcardListItem";
@@ -8,7 +8,7 @@ import { PaginationControls } from "./PaginationControls";
 async function fetchCards(currentPage: number, currentSearch: string) {
   const params = new URLSearchParams({
     page: String(currentPage),
-    pageSize: "20",
+    pageSize: "10",
   });
   if (currentSearch) params.set("search", currentSearch);
 
@@ -31,6 +31,22 @@ export default function FlashcardsView() {
   const [isLoading, setIsLoading] = useState(true);
   const [error, setError] = useState<string | null>(null);
   const [refreshKey, setRefreshKey] = useState(0);
+  const [collections, setCollections] = useState<Collection[]>([]);
+
+  useEffect(() => {
+    let cancelled = false;
+    fetch("/api/collections")
+      .then((res) => res.json() as Promise<Collection[]>)
+      .then((data) => {
+        if (!cancelled) setCollections(data);
+      })
+      .catch((_err: unknown) => {
+        // Collections are optional — silently ignore fetch failures
+      });
+    return () => {
+      cancelled = true;
+    };
+  }, []);
 
   useEffect(() => {
     let cancelled = false;
@@ -141,7 +157,13 @@ export default function FlashcardsView() {
           </p>
           <div className="space-y-3">
             {flashcards.map((card) => (
-              <FlashcardListItem key={card.id} flashcard={card} onUpdated={refresh} onDeleted={refresh} />
+              <FlashcardListItem
+                key={card.id}
+                flashcard={card}
+                collections={collections}
+                onUpdated={refresh}
+                onDeleted={refresh}
+              />
             ))}
           </div>
           <div className="mt-4">

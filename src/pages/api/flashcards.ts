@@ -37,9 +37,10 @@ const UpdateFlashcardSchema = z
     id: z.uuid("id must be a valid UUID"),
     front: z.string().min(1).max(2000).optional(),
     back: z.string().min(1).max(2000).optional(),
+    collection_id: z.uuid("collection_id must be a valid UUID").nullable().optional(),
   })
-  .refine((data) => data.front != null || data.back != null, {
-    message: "At least one of front or back must be provided",
+  .refine((data) => data.front != null || data.back != null || data.collection_id !== undefined, {
+    message: "At least one of front, back, or collection_id must be provided",
   });
 
 const DeleteFlashcardSchema = z.object({

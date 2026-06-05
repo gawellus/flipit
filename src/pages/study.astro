@@ -1,0 +1,14 @@
+---
+import Layout from "@/layouts/Layout.astro";
+import Topbar from "@/components/Topbar.astro";
+import CollectionsView from "@/components/collections/CollectionsView";
+---
+
+<Layout title="Study">
+  <div class="bg-cosmic min-h-screen p-4">
+    <div class="mx-auto max-w-4xl">
+      <Topbar />
+      <CollectionsView client:load />
+    </div>
+  </div>
+</Layout>

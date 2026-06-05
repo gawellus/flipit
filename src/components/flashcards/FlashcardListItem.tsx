@@ -1,5 +1,5 @@
 import { useState, useEffect, useRef } from "react";
-import type { Flashcard } from "@/types";
+import type { Collection, Flashcard } from "@/types";
 import { Card, CardContent } from "@/components/ui/card";
 import { Button } from "@/components/ui/button";
 import { Badge } from "@/components/ui/badge";
@@ -7,13 +7,14 @@ import { Textarea } from "@/components/ui/textarea";
 
 interface Props {
   flashcard: Flashcard;
+  collections: Collection[];
   onUpdated: () => void;
   onDeleted: () => void;
 }
 
 type Mode = "view" | "editing" | "confirming-delete";
 
-export function FlashcardListItem({ flashcard, onUpdated, onDeleted }: Props) {
+export function FlashcardListItem({ flashcard, collections, onUpdated, onDeleted }: Props) {
   const [mode, setMode] = useState<Mode>("view");
   const [editFront, setEditFront] = useState(flashcard.front);
   const [editBack, setEditBack] = useState(flashcard.back);
@@ -100,6 +101,26 @@ export function FlashcardListItem({ flashcard, onUpdated, onDeleted }: Props) {
     }
   }
 
+  async function handleCollectionChange(collectionId: string | null) {
+    try {
+      const res = await fetch("/api/flashcards", {
+        method: "PATCH",
+        headers: { "Content-Type": "application/json" },
+        body: JSON.stringify({ id: flashcard.id, collection_id: collectionId }),
+      });
+      if (!res.ok) {
+        const data = (await res.json()) as { error?: string };
+        setError(data.error ?? "Failed to update collection");
+        return;
+      }
+      onUpdated();
+    } catch {
+      setError("Network error. Please try again.");
+    }
+  }
+
+  const currentCollection = collections.find((c) => c.id === flashcard.collection_id);
+
   const canSave =
     editFront.trim().length > 0 && editBack.trim().length > 0 && editFront.length <= 2000 && editBack.length <= 2000;
 
@@ -164,6 +185,26 @@ export function FlashcardListItem({ flashcard, onUpdated, onDeleted }: Props) {
             >
               {flashcard.source === "ai" ? "AI" : "Manual"}
             </Badge>
+          </div>
+          <div className="flex items-center gap-2">
+            <span className="text-xs text-white/40">Collection:</span>
+            <select
+              value={flashcard.collection_id ?? ""}
+              onChange={(e) => void handleCollectionChange(e.target.value || null)}
+              className="rounded border border-white/20 bg-white/5 px-2 py-1 text-xs text-white"
+            >
+              <option value="">None</option>
+              {collections.map((c) => (
+                <option key={c.id} value={c.id}>
+                  {c.name}
+                </option>
+              ))}
+            </select>
+            {currentCollection && (
+              <Badge variant="secondary" className="bg-purple-600/30 text-purple-200">
+                {currentCollection.name}
+              </Badge>
+            )}
           </div>
           {error && <p className="text-sm text-red-400">{error}</p>}
           <div className="flex gap-2">

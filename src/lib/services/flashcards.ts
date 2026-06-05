@@ -71,7 +71,7 @@ export async function updateFlashcard(
   supabase: SupabaseClient,
   userId: string,
   flashcardId: string,
-  updates: { front?: string; back?: string },
+  updates: { front?: string; back?: string; collection_id?: string | null },
 ): Promise<Flashcard> {
   const result = await supabase
     .from("flashcards")
