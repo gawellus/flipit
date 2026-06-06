@@ -622,15 +622,15 @@ Update the test-plan cookbook (§6.1, §6.2) with the patterns established in Ph
 
 #### Automated
 
-- [x] 4.1 `npm test -- flashcards.test.ts` passes with all scenarios green
-- [x] 4.2 `npm run lint` passes
+- [x] 4.1 `npm test -- flashcards.test.ts` passes with all scenarios green — af10d95
+- [x] 4.2 `npm run lint` passes — af10d95
 
 ### Phase 5: Risk #5 — Zod Schema Boundary Tests
 
 #### Automated
 
-- [ ] 5.1 `npm test` passes with all schema test files green
-- [ ] 5.2 `npm run lint` passes
+- [x] 5.1 `npm test` passes with all schema test files green
+- [x] 5.2 `npm run lint` passes
 
 ### Phase 6: Cookbook & Plan Sync
 
