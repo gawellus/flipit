@@ -607,16 +607,16 @@ Update the test-plan cookbook (§6.1, §6.2) with the patterns established in Ph
 
 #### Automated
 
-- [x] 2.1 `npm run lint` passes with new exports
-- [x] 2.2 `npm run build` passes with new exports
-- [x] 2.3 `npm test` still passes (smoke test)
+- [x] 2.1 `npm run lint` passes with new exports — 23ab1c7
+- [x] 2.2 `npm run build` passes with new exports — 23ab1c7
+- [x] 2.3 `npm test` still passes (smoke test) — 23ab1c7
 
 ### Phase 3: Risk #1 — LLM Parsing Unit Tests
 
 #### Automated
 
-- [ ] 3.1 `npm test -- openrouter.test.ts` passes with all scenarios green
-- [ ] 3.2 `npm run lint` passes
+- [x] 3.1 `npm test -- openrouter.test.ts` passes with all scenarios green
+- [x] 3.2 `npm run lint` passes
 
 ### Phase 4: Risk #4 — CRUD Service Edge-Case Tests
 
