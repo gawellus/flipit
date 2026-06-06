@@ -636,11 +636,11 @@ Update the test-plan cookbook (§6.1, §6.2) with the patterns established in Ph
 
 #### Automated
 
-- [x] 6.1 `npm test` passes (full suite)
-- [x] 6.2 `npm run lint` passes
-- [x] 6.3 `npm run build` passes
+- [x] 6.1 `npm test` passes (full suite) — ccbedb7
+- [x] 6.2 `npm run lint` passes — ccbedb7
+- [x] 6.3 `npm run build` passes — ccbedb7
 
 #### Manual
 
-- [x] 6.4 §6.1 and §6.2 patterns are clear for a new contributor
-- [x] 6.5 §6.5 note captures non-obvious findings
+- [x] 6.4 §6.1 and §6.2 patterns are clear for a new contributor — ccbedb7
+- [x] 6.5 §6.5 note captures non-obvious findings — ccbedb7
