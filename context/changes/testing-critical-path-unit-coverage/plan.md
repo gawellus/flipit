@@ -629,18 +629,18 @@ Update the test-plan cookbook (§6.1, §6.2) with the patterns established in Ph
 
 #### Automated
 
-- [x] 5.1 `npm test` passes with all schema test files green
-- [x] 5.2 `npm run lint` passes
+- [x] 5.1 `npm test` passes with all schema test files green — 3d3142f
+- [x] 5.2 `npm run lint` passes — 3d3142f
 
 ### Phase 6: Cookbook & Plan Sync
 
 #### Automated
 
-- [ ] 6.1 `npm test` passes (full suite)
-- [ ] 6.2 `npm run lint` passes
-- [ ] 6.3 `npm run build` passes
+- [x] 6.1 `npm test` passes (full suite)
+- [x] 6.2 `npm run lint` passes
+- [x] 6.3 `npm run build` passes
 
 #### Manual
 
-- [ ] 6.4 §6.1 and §6.2 patterns are clear for a new contributor
-- [ ] 6.5 §6.5 note captures non-obvious findings
+- [x] 6.4 §6.1 and §6.2 patterns are clear for a new contributor
+- [x] 6.5 §6.5 note captures non-obvious findings
