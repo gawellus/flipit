@@ -599,17 +599,17 @@ Update the test-plan cookbook (§6.1, §6.2) with the patterns established in Ph
 
 #### Automated
 
-- [x] 1.1 `npm test` runs and exits 0 with smoke test passing
-- [x] 1.2 `npm run lint` still passes
-- [x] 1.3 `npm run build` still passes
+- [x] 1.1 `npm test` runs and exits 0 with smoke test passing — ab8ae28
+- [x] 1.2 `npm run lint` still passes — ab8ae28
+- [x] 1.3 `npm run build` still passes — ab8ae28
 
 ### Phase 2: Testability Changes & parseFlashcards Hardening
 
 #### Automated
 
-- [ ] 2.1 `npm run lint` passes with new exports
-- [ ] 2.2 `npm run build` passes with new exports
-- [ ] 2.3 `npm test` still passes (smoke test)
+- [x] 2.1 `npm run lint` passes with new exports
+- [x] 2.2 `npm run build` passes with new exports
+- [x] 2.3 `npm test` still passes (smoke test)
 
 ### Phase 3: Risk #1 — LLM Parsing Unit Tests
 

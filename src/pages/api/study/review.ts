@@ -4,7 +4,7 @@ import { createClient } from "@/lib/supabase";
 import { processReview } from "@/lib/services/study";
 import { NotFoundError } from "@/lib/errors";
 
-const ReviewSchema = z.object({
+export const ReviewSchema = z.object({
   flashcard_id: z.uuid("flashcard_id must be a valid UUID"),
   rating: z.number().int().min(1).max(4),
 });

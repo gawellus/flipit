@@ -55,7 +55,7 @@ export async function generateFlashcards(sourceText: string): Promise<FlashcardP
   return parseFlashcards(content);
 }
 
-function parseFlashcards(raw: string): FlashcardProposal[] {
+export function parseFlashcards(raw: string): FlashcardProposal[] {
   let parsed: unknown;
   try {
     parsed = JSON.parse(raw);
@@ -88,10 +88,12 @@ function parseFlashcards(raw: string): FlashcardProposal[] {
       typeof (item as Record<string, unknown>).front === "string" &&
       typeof (item as Record<string, unknown>).back === "string"
     ) {
-      proposals.push({
-        front: (item as Record<string, string>).front,
-        back: (item as Record<string, string>).back,
-      });
+      const front = (item as Record<string, string>).front;
+      const back = (item as Record<string, string>).back;
+      if (front.trim().length < 1 || back.trim().length < 1 || front.length > 2000 || back.length > 2000) {
+        continue;
+      }
+      proposals.push({ front, back });
     }
   }
 

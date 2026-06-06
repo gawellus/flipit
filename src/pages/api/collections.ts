@@ -4,11 +4,11 @@ import { createClient } from "@/lib/supabase";
 import { createCollection, listCollections, deleteCollection } from "@/lib/services/collections";
 import { NotFoundError } from "@/lib/errors";
 
-const CreateCollectionSchema = z.object({
+export const CreateCollectionSchema = z.object({
   name: z.string().trim().min(1, "Name cannot be empty").max(200, "Name cannot exceed 200 characters"),
 });
 
-const DeleteCollectionSchema = z.object({
+export const DeleteCollectionSchema = z.object({
   id: z.uuid("id must be a valid UUID"),
 });
 

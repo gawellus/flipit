@@ -3,7 +3,7 @@ import { z } from "zod";
 import { createClient } from "@/lib/supabase";
 import { getDueCards, getNextDueDate } from "@/lib/services/study";
 
-const ParamsSchema = z.object({
+export const ParamsSchema = z.object({
   id: z.uuid("id must be a valid UUID"),
 });
 

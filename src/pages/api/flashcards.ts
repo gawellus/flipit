@@ -4,7 +4,7 @@ import { createClient } from "@/lib/supabase";
 import { createFlashcards, listFlashcards, updateFlashcard, deleteFlashcard } from "@/lib/services/flashcards";
 import { NotFoundError } from "@/lib/errors";
 
-const SaveFlashcardsSchema = z
+export const SaveFlashcardsSchema = z
   .object({
     generation_id: z.uuid("generation_id must be a valid UUID").optional(),
     source: z.enum(["ai", "manual"]).default("ai"),
@@ -26,13 +26,13 @@ const SaveFlashcardsSchema = z
     { message: "generation_id is required for ai source and must be absent for manual source" },
   );
 
-const ListQuerySchema = z.object({
+export const ListQuerySchema = z.object({
   page: z.coerce.number().int().min(1).default(1),
   pageSize: z.coerce.number().int().min(1).max(100).default(20),
   search: z.string().max(200).optional(),
 });
 
-const UpdateFlashcardSchema = z
+export const UpdateFlashcardSchema = z
   .object({
     id: z.uuid("id must be a valid UUID"),
     front: z.string().min(1).max(2000).optional(),
@@ -43,7 +43,7 @@ const UpdateFlashcardSchema = z
     message: "At least one of front, back, or collection_id must be provided",
   });
 
-const DeleteFlashcardSchema = z.object({
+export const DeleteFlashcardSchema = z.object({
   id: z.uuid("id must be a valid UUID"),
 });
 

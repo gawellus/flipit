@@ -2,7 +2,7 @@ import type { APIRoute } from "astro";
 import { z } from "zod";
 import { generateFlashcards } from "@/lib/services/openrouter";
 
-const GenerateRequestSchema = z.object({
+export const GenerateRequestSchema = z.object({
   source_text: z
     .string()
     .min(1, "Source text cannot be empty")
