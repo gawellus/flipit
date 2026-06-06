@@ -615,15 +615,15 @@ Update the test-plan cookbook (§6.1, §6.2) with the patterns established in Ph
 
 #### Automated
 
-- [x] 3.1 `npm test -- openrouter.test.ts` passes with all scenarios green
-- [x] 3.2 `npm run lint` passes
+- [x] 3.1 `npm test -- openrouter.test.ts` passes with all scenarios green — 18b3c8f
+- [x] 3.2 `npm run lint` passes — 18b3c8f
 
 ### Phase 4: Risk #4 — CRUD Service Edge-Case Tests
 
 #### Automated
 
-- [ ] 4.1 `npm test -- flashcards.test.ts` passes with all scenarios green
-- [ ] 4.2 `npm run lint` passes
+- [x] 4.1 `npm test -- flashcards.test.ts` passes with all scenarios green
+- [x] 4.2 `npm run lint` passes
 
 ### Phase 5: Risk #5 — Zod Schema Boundary Tests
 
