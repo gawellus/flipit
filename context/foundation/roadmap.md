@@ -3,7 +3,7 @@ project: FlipIt
 version: 1
 status: draft
 created: 2026-05-28
-updated: 2026-05-28
+updated: 2026-06-07
 prd_version: 1
 main_goal: speed
 top_blocker: time
@@ -29,7 +29,7 @@ Spaced repetition works, but creating high-quality flashcards is a time-consumin
 
 | ID   | Change ID               | Outcome (user can ...)                                                                      | Prerequisites | PRD refs                              | Status   |
 | ---- | ----------------------- | ------------------------------------------------------------------------------------------- | ------------- | ------------------------------------- | -------- |
-| S-01 | ai-flashcard-generation | paste text, generate AI flashcards, review/edit/accept/reject, and save to collection       | —             | US-01, FR-001, FR-002, FR-003, FR-004 | ready    |
+| S-01 | ai-flashcard-generation | paste text, generate AI flashcards, review/edit/accept/reject, and save to collection       | —             | US-01, FR-001, FR-002, FR-003, FR-004 | done     |
 | S-03 | sr-study-session        | study saved flashcards with spaced repetition scheduling and rate recall                    | S-01          | FR-009, FR-010                        | proposed |
 | S-02 | flashcard-crud          | manually create a flashcard, browse collection with text search, edit and delete flashcards | S-01          | FR-005, FR-006, FR-007, FR-008        | proposed |
 | S-04 | collection-assignment   | choose a target collection when generating AI flashcards, creating manually, or editing     | S-01, S-02    | —                                     | proposed |
@@ -74,7 +74,7 @@ No foundations required. Auth and frontend are present in the baseline. The flas
 - **Unknowns:**
   - Which LLM provider to use for generation (e.g., OpenRouter, OpenAI, Anthropic)? — Owner: user. Block: no.
 - **Risk:** LLM integration quality and streaming UX are the main unknowns; sequenced first because every other slice depends on flashcards existing and this is the core value proposition — if generation quality is poor, the product hypothesis fails early rather than late.
-- **Status:** ready
+- **Status:** done
 
 ### S-03: Study session with spaced repetition
 
@@ -151,3 +151,5 @@ No blocking roadmap-level questions. PRD `## Open Questions` reports zero unreso
 ## Done
 
 (Empty on first generation. `/10x-archive` appends entries here when a change is archived.)
+
+- **S-01: user can paste study text, trigger AI flashcard generation, review/edit/accept/reject each proposed card (with a bulk "accept all" shortcut), and save accepted cards to their collection** — Archived 2026-06-07 → `context/archive/2026-06-01-ai-flashcard-generation/`. Lesson: —.
