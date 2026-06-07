@@ -31,7 +31,7 @@ Spaced repetition works, but creating high-quality flashcards is a time-consumin
 | ---- | ----------------------- | ------------------------------------------------------------------------------------------- | ------------- | ------------------------------------- | -------- |
 | S-01 | ai-flashcard-generation | paste text, generate AI flashcards, review/edit/accept/reject, and save to collection       | —             | US-01, FR-001, FR-002, FR-003, FR-004 | done     |
 | S-03 | sr-study-session        | study saved flashcards with spaced repetition scheduling and rate recall                    | S-01          | FR-009, FR-010                        | proposed |
-| S-02 | flashcard-crud          | manually create a flashcard, browse collection with text search, edit and delete flashcards | S-01          | FR-005, FR-006, FR-007, FR-008        | proposed |
+| S-02 | flashcard-crud          | manually create a flashcard, browse collection with text search, edit and delete flashcards | S-01          | FR-005, FR-006, FR-007, FR-008        | done     |
 | S-04 | collection-assignment   | choose a target collection when generating AI flashcards, creating manually, or editing     | S-01, S-02    | —                                     | proposed |
 | S-05 | bulk-flashcard-actions  | select multiple flashcards and bulk-delete or bulk-change collection                        | S-02          | —                                     | proposed |
 
@@ -99,7 +99,7 @@ No foundations required. Auth and frontend are present in the baseline. The flas
 - **Blockers:** —
 - **Unknowns:** —
 - **Risk:** Standard CRUD with low technical risk; sequenced after S-01 and listed after S-03 because it is not on the north-star path — if time runs out, generation + study still deliver the core product value without manual CRUD.
-- **Status:** proposed
+- **Status:** done
 
 ### S-04: Collection assignment across flows
 
@@ -153,3 +153,4 @@ No blocking roadmap-level questions. PRD `## Open Questions` reports zero unreso
 (Empty on first generation. `/10x-archive` appends entries here when a change is archived.)
 
 - **S-01: user can paste study text, trigger AI flashcard generation, review/edit/accept/reject each proposed card (with a bulk "accept all" shortcut), and save accepted cards to their collection** — Archived 2026-06-07 → `context/archive/2026-06-01-ai-flashcard-generation/`. Lesson: —.
+- **S-02: user can manually create a flashcard (front/back), browse their collection with basic text search, edit an existing flashcard, and delete a flashcard** — Archived 2026-06-07 → `context/archive/2026-06-03-flashcard-crud/`. Lesson: —.

@@ -1,10 +1,10 @@
 ---
 change_id: flashcard-crud
 title: Flashcard CRUD — create, browse, search, edit, and delete flashcards
-status: impl_reviewed
+status: archived
 created: 2026-06-03
-updated: 2026-06-04
-archived_at: null
+updated: 2026-06-07
+archived_at: 2026-06-07T12:25:48Z
 ---
 
 ## Notes
