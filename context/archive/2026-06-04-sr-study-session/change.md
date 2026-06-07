@@ -1,10 +1,10 @@
 ---
 change_id: sr-study-session
 title: Study session with spaced repetition scheduling
-status: impl_reviewed
+status: archived
 created: 2026-06-04
-updated: 2026-06-05
-archived_at: null
+updated: 2026-06-07
+archived_at: 2026-06-07T12:29:20Z
 ---
 
 ## Notes
