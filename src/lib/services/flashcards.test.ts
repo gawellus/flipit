@@ -40,8 +40,12 @@ describe("createFlashcards", () => {
   it("returns inserted data on success", async () => {
     const inserted = [{ id: "1", front: "Q", back: "A" }];
     const supabase = createMockSupabase({ data: inserted, error: null });
-    const cards = [{ front: "Q", back: "A", source: "manual" as const }];
+    const cards = [{ front: "Q", back: "A", source: "manual" as const, generation_id: "gen-1" }];
     const result = await createFlashcards(supabase, "user-1", cards);
+    const mock = supabase as unknown as Record<string, ReturnType<typeof vi.fn>>;
+    expect(mock.insert).toHaveBeenCalledWith([
+      { user_id: "user-1", front: "Q", back: "A", source: "manual", generation_id: "gen-1" },
+    ]);
     expect(result).toEqual(inserted);
   });
 });

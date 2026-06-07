@@ -48,7 +48,8 @@ export const POST: APIRoute = async (context) => {
       status: 200,
       headers: { "Content-Type": "application/json" },
     });
-  } catch {
+  } catch (err) {
+    console.error("[generations] LLM flashcard generation failed:", err);
     return new Response(JSON.stringify({ error: "Flashcard generation failed. Please try again." }), {
       status: 500,
       headers: { "Content-Type": "application/json" },
