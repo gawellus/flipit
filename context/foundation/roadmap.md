@@ -32,15 +32,18 @@ Spaced repetition works, but creating high-quality flashcards is a time-consumin
 | S-01 | ai-flashcard-generation | paste text, generate AI flashcards, review/edit/accept/reject, and save to collection       | —             | US-01, FR-001, FR-002, FR-003, FR-004 | ready    |
 | S-03 | sr-study-session        | study saved flashcards with spaced repetition scheduling and rate recall                    | S-01          | FR-009, FR-010                        | proposed |
 | S-02 | flashcard-crud          | manually create a flashcard, browse collection with text search, edit and delete flashcards | S-01          | FR-005, FR-006, FR-007, FR-008        | proposed |
+| S-04 | collection-assignment   | choose a target collection when generating AI flashcards, creating manually, or editing     | S-01, S-02    | —                                     | proposed |
+| S-05 | bulk-flashcard-actions  | select multiple flashcards and bulk-delete or bulk-change collection                        | S-02          | —                                     | proposed |
 
 ## Streams
 
 Navigation aid — groups items that share a Prerequisites chain. Canonical ordering still lives in the dependency graph below; this table is the proposed reading order across parallel tracks.
 
-| Stream | Theme           | Chain           | Note                                                                      |
-| ------ | --------------- | --------------- | ------------------------------------------------------------------------- |
-| A      | Core loop       | `S-01` → `S-03` | North-star path — fastest route to proving the full generate-study cycle. |
-| B      | Collection mgmt | `S-02`          | Parallel with Stream A after `S-01` lands. Standard CRUD, lowest risk.    |
+| Stream | Theme               | Chain                    | Note                                                                      |
+| ------ | ------------------- | ------------------------ | ------------------------------------------------------------------------- |
+| A      | Core loop           | `S-01` → `S-03`          | North-star path — fastest route to proving the full generate-study cycle. |
+| B      | Collection mgmt     | `S-02` → `S-05`          | CRUD then bulk actions. Parallel with Stream A after `S-01` lands.        |
+| C      | Collection workflow | `S-01` + `S-02` → `S-04` | Deck assignment across generation, manual creation, and edit flows.       |
 
 ## Baseline
 
@@ -98,13 +101,39 @@ No foundations required. Auth and frontend are present in the baseline. The flas
 - **Risk:** Standard CRUD with low technical risk; sequenced after S-01 and listed after S-03 because it is not on the north-star path — if time runs out, generation + study still deliver the core product value without manual CRUD.
 - **Status:** proposed
 
+### S-04: Collection assignment across flows
+
+- **Outcome:** user can select a target collection when saving AI-generated flashcards (picker in the review toolbar), when creating a flashcard manually (dropdown in the create form), and when editing a single flashcard (dropdown in edit mode)
+- **Change ID:** collection-assignment
+- **PRD refs:** —
+- **Prerequisites:** S-01, S-02
+- **Parallel with:** S-05
+- **Blockers:** —
+- **Unknowns:** —
+- **Risk:** Low. Collections table and `collection_id` FK already exist. Main work is UI: a shared collection picker component reused in three places.
+- **Status:** proposed
+
+### S-05: Bulk flashcard actions
+
+- **Outcome:** user can multi-select flashcards in the collection view and apply bulk delete or bulk change-collection; single-card delete remains available outside bulk mode
+- **Change ID:** bulk-flashcard-actions
+- **PRD refs:** —
+- **Prerequisites:** S-02
+- **Parallel with:** S-04
+- **Blockers:** —
+- **Unknowns:** —
+- **Risk:** Low. Standard multi-select + batch API pattern. Needs a new bulk endpoint or batched calls; RLS already scopes to the current user.
+- **Status:** proposed
+
 ## Backlog Handoff
 
-| Roadmap ID | Change ID               | Suggested issue title                                  | Ready for `/10x-plan` | Notes                                   |
-| ---------- | ----------------------- | ------------------------------------------------------ | --------------------- | --------------------------------------- |
-| S-01       | ai-flashcard-generation | AI flashcard generation: paste, generate, review, save | yes                   | Run `/10x-plan ai-flashcard-generation` |
-| S-03       | sr-study-session        | Study session with spaced repetition scheduling        | no                    | Depends on S-01                         |
-| S-02       | flashcard-crud          | Flashcard CRUD: create, browse, search, edit, delete   | no                    | Depends on S-01                         |
+| Roadmap ID | Change ID               | Suggested issue title                                       | Ready for `/10x-plan` | Notes                                   |
+| ---------- | ----------------------- | ----------------------------------------------------------- | --------------------- | --------------------------------------- |
+| S-01       | ai-flashcard-generation | AI flashcard generation: paste, generate, review, save      | yes                   | Run `/10x-plan ai-flashcard-generation` |
+| S-03       | sr-study-session        | Study session with spaced repetition scheduling             | no                    | Depends on S-01                         |
+| S-02       | flashcard-crud          | Flashcard CRUD: create, browse, search, edit, delete        | no                    | Depends on S-01                         |
+| S-04       | collection-assignment   | Collection assignment: generation, creation, and edit flows | no                    | Depends on S-01 + S-02                  |
+| S-05       | bulk-flashcard-actions  | Bulk flashcard actions: multi-select, delete, move          | no                    | Depends on S-02                         |
 
 ## Open Roadmap Questions
 
@@ -116,7 +145,7 @@ No blocking roadmap-level questions. PRD `## Open Questions` reports zero unreso
 - **File import (PDF, DOCX)** — Why parked: PRD §Non-Goals. MVP is paste-text-only.
 - **Sharing / collaboration** — Why parked: PRD §Non-Goals. Single-user collections only.
 - **Mobile app / offline-first** — Why parked: PRD §Non-Goals. Web-only, online-only for MVP.
-- **Observability** — Why parked: absent in baseline, not required by any NFR for MVP validation. Revisit post-MVP if retention signal (secondary Success Criterion) warrants monitoring.
+- **Observability** — Why parked: absent in baseline, not required by any NFR for MVP validation. LLM generation errors are logged to console as a stopgap. Revisit full observability post-MVP if retention signal (secondary Success Criterion) warrants monitoring.
 - **Infrastructure-as-code** — Why parked: deploy works via Cloudflare adapter + GitHub Actions CI. No IaC needed until scaling or multi-environment concerns arise.
 
 ## Done

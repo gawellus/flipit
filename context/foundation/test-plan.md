@@ -65,11 +65,11 @@ Each row is a discrete rollout phase that will open its own change folder
 via `/10x-new`. Status moves left-to-right through the values below; the
 orchestrator updates Status as artifacts appear on disk.
 
-| #   | Phase name                       | Goal (one line)                                                                                                             | Risks covered  | Test types  | Status      | Change folder                       |
-| --- | -------------------------------- | --------------------------------------------------------------------------------------------------------------------------- | -------------- | ----------- | ----------- | ----------------------------------- |
-| 1   | Critical-path unit coverage      | Bootstrap Vitest and defend top risks at cheapest layer: LLM parsing failures, CRUD edge cases, input validation boundaries | #1, #4, #5     | unit        | done        | testing-critical-path-unit-coverage |
-| 2   | Data integrity integration tests | Prove IDOR protection, SR state lifecycle, collection count accuracy, and auth guards at integration level                  | #2, #3, #6, #7 | integration | not started | —                                   |
-| 3   | Quality gates                    | Lock the floor: add test commands to existing CI so regressions cannot merge                                                | cross-cutting  | CI gates    | not started | —                                   |
+| #   | Phase name                       | Goal (one line)                                                                                                             | Risks covered  | Test types  | Status        | Change folder                       |
+| --- | -------------------------------- | --------------------------------------------------------------------------------------------------------------------------- | -------------- | ----------- | ------------- | ----------------------------------- |
+| 1   | Critical-path unit coverage      | Bootstrap Vitest and defend top risks at cheapest layer: LLM parsing failures, CRUD edge cases, input validation boundaries | #1, #4, #5     | unit        | done          | testing-critical-path-unit-coverage |
+| 2   | Data integrity integration tests | Prove IDOR protection, SR state lifecycle, collection count accuracy, and auth guards at integration level                  | #2, #3, #6, #7 | integration | change opened | testing-data-integrity-integration  |
+| 3   | Quality gates                    | Lock the floor: add test commands to existing CI so regressions cannot merge                                                | cross-cutting  | CI gates    | not started   | —                                   |
 
 ## 4. Stack
 

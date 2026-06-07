@@ -24,3 +24,12 @@ Manualne tworzenie wysokiej jakości fiszek edukacyjnych jest czasochłonne, co 
 
 - 75% fiszek wygenerowanych przez AI jest akceptowane przez użytkownika
 - Użytkownicy tworzą 75% fiszek z wykorzystaniem AI
+
+### Features
+
+- UI/UX fixes - design jest fatalny, nieczytelny, nieintuicyjny
+- formularz dodawania ręcznego flashcarda wygląda tragicznie
+- decki fiszek - kategorie fiszek powinna być wybierana już podczas tworzenia fiszki
+- jak dodać kolekcję do wygenerowanych przez ai fiszek?
+- nie działa generowanie fiszek, brak błedu - nie wiadomo kto sposowdował błąd
+- reset review session
