@@ -118,6 +118,7 @@ export default function CollectionsView() {
               setNewName(e.target.value);
             }}
             placeholder="Collection name..."
+            aria-label="Collection name"
             className="border-white/20 bg-white/5 text-white"
             maxLength={200}
             autoFocus

@@ -10,6 +10,7 @@
     "lint": "eslint .",
     "lint:fix": "eslint . --fix",
     "format": "prettier --write .",
+    "typecheck": "astro check && tsc --noEmit",
     "test": "vitest run",
     "test:watch": "vitest"
   },
@@ -40,6 +41,7 @@
   "devDependencies": {
     "@eslint/compat": "^2.0.3",
     "@eslint/js": "^9.29.0",
+    "@playwright/test": "^1.60.0",
     "eslint": "^9.29.0",
     "eslint-config-prettier": "^10.1.8",
     "eslint-plugin-astro": "^1.7.0",
