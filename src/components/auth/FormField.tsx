@@ -3,7 +3,7 @@ import { CircleAlert } from "lucide-react";
 import { cn } from "@/lib/utils";
 
 const inputBase =
-  "w-full rounded-lg bg-white/10 border px-3 py-2 pl-10 text-white placeholder-white/40 focus:outline-none focus:ring-2 transition-colors";
+  "w-full rounded-md border border-[var(--fi-hairline-input)] bg-white px-3 py-2 text-foreground placeholder:text-muted-foreground focus:outline-none focus:border-primary focus:ring-2 focus:ring-primary/50 transition-colors";
 
 interface FormFieldProps {
   id: string;
@@ -15,7 +15,7 @@ interface FormFieldProps {
   placeholder?: string;
   error?: string;
   hint?: ReactNode;
-  icon: ReactNode;
+  icon?: ReactNode;
   endContent?: ReactNode;
 }
 
@@ -34,11 +34,11 @@ export function FormField({
 }: FormFieldProps) {
   return (
     <div>
-      <label htmlFor={id} className="mb-1 block text-sm text-blue-100/80">
+      <label htmlFor={id} className="text-fi-ink-secondary mb-1.5 block text-[13px]">
         {label}
       </label>
       <div className="relative">
-        <span className="absolute top-1/2 left-3 size-4 -translate-y-1/2 text-white/40">{icon}</span>
+        {icon && <span className="text-muted-foreground absolute top-1/2 left-3 size-4 -translate-y-1/2">{icon}</span>}
         <input
           id={id}
           name={name ?? id}
@@ -50,13 +50,16 @@ export function FormField({
           placeholder={placeholder}
           className={cn(
             inputBase,
-            error ? "border-red-400/60 focus:ring-red-400" : "border-white/20 focus:ring-purple-400",
+            icon && "pl-10",
+            error
+              ? "border-[var(--fi-ruby)] focus:ring-[var(--fi-ruby)]/50"
+              : "focus:ring-primary/50 border-[var(--fi-hairline-input)]",
           )}
         />
         {endContent}
       </div>
       {error ? (
-        <p className="mt-1 flex items-center gap-1 text-xs text-red-300">
+        <p className="text-fi-ruby mt-1 flex items-center gap-1 text-xs">
           <CircleAlert className="size-3" />
           {error}
         </p>

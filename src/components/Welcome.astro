@@ -1,105 +1,258 @@
 ---
 import Topbar from "@/components/Topbar";
+import Footer from "@/components/Footer.astro";
+import { GradientMesh } from "@/components/GradientMesh";
+import { Tag } from "@/components/Tag";
+import { Button } from "@/components/ui/button";
 ---
 
-<div class="bg-background relative min-h-screen w-full overflow-hidden">
-  <div class="relative z-10">
-    <Topbar client:load user={null} pathname="/" variant="marketing" />
+<div class="bg-background min-h-screen">
+  <Topbar client:load user={null} pathname="/" variant="marketing" />
 
-    <!-- Hero section -->
-    <div class="mx-auto flex max-w-4xl flex-col items-center justify-center px-4 py-24 text-center sm:py-32 lg:py-40">
-      <h1
-        class="mb-6 bg-gradient-to-r from-blue-200 via-purple-200 to-pink-200 bg-clip-text text-5xl leading-tight font-bold text-transparent sm:text-6xl lg:text-7xl"
-      >
-        10x Astro Starter
-      </h1>
-      <p class="mb-10 max-w-2xl text-lg text-blue-100/70 sm:text-xl">
-        A production-ready starter with authentication, modern tooling, and a cosmic developer experience.
+  <!-- Hero -->
+  <section class="relative overflow-hidden pt-12 pb-16 sm:pt-16 sm:pb-24 lg:pt-20">
+    <GradientMesh client:load style={{ height: "100%" }} />
+    <div class="relative z-10 mx-auto flex max-w-[1120px] flex-col gap-12 px-6 lg:flex-row lg:items-center lg:gap-16">
+      <!-- Left column -->
+      <div class="max-w-xl flex-1">
+        <Tag className="mb-5">Spaced repetition · AI</Tag>
+        <h1 class="text-fi-ink mb-5 text-[clamp(2.5rem,5vw,4rem)] leading-[1.08] font-light tracking-[-0.02em]">
+          Learn anything.<br />Remember everything.
+        </h1>
+        <p class="text-fi-ink-mute mb-8 max-w-md text-lg leading-relaxed">
+          FlipIt turns your notes into flashcards in seconds, then schedules every review at the perfect moment so it
+          actually sticks. Powered by the FSRS algorithm.
+        </p>
+        <div class="mb-4 flex flex-wrap gap-3">
+          <Button size="lg" asChild>
+            <a href="/auth/signup">
+              Get started — it's free
+              <svg
+                width="16"
+                height="16"
+                viewBox="0 0 24 24"
+                fill="none"
+                stroke="currentColor"
+                stroke-width="2"
+                stroke-linecap="round"
+                stroke-linejoin="round"
+                class="ml-1"
+              >
+                <path d="M5 12h14"></path>
+                <path d="m12 5 7 7-7 7"></path>
+              </svg>
+            </a>
+          </Button>
+          <Button variant="outline" size="lg" asChild>
+            <a href="/auth/signin">Sign in</a>
+          </Button>
+        </div>
+        <p class="text-fi-ink-mute flex items-center gap-1.5 text-sm">
+          <svg
+            width="14"
+            height="14"
+            viewBox="0 0 24 24"
+            fill="none"
+            stroke="currentColor"
+            stroke-width="2"
+            stroke-linecap="round"
+            stroke-linejoin="round"
+            class="text-green-500"
+          >
+            <path d="M20 6 9 17l-5-5"></path>
+          </svg>
+          No credit card · Free forever for individuals
+        </p>
+      </div>
+
+      <!-- Right column — floating demo cards -->
+      <div class="relative mx-auto h-[380px] w-full max-w-[460px] flex-1 max-lg:hidden">
+        <!-- Back card (peeking) -->
+        <div
+          class="absolute top-8 right-0 w-[340px] rotate-3 rounded-xl border border-[var(--fi-hairline)] bg-white p-6 opacity-60 shadow-[var(--shadow-card)]"
+        >
+          <div class="text-fi-ink-mute text-right text-xs">Card 2 of 12</div>
+          <p class="text-fi-ink-mute mt-6 text-sm">Question</p>
+          <p class="text-fi-ink mt-1 text-lg font-light">What is chlorophyll.</p>
+        </div>
+        <!-- Front card -->
+        <div
+          class="absolute top-4 left-0 w-[360px] rounded-xl border border-[var(--fi-hairline)] bg-white p-6 shadow-[var(--shadow-float)]"
+        >
+          <div class="flex items-center justify-between">
+            <span
+              class="bg-primary/12 text-fi-primary-deep inline-flex items-center gap-1.5 rounded-full px-2.5 py-1 text-[11px] font-normal uppercase"
+            >
+              <svg
+                width="12"
+                height="12"
+                viewBox="0 0 24 24"
+                fill="none"
+                stroke="currentColor"
+                stroke-width="2"
+                class="inline"
+              >
+                <path
+                  d="M9.937 15.5A2 2 0 0 0 8.5 14.063l-6.135-1.582a.5.5 0 0 1 0-.962L8.5 9.936A2 2 0 0 0 9.937 8.5l1.582-6.135a.5.5 0 0 1 .963 0L14.063 8.5A2 2 0 0 0 15.5 9.937l6.135 1.581a.5.5 0 0 1 0 .964L15.5 14.063a2 2 0 0 0-1.437 1.437l-1.582 6.135a.5.5 0 0 1-.963 0z"
+                ></path>
+              </svg>
+              AI
+            </span>
+            <span class="text-fi-ink-mute text-xs">Card 1 of 12</span>
+          </div>
+          <p class="text-fi-ink-mute mt-6 text-xs tracking-wider uppercase">Question</p>
+          <p class="text-fi-ink mt-2 text-xl leading-snug font-light">What is the powerhouse of the cell?</p>
+          <button
+            class="text-fi-ink-mute hover:border-primary hover:text-primary mt-8 flex w-full items-center justify-center gap-2 rounded-lg border border-[var(--fi-hairline)] py-3 text-sm transition-colors"
+          >
+            <svg
+              width="16"
+              height="16"
+              viewBox="0 0 24 24"
+              fill="none"
+              stroke="currentColor"
+              stroke-width="2"
+              stroke-linecap="round"
+              stroke-linejoin="round"
+            >
+              <path d="M21 12a9 9 0 1 1-9-9c2.52 0 4.93 1 6.74 2.74L21 8"></path>
+              <path d="M21 3v5h-5"></path>
+            </svg>
+            Reveal answer
+          </button>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- Divider -->
+  <div class="border-fi-hairline border-t"></div>
+
+  <!-- Features -->
+  <section class="py-20 sm:py-28">
+    <div class="mx-auto max-w-[1120px] px-6 text-center">
+      <Tag className="mb-4">Why FlipIt</Tag>
+      <h2 class="text-fi-ink mx-auto mb-3 max-w-lg text-3xl font-light tracking-[-0.01em] sm:text-4xl">
+        Everything you need to study smarter
+      </h2>
+      <p class="text-fi-ink-mute mx-auto mb-14 max-w-lg text-lg">
+        From raw notes to mastery, without the busywork of making cards by hand.
       </p>
-      <div class="flex flex-col gap-4 sm:flex-row">
-        <a
-          href="/auth/signin"
-          class="inline-flex items-center justify-center rounded-lg bg-purple-600 px-6 py-3 text-base font-medium text-white transition-colors hover:bg-purple-500"
-        >
-          Sign In
-        </a>
-        <a
-          href="/auth/signup"
-          class="inline-flex items-center justify-center rounded-lg border border-white/20 px-6 py-3 text-base font-medium text-white transition-colors hover:bg-white/10"
-        >
-          Sign Up
-        </a>
+      <div class="grid gap-6 sm:grid-cols-2 lg:grid-cols-3">
+        <div class="rounded-xl border border-[var(--fi-hairline)] bg-white p-7 text-left shadow-[var(--shadow-card)]">
+          <div class="bg-primary/12 text-primary mb-4 flex size-11 items-center justify-center rounded-lg">
+            <svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5">
+              <path
+                d="M9.937 15.5A2 2 0 0 0 8.5 14.063l-6.135-1.582a.5.5 0 0 1 0-.962L8.5 9.936A2 2 0 0 0 9.937 8.5l1.582-6.135a.5.5 0 0 1 .963 0L14.063 8.5A2 2 0 0 0 15.5 9.937l6.135 1.581a.5.5 0 0 1 0 .964L15.5 14.063a2 2 0 0 0-1.437 1.437l-1.582 6.135a.5.5 0 0 1-.963 0z"
+              ></path>
+            </svg>
+          </div>
+          <h3 class="text-fi-ink mb-2 text-lg font-normal">AI-powered generation</h3>
+          <p class="text-fi-ink-mute text-sm leading-relaxed">
+            Paste your notes and let AI create perfectly structured flashcards. Review, edit, and save in seconds.
+          </p>
+        </div>
+        <div class="rounded-xl border border-[var(--fi-hairline)] bg-white p-7 text-left shadow-[var(--shadow-card)]">
+          <div class="bg-primary/12 text-primary mb-4 flex size-11 items-center justify-center rounded-lg">
+            <svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5">
+              <path d="M21 12a9 9 0 1 1-9-9c2.52 0 4.93 1 6.74 2.74L21 8"></path>
+              <path d="M21 3v5h-5"></path>
+            </svg>
+          </div>
+          <h3 class="text-fi-ink mb-2 text-lg font-normal">Smart spaced repetition</h3>
+          <p class="text-fi-ink-mute text-sm leading-relaxed">
+            FSRS algorithm schedules each review at the optimal moment. Study less, remember more.
+          </p>
+        </div>
+        <div class="rounded-xl border border-[var(--fi-hairline)] bg-white p-7 text-left shadow-[var(--shadow-card)]">
+          <div class="bg-primary/12 text-primary mb-4 flex size-11 items-center justify-center rounded-lg">
+            <svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5">
+              <path d="M22 19a2 2 0 0 1-2 2H4a2 2 0 0 1-2-2V5a2 2 0 0 1 2-2h5l2 3h9a2 2 0 0 1 2 2z"></path>
+            </svg>
+          </div>
+          <h3 class="text-fi-ink mb-2 text-lg font-normal">Organized collections</h3>
+          <p class="text-fi-ink-mute text-sm leading-relaxed">
+            Group your cards into collections by topic. Track progress and jump into review sessions from one dashboard.
+          </p>
+        </div>
       </div>
     </div>
+  </section>
 
-    <!-- Feature cards -->
-    <div class="mx-auto grid max-w-4xl grid-cols-1 gap-6 px-4 pb-24 sm:grid-cols-3">
-      <div class="rounded-xl border border-white/10 bg-white/5 p-6 backdrop-blur-xl">
-        <svg
-          xmlns="http://www.w3.org/2000/svg"
-          width="24"
-          height="24"
-          viewBox="0 0 24 24"
-          fill="none"
-          stroke="currentColor"
-          stroke-width="2"
-          stroke-linecap="round"
-          stroke-linejoin="round"
-          class="mb-4 text-purple-300"
-        >
-          <rect width="18" height="11" x="3" y="11" rx="2" ry="2"></rect>
-          <path d="M7 11V7a5 5 0 0 1 10 0v4"></path>
-        </svg>
-        <h3 class="mb-2 text-lg font-semibold text-white">Authentication Ready</h3>
-        <p class="text-sm leading-relaxed text-blue-100/60">
-          Built-in Supabase auth with sign in, sign up, and protected routes out of the box.
-        </p>
-      </div>
-
-      <div class="rounded-xl border border-white/10 bg-white/5 p-6 backdrop-blur-xl">
-        <svg
-          xmlns="http://www.w3.org/2000/svg"
-          width="24"
-          height="24"
-          viewBox="0 0 24 24"
-          fill="none"
-          stroke="currentColor"
-          stroke-width="2"
-          stroke-linecap="round"
-          stroke-linejoin="round"
-          class="mb-4 text-purple-300"
-        >
-          <polygon points="12 2 2 7 12 12 22 7 12 2"></polygon>
-          <polyline points="2 17 12 22 22 17"></polyline>
-          <polyline points="2 12 12 17 22 12"></polyline>
-        </svg>
-        <h3 class="mb-2 text-lg font-semibold text-white">Modern Stack</h3>
-        <p class="text-sm leading-relaxed text-blue-100/60">
-          Astro 5, React 19, Tailwind 4, and TypeScript — the latest tools, ready to go.
-        </p>
-      </div>
-
-      <div class="rounded-xl border border-white/10 bg-white/5 p-6 backdrop-blur-xl">
-        <svg
-          xmlns="http://www.w3.org/2000/svg"
-          width="24"
-          height="24"
-          viewBox="0 0 24 24"
-          fill="none"
-          stroke="currentColor"
-          stroke-width="2"
-          stroke-linecap="round"
-          stroke-linejoin="round"
-          class="mb-4 text-purple-300"
-        >
-          <polyline points="16 18 22 12 16 6"></polyline>
-          <polyline points="8 6 2 12 8 18"></polyline>
-        </svg>
-        <h3 class="mb-2 text-lg font-semibold text-white">Developer Experience</h3>
-        <p class="text-sm leading-relaxed text-blue-100/60">
-          ESLint, Prettier, and pre-commit hooks keep your codebase clean from day one.
-        </p>
+  <!-- How it works -->
+  <section class="bg-fi-canvas-soft py-20 sm:py-28">
+    <div class="mx-auto max-w-[1120px] px-6 text-center">
+      <Tag className="mb-4">How it works</Tag>
+      <h2 class="text-fi-ink mx-auto mb-14 max-w-lg text-3xl font-light tracking-[-0.01em] sm:text-4xl">
+        Three steps to better recall
+      </h2>
+      <div class="grid gap-10 sm:grid-cols-3">
+        <div>
+          <div
+            class="bg-primary mx-auto mb-5 flex size-12 items-center justify-center rounded-full text-lg font-light text-white"
+          >
+            1
+          </div>
+          <h3 class="text-fi-ink mb-2 text-lg font-normal">Paste your notes</h3>
+          <p class="text-fi-ink-mute text-sm leading-relaxed">
+            Drop in any text — lecture notes, articles, textbook chapters. The longer, the better.
+          </p>
+        </div>
+        <div>
+          <div
+            class="bg-primary mx-auto mb-5 flex size-12 items-center justify-center rounded-full text-lg font-light text-white"
+          >
+            2
+          </div>
+          <h3 class="text-fi-ink mb-2 text-lg font-normal">AI generates cards</h3>
+          <p class="text-fi-ink-mute text-sm leading-relaxed">
+            Our AI extracts key concepts and creates question-answer pairs. Review and tweak before saving.
+          </p>
+        </div>
+        <div>
+          <div
+            class="bg-primary mx-auto mb-5 flex size-12 items-center justify-center rounded-full text-lg font-light text-white"
+          >
+            3
+          </div>
+          <h3 class="text-fi-ink mb-2 text-lg font-normal">Study & remember</h3>
+          <p class="text-fi-ink-mute text-sm leading-relaxed">
+            FlipIt schedules reviews using spaced repetition so each card comes back right when you're about to forget.
+          </p>
+        </div>
       </div>
     </div>
-  </div>
+  </section>
+
+  <!-- CTA band -->
+  <section class="bg-fi-brand-dark relative overflow-hidden py-20 sm:py-24">
+    <GradientMesh client:load style={{ opacity: 0.5 }} />
+    <div class="relative z-10 mx-auto max-w-[1120px] px-6 text-center">
+      <h2 class="mb-4 text-3xl font-light tracking-[-0.01em] text-white sm:text-4xl">Ready to learn smarter?</h2>
+      <p class="mx-auto mb-8 max-w-md text-lg text-white/70">
+        Join FlipIt and start turning your notes into lasting knowledge. Free forever for individuals.
+      </p>
+      <Button size="lg" asChild>
+        <a href="/auth/signup">
+          Get started — it's free
+          <svg
+            width="16"
+            height="16"
+            viewBox="0 0 24 24"
+            fill="none"
+            stroke="currentColor"
+            stroke-width="2"
+            stroke-linecap="round"
+            stroke-linejoin="round"
+            class="ml-1"
+          >
+            <path d="M5 12h14"></path>
+            <path d="m12 5 7 7-7 7"></path>
+          </svg>
+        </a>
+      </Button>
+    </div>
+  </section>
+
+  <Footer />
 </div>

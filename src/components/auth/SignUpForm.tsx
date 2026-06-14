@@ -1,11 +1,21 @@
 import React, { useState } from "react";
-import { Mail, Lock, UserPlus } from "lucide-react";
+import { UserPlus } from "lucide-react";
+import { cn } from "@/lib/utils";
 import { FormField } from "@/components/auth/FormField";
 import { PasswordToggle } from "@/components/auth/PasswordToggle";
 import { SubmitButton } from "@/components/auth/SubmitButton";
 import { ServerError } from "@/components/auth/ServerError";
 
 const MIN_PASSWORD_LENGTH = 6;
+
+function ValidationDot({ valid, label }: { valid: boolean; label: string }) {
+  return (
+    <span className="flex items-center gap-1.5 text-xs">
+      <span className={cn("inline-block size-1.5 rounded-full", valid ? "bg-green-500" : "bg-muted-foreground/40")} />
+      <span className={cn(valid ? "text-green-600" : "text-muted-foreground")}>{label}</span>
+    </span>
+  );
+}
 
 interface Props {
   serverError?: string | null;
@@ -54,12 +64,24 @@ export default function SignUpForm({ serverError }: Props) {
     }
   }
 
+  const hasMinLength = password.length >= MIN_PASSWORD_LENGTH;
+  const passwordsMatch = confirmPassword.length > 0 && password === confirmPassword;
+
   const passwordHint =
-    !errors.password && password.length > 0 && password.length < MIN_PASSWORD_LENGTH ? (
-      <p className="mt-1 text-xs text-blue-100/50">
-        {MIN_PASSWORD_LENGTH - password.length} more character
-        {MIN_PASSWORD_LENGTH - password.length !== 1 ? "s" : ""} needed
-      </p>
+    !errors.password && password.length > 0 ? (
+      <div className="mt-1.5 flex items-center justify-between">
+        <ValidationDot valid={hasMinLength} label={`${MIN_PASSWORD_LENGTH}+ characters`} />
+        <span className="text-muted-foreground text-xs tabular-nums">
+          {password.length}/{MIN_PASSWORD_LENGTH}
+        </span>
+      </div>
+    ) : undefined;
+
+  const confirmHint =
+    !errors.confirmPassword && confirmPassword.length > 0 ? (
+      <div className="mt-1.5">
+        <ValidationDot valid={passwordsMatch} label="Passwords match" />
+      </div>
     ) : undefined;
 
   return (
@@ -75,7 +97,6 @@ export default function SignUpForm({ serverError }: Props) {
         }}
         placeholder="you@example.com"
         error={errors.email}
-        icon={<Mail className="size-4" />}
       />
 
       <FormField
@@ -90,7 +111,6 @@ export default function SignUpForm({ serverError }: Props) {
         placeholder="Min. 6 characters"
         error={errors.password}
         hint={passwordHint}
-        icon={<Lock className="size-4" />}
         endContent={
           <PasswordToggle
             visible={showPassword}
@@ -113,7 +133,7 @@ export default function SignUpForm({ serverError }: Props) {
         }}
         placeholder="Re-enter your password"
         error={errors.confirmPassword}
-        icon={<Lock className="size-4" />}
+        hint={confirmHint}
         endContent={
           <PasswordToggle
             visible={showConfirmPassword}

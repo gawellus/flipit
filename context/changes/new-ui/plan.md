@@ -625,22 +625,22 @@ Restyle the collections grid and the study session (all 4 states: loading, study
 
 #### Automated
 
-- [x] 2.1 Lint passes
-- [x] 2.2 Build succeeds
+- [x] 2.1 Lint passes — 5e4e9c1
+- [x] 2.2 Build succeeds — 5e4e9c1
 
 #### Manual
 
-- [x] 2.3 Desktop topbar renders with logo, nav links, email, avatar
-- [x] 2.4 Active nav link shows indigo pill
-- [x] 2.5 Mobile hamburger opens sheet, backdrop/Escape closes it
-- [x] 2.6 Logo, Tag, GradientMesh, Spinner, EmptyState render correctly
+- [x] 2.3 Desktop topbar renders with logo, nav links, email, avatar — 5e4e9c1
+- [x] 2.4 Active nav link shows indigo pill — 5e4e9c1
+- [x] 2.5 Mobile hamburger opens sheet, backdrop/Escape closes it — 5e4e9c1
+- [x] 2.6 Logo, Tag, GradientMesh, Spinner, EmptyState render correctly — 5e4e9c1
 
 ### Phase 3: Landing Page & Auth Screens
 
 #### Automated
 
-- [ ] 3.1 Lint passes
-- [ ] 3.2 Build succeeds
+- [x] 3.1 Lint passes
+- [x] 3.2 Build succeeds
 
 #### Manual
 
