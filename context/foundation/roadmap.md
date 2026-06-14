@@ -27,23 +27,25 @@ Spaced repetition works, but creating high-quality flashcards is a time-consumin
 
 ## At a glance
 
-| ID   | Change ID               | Outcome (user can ...)                                                                      | Prerequisites | PRD refs                              | Status   |
-| ---- | ----------------------- | ------------------------------------------------------------------------------------------- | ------------- | ------------------------------------- | -------- |
-| S-01 | ai-flashcard-generation | paste text, generate AI flashcards, review/edit/accept/reject, and save to collection       | —             | US-01, FR-001, FR-002, FR-003, FR-004 | done     |
-| S-03 | sr-study-session        | study saved flashcards with spaced repetition scheduling and rate recall                    | S-01          | FR-009, FR-010                        | done     |
-| S-02 | flashcard-crud          | manually create a flashcard, browse collection with text search, edit and delete flashcards | S-01          | FR-005, FR-006, FR-007, FR-008        | done     |
-| S-04 | collection-assignment   | choose a target collection when generating AI flashcards, creating manually, or editing     | S-01, S-02    | —                                     | proposed |
-| S-05 | bulk-flashcard-actions  | select multiple flashcards and bulk-delete or bulk-change collection                        | S-02          | —                                     | proposed |
+| ID   | Change ID               | Outcome (user can ...)                                                                      | Prerequisites    | PRD refs                              | Status   |
+| ---- | ----------------------- | ------------------------------------------------------------------------------------------- | ---------------- | ------------------------------------- | -------- |
+| S-01 | ai-flashcard-generation | paste text, generate AI flashcards, review/edit/accept/reject, and save to collection       | —                | US-01, FR-001, FR-002, FR-003, FR-004 | done     |
+| S-03 | sr-study-session        | study saved flashcards with spaced repetition scheduling and rate recall                    | S-01             | FR-009, FR-010                        | done     |
+| S-02 | flashcard-crud          | manually create a flashcard, browse collection with text search, edit and delete flashcards | S-01             | FR-005, FR-006, FR-007, FR-008        | done     |
+| S-04 | collection-assignment   | choose a target collection when generating AI flashcards, creating manually, or editing     | S-01, S-02       | —                                     | proposed |
+| S-05 | bulk-flashcard-actions  | select multiple flashcards and bulk-delete or bulk-change collection                        | S-02             | —                                     | proposed |
+| S-06 | new-ui                  | see the final visual design across all screens (responsive, animated, polished)             | S-01, S-02, S-03 | —                                     | proposed |
 
 ## Streams
 
 Navigation aid — groups items that share a Prerequisites chain. Canonical ordering still lives in the dependency graph below; this table is the proposed reading order across parallel tracks.
 
-| Stream | Theme               | Chain                    | Note                                                                      |
-| ------ | ------------------- | ------------------------ | ------------------------------------------------------------------------- |
-| A      | Core loop           | `S-01` → `S-03`          | North-star path — fastest route to proving the full generate-study cycle. |
-| B      | Collection mgmt     | `S-02` → `S-05`          | CRUD then bulk actions. Parallel with Stream A after `S-01` lands.        |
-| C      | Collection workflow | `S-01` + `S-02` → `S-04` | Deck assignment across generation, manual creation, and edit flows.       |
+| Stream | Theme               | Chain                             | Note                                                                      |
+| ------ | ------------------- | --------------------------------- | ------------------------------------------------------------------------- |
+| A      | Core loop           | `S-01` → `S-03`                   | North-star path — fastest route to proving the full generate-study cycle. |
+| B      | Collection mgmt     | `S-02` → `S-05`                   | CRUD then bulk actions. Parallel with Stream A after `S-01` lands.        |
+| C      | Collection workflow | `S-01` + `S-02` → `S-04`          | Deck assignment across generation, manual creation, and edit flows.       |
+| D      | Visual polish       | `S-01` + `S-02` + `S-03` → `S-06` | Full UI redesign per `context/design/new-ui.md`. Parallel with S-04/S-05. |
 
 ## Baseline
 
@@ -125,6 +127,18 @@ No foundations required. Auth and frontend are present in the baseline. The flas
 - **Risk:** Low. Standard multi-select + batch API pattern. Needs a new bulk endpoint or batched calls; RLS already scopes to the current user.
 - **Status:** proposed
 
+### S-06: Implement the final design
+
+- **Outcome:** user sees the final visual design across all 9 screens — responsive layouts, 3D card-flip animation, source badges (AI/manual), delete-with-undo timers, mobile-friendly topbar, character counters, and a cohesive design system — as specified in `context/design/new-ui.md`
+- **Change ID:** new-ui
+- **PRD refs:** —
+- **Prerequisites:** S-01, S-02, S-03
+- **Parallel with:** S-04, S-05
+- **Blockers:** —
+- **Unknowns:** —
+- **Risk:** Medium. Scope is broad (9 screens, ~25 states) but purely presentational — no new data models or API changes. Main risk is underestimating the effort for the 3D flip animation and responsive breakpoints across all variants.
+- **Status:** proposed
+
 ## Backlog Handoff
 
 | Roadmap ID | Change ID               | Suggested issue title                                       | Ready for `/10x-plan` | Notes                                   |
@@ -134,6 +148,7 @@ No foundations required. Auth and frontend are present in the baseline. The flas
 | S-02       | flashcard-crud          | Flashcard CRUD: create, browse, search, edit, delete        | no                    | Depends on S-01                         |
 | S-04       | collection-assignment   | Collection assignment: generation, creation, and edit flows | no                    | Depends on S-01 + S-02                  |
 | S-05       | bulk-flashcard-actions  | Bulk flashcard actions: multi-select, delete, move          | no                    | Depends on S-02                         |
+| S-06       | new-ui                  | Implement the final design across all screens               | yes                   | Run `/10x-plan new-ui`                  |
 
 ## Open Roadmap Questions
 
