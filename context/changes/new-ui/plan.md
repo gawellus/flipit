@@ -612,28 +612,28 @@ Restyle the collections grid and the study session (all 4 states: loading, study
 
 #### Automated
 
-- [x] 1.1 Lint passes after token replacement
-- [x] 1.2 Build succeeds after token replacement
-- [x] 1.3 No TypeScript errors
+- [x] 1.1 Lint passes after token replacement — 9fcf1df
+- [x] 1.2 Build succeeds after token replacement — 9fcf1df
+- [x] 1.3 No TypeScript errors — 9fcf1df
 
 #### Manual
 
-- [ ] 1.4 Light background, indigo buttons, navy text visible across pages
-- [ ] 1.5 Inter font loads and renders at weight 300
+- [x] 1.4 Light background, indigo buttons, navy text visible across pages — 9fcf1df
+- [x] 1.5 Inter font loads and renders at weight 300 — 9fcf1df
 
 ### Phase 2: Shell — Topbar, Layout, Footer, Shared Atoms
 
 #### Automated
 
-- [ ] 2.1 Lint passes
-- [ ] 2.2 Build succeeds
+- [x] 2.1 Lint passes
+- [x] 2.2 Build succeeds
 
 #### Manual
 
-- [ ] 2.3 Desktop topbar renders with logo, nav links, email, avatar
-- [ ] 2.4 Active nav link shows indigo pill
-- [ ] 2.5 Mobile hamburger opens sheet, backdrop/Escape closes it
-- [ ] 2.6 Logo, Tag, GradientMesh, Spinner, EmptyState render correctly
+- [x] 2.3 Desktop topbar renders with logo, nav links, email, avatar
+- [x] 2.4 Active nav link shows indigo pill
+- [x] 2.5 Mobile hamburger opens sheet, backdrop/Escape closes it
+- [x] 2.6 Logo, Tag, GradientMesh, Spinner, EmptyState render correctly
 
 ### Phase 3: Landing Page & Auth Screens
 

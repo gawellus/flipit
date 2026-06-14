@@ -1,10 +1,11 @@
 ---
 import Layout from "@/layouts/Layout.astro";
-import Topbar from "@/components/Topbar.astro";
+import Topbar from "@/components/Topbar";
 import StudySessionView from "@/components/study/StudySessionView";
 
 const UUID_RE = /^[0-9a-f]{8}-[0-9a-f]{4}-[0-9a-f]{4}-[0-9a-f]{4}-[0-9a-f]{12}$/i;
 const collectionId = Astro.params.id;
+const { user } = Astro.locals;
 
 if (!collectionId || !UUID_RE.test(collectionId)) {
   return new Response(null, { status: 404 });
@@ -12,10 +13,8 @@ if (!collectionId || !UUID_RE.test(collectionId)) {
 ---
 
 <Layout title="Study Session">
-  <div class="bg-cosmic min-h-screen p-4">
-    <div class="mx-auto max-w-4xl">
-      <Topbar />
-      <StudySessionView client:load collectionId={collectionId} />
-    </div>
-  </div>
+  <Topbar client:load user={user ? { email: user.email ?? "" } : null} pathname="/study" />
+  <main class="mx-auto max-w-[1120px] px-6 py-8">
+    <StudySessionView client:load collectionId={collectionId} />
+  </main>
 </Layout>

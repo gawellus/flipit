@@ -1,14 +1,14 @@
 ---
 import Layout from "@/layouts/Layout.astro";
-import Topbar from "@/components/Topbar.astro";
+import Topbar from "@/components/Topbar";
 import CollectionsView from "@/components/collections/CollectionsView";
+
+const { user } = Astro.locals;
 ---
 
 <Layout title="Study">
-  <div class="bg-cosmic min-h-screen p-4">
-    <div class="mx-auto max-w-4xl">
-      <Topbar />
-      <CollectionsView client:load />
-    </div>
-  </div>
+  <Topbar client:load user={user ? { email: user.email ?? "" } : null} pathname="/study" />
+  <main class="mx-auto max-w-[1120px] px-6 py-8">
+    <CollectionsView client:load />
+  </main>
 </Layout>

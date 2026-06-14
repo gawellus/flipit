@@ -1,0 +1,14 @@
+---
+import Logo from "@/components/Logo";
+---
+
+<footer class="border-fi-hairline border-t bg-white px-6 py-8">
+  <div class="mx-auto flex max-w-[1120px] items-center justify-between">
+    <Logo size={24} showWordmark={false} />
+    <p class="text-muted-foreground text-sm">&copy; {new Date().getFullYear()} FlipIt. All rights reserved.</p>
+    <div class="flex gap-4">
+      <a href="/auth/signin" class="text-muted-foreground hover:text-foreground text-sm">Sign in</a>
+      <a href="/auth/signup" class="text-primary hover:text-fi-primary-deep text-sm">Sign up</a>
+    </div>
+  </div>
+</footer>

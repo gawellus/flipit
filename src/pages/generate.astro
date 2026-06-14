@@ -1,14 +1,14 @@
 ---
 import Layout from "@/layouts/Layout.astro";
-import Topbar from "@/components/Topbar.astro";
+import Topbar from "@/components/Topbar";
 import GenerateView from "@/components/generate/GenerateView";
+
+const { user } = Astro.locals;
 ---
 
 <Layout title="Generate Flashcards">
-  <div class="bg-cosmic min-h-screen p-4">
-    <div class="mx-auto max-w-4xl">
-      <Topbar />
-      <GenerateView client:load />
-    </div>
-  </div>
+  <Topbar client:load user={user ? { email: user.email ?? "" } : null} pathname="/generate" />
+  <main class="mx-auto max-w-[1120px] px-6 py-8">
+    <GenerateView client:load />
+  </main>
 </Layout>
