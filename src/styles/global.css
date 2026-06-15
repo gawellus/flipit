@@ -135,3 +135,12 @@
     font-feature-settings: "ss01" 1;
   }
 }
+
+@keyframes undo-shrink {
+  from {
+    width: 100%;
+  }
+  to {
+    width: 0%;
+  }
+}

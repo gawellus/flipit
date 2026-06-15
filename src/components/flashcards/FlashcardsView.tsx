@@ -1,5 +1,10 @@
 import { useCallback, useEffect, useState } from "react";
 import type { Collection, Flashcard, PaginatedResponse } from "@/types";
+import { Tag } from "@/components/Tag";
+import { Spinner } from "@/components/Spinner";
+import { EmptyState } from "@/components/EmptyState";
+import { Button } from "@/components/ui/button";
+import { Layers, Plus } from "lucide-react";
 import { SearchInput } from "./SearchInput";
 import { CreateFlashcardForm } from "./CreateFlashcardForm";
 import { FlashcardListItem } from "./FlashcardListItem";
@@ -32,6 +37,7 @@ export default function FlashcardsView() {
   const [error, setError] = useState<string | null>(null);
   const [refreshKey, setRefreshKey] = useState(0);
   const [collections, setCollections] = useState<Collection[]>([]);
+  const [isFormOpen, setIsFormOpen] = useState(false);
 
   useEffect(() => {
     let cancelled = false;
@@ -99,62 +105,86 @@ export default function FlashcardsView() {
   }
 
   return (
-    <div className="mt-4">
-      <h1 className="mb-6 bg-gradient-to-r from-blue-200 to-purple-200 bg-clip-text text-3xl font-bold text-transparent">
-        My Flashcards
-      </h1>
-
-      <div className="mb-4 flex flex-col gap-3 sm:flex-row sm:items-center sm:justify-between">
-        <div className="w-full sm:max-w-xs">
-          <SearchInput key={refreshKey} onChange={handleSearchChange} />
+    <div>
+      <div className="mb-8 flex flex-col gap-4 sm:flex-row sm:items-end sm:justify-between">
+        <div>
+          <Tag>My Flashcards</Tag>
+          <h1 className="text-fi-ink mt-2 text-[32px] font-light tracking-[-0.02em]">Flashcards</h1>
+          {!isLoading && !error && totalCount > 0 && (
+            <p className="text-muted-foreground mt-1 text-[15px]">
+              {totalCount} card{totalCount !== 1 ? "s" : ""} across all your collections.
+            </p>
+          )}
         </div>
-        <CreateFlashcardForm onCreated={handleCreated} />
+        <Button
+          onClick={() => {
+            setIsFormOpen(true);
+          }}
+          disabled={isFormOpen}
+        >
+          <Plus className="size-4" />
+          Add flashcard
+        </Button>
       </div>
 
+      <div className="mb-4">
+        <SearchInput key={refreshKey} onChange={handleSearchChange} />
+      </div>
+
+      {isFormOpen && (
+        <div className="mb-4">
+          <CreateFlashcardForm
+            onCreated={handleCreated}
+            onClose={() => {
+              setIsFormOpen(false);
+            }}
+          />
+        </div>
+      )}
+
       {isLoading && (
-        <div className="flex flex-col items-center gap-4 py-16 text-white/70">
-          <div className="size-8 animate-spin rounded-full border-2 border-purple-400 border-t-transparent" />
-          <p>Loading flashcards...</p>
+        <div className="flex flex-col items-center gap-4 py-16">
+          <Spinner size={36} />
+          <p className="text-muted-foreground text-[15px]">Loading flashcards...</p>
         </div>
       )}
 
       {error && !isLoading && (
-        <div className="rounded-xl border border-red-500/30 bg-red-500/10 p-8 text-center">
-          <p className="text-red-300">{error}</p>
-          <button
-            onClick={refresh}
-            className="mt-4 rounded-lg border border-white/20 bg-white/10 px-4 py-2 text-sm text-white transition-colors hover:bg-white/20"
-          >
-            Try again
-          </button>
-        </div>
+        <EmptyState
+          icon={<Layers className="size-8 text-[var(--fi-ruby)]" />}
+          title="Something went wrong"
+          description={error}
+          action={
+            <Button variant="outline" onClick={refresh}>
+              Try again
+            </Button>
+          }
+        />
       )}
 
       {!isLoading && !error && totalCount === 0 && !search && (
-        <div className="rounded-xl border border-white/10 bg-white/5 p-8 text-center">
-          <p className="text-white/60">No flashcards yet.</p>
-          <p className="mt-1 text-sm text-white/40">
-            Create one manually above or{" "}
-            <a href="/generate" className="text-purple-300 hover:underline">
-              generate from text
-            </a>
-            .
-          </p>
-        </div>
+        <EmptyState
+          icon={<Layers className="text-primary size-8" />}
+          title="No flashcards yet"
+          description="Create one manually or generate from text."
+          action={
+            <Button asChild>
+              <a href="/generate">Generate from text</a>
+            </Button>
+          }
+        />
       )}
 
       {!isLoading && !error && totalCount === 0 && search && (
-        <div className="rounded-xl border border-white/10 bg-white/5 p-8 text-center">
-          <p className="text-white/60">No flashcards match your search.</p>
-        </div>
+        <EmptyState
+          icon={<Layers className="text-muted-foreground size-8" />}
+          title="No flashcards match your search"
+          description="Try adjusting your search terms."
+        />
       )}
 
       {!isLoading && !error && totalCount > 0 && (
         <>
-          <p className="mb-3 text-sm text-white/40">
-            {totalCount} flashcard{totalCount !== 1 ? "s" : ""}
-            {search ? ` matching "${search}"` : ""}
-          </p>
           <div className="space-y-3">
             {flashcards.map((card) => (
               <FlashcardListItem
@@ -166,8 +196,13 @@ export default function FlashcardsView() {
               />
             ))}
           </div>
-          <div className="mt-4">
-            <PaginationControls page={page} totalPages={totalPages} onPageChange={handlePageChange} />
+          <div className="mt-6">
+            <PaginationControls
+              page={page}
+              totalPages={totalPages}
+              totalCount={totalCount}
+              onPageChange={handlePageChange}
+            />
           </div>
         </>
       )}

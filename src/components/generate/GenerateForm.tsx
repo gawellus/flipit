@@ -27,26 +27,28 @@ export function GenerateForm({ onSubmit, isLoading }: Props) {
 
   return (
     <form onSubmit={handleSubmit} className="space-y-4">
-      <div>
+      <div className="relative">
         <Textarea
           value={text}
           onChange={(e) => {
             setText(e.target.value);
           }}
           placeholder="Paste your study text here..."
-          className="min-h-[200px] border-white/20 bg-white/5 text-white placeholder:text-white/30"
+          className="min-h-[200px] resize-y pb-8"
           disabled={isLoading}
         />
-        <div className="mt-2 flex justify-end">
-          <span
-            className={cn(
-              "text-sm",
-              isOverLimit ? "text-red-400" : charCount > MAX_CHARS * 0.9 ? "text-yellow-400" : "text-white/40",
-            )}
-          >
-            {charCount.toLocaleString()} / {MAX_CHARS.toLocaleString()}
-          </span>
-        </div>
+        <span
+          className={cn(
+            "pointer-events-none absolute right-3 bottom-2 text-xs tabular-nums",
+            isOverLimit
+              ? "text-[var(--fi-ruby)]"
+              : charCount > MAX_CHARS * 0.9
+                ? "text-[var(--fi-lemon)]"
+                : "text-muted-foreground",
+          )}
+        >
+          {charCount.toLocaleString()} / {MAX_CHARS.toLocaleString()}
+        </span>
       </div>
       <Button type="submit" disabled={isDisabled} className="w-full">
         {isLoading ? "Generating..." : "Generate Flashcards"}

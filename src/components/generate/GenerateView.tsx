@@ -1,5 +1,10 @@
 import { useState } from "react";
 import type { FlashcardProposal } from "@/types";
+import { Tag } from "@/components/Tag";
+import { Spinner } from "@/components/Spinner";
+import { Button } from "@/components/ui/button";
+import { Card, CardContent } from "@/components/ui/card";
+import { CircleCheck, CircleAlert } from "lucide-react";
 import { GenerateForm } from "./GenerateForm";
 import { FlashcardReview } from "./FlashcardReview";
 
@@ -53,17 +58,19 @@ export default function GenerateView() {
   }
 
   return (
-    <div className="mt-4">
-      <h1 className="mb-6 bg-gradient-to-r from-blue-200 to-purple-200 bg-clip-text text-3xl font-bold text-transparent">
-        Generate Flashcards
-      </h1>
+    <div>
+      <div className="mb-8">
+        <Tag>AI Generation</Tag>
+        <h1 className="text-fi-ink mt-2 text-[32px] font-light tracking-[-0.02em]">Generate Flashcards</h1>
+        <p className="text-muted-foreground mt-1 text-[15px]">Paste your study text and let AI create flashcards</p>
+      </div>
 
       {state.step === "input" && <GenerateForm onSubmit={handleGenerate} isLoading={false} />}
 
       {state.step === "loading" && (
-        <div className="flex flex-col items-center gap-4 py-16 text-white/70">
-          <div className="size-8 animate-spin rounded-full border-2 border-purple-400 border-t-transparent" />
-          <p>Generating flashcards...</p>
+        <div className="flex flex-col items-center gap-4 py-16">
+          <Spinner size={36} />
+          <p className="text-muted-foreground text-[15px]">Generating flashcards...</p>
         </div>
       )}
 
@@ -76,29 +83,33 @@ export default function GenerateView() {
       )}
 
       {state.step === "saved" && (
-        <div className="rounded-xl border border-green-500/30 bg-green-500/10 p-8 text-center">
-          <p className="text-lg font-semibold text-green-300">
-            {state.count} flashcard{state.count !== 1 ? "s" : ""} saved!
-          </p>
-          <button
-            onClick={handleReset}
-            className="mt-4 rounded-lg border border-white/20 bg-white/10 px-4 py-2 text-sm text-white transition-colors hover:bg-white/20"
-          >
-            Generate more
-          </button>
-        </div>
+        <Card className="p-8 text-center">
+          <CardContent className="flex flex-col items-center gap-3 p-0">
+            <div className="flex size-[76px] items-center justify-center rounded-full bg-green-500/12">
+              <CircleCheck className="size-9 text-green-600" />
+            </div>
+            <p className="text-fi-ink text-lg font-medium">
+              {state.count} flashcard{state.count !== 1 ? "s" : ""} saved!
+            </p>
+            <Button variant="outline" onClick={handleReset} className="mt-2">
+              Generate more
+            </Button>
+          </CardContent>
+        </Card>
       )}
 
       {state.step === "error" && (
-        <div className="rounded-xl border border-red-500/30 bg-red-500/10 p-8 text-center">
-          <p className="text-red-300">{state.message}</p>
-          <button
-            onClick={handleReset}
-            className="mt-4 rounded-lg border border-white/20 bg-white/10 px-4 py-2 text-sm text-white transition-colors hover:bg-white/20"
-          >
-            Try again
-          </button>
-        </div>
+        <Card className="p-8 text-center">
+          <CardContent className="flex flex-col items-center gap-3 p-0">
+            <div className="flex size-[76px] items-center justify-center rounded-full bg-[var(--fi-ruby)]/12">
+              <CircleAlert className="size-9 text-[var(--fi-ruby)]" />
+            </div>
+            <p className="text-fi-ink">{state.message}</p>
+            <Button variant="outline" onClick={handleReset} className="mt-2">
+              Try again
+            </Button>
+          </CardContent>
+        </Card>
       )}
     </div>
   );

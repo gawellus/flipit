@@ -36,6 +36,10 @@ export function FlashcardReview({ proposals, generationId, onSaveComplete }: Pro
     );
   }
 
+  function handleDeselectAll() {
+    setCards((prev) => prev.map((c) => (c.status === "accepted" ? { ...c, status: "pending" } : c)));
+  }
+
   async function handleSave() {
     const accepted = cards.filter((c) => c.status === "accepted");
     if (accepted.length === 0) return;
@@ -68,30 +72,34 @@ export function FlashcardReview({ proposals, generationId, onSaveComplete }: Pro
     }
   }
 
-  return (
-    <div className="space-y-4">
-      <div className="sticky top-0 z-10 flex items-center justify-between rounded-xl border border-white/10 bg-white/5 px-4 py-3 backdrop-blur-xl">
-        <span className="text-sm text-white/70">
-          {acceptedCount} of {totalCount} accepted
-        </span>
-        <div className="flex gap-2">
+  const actionBar = (
+    <div className="border-fi-hairline bg-fi-canvas flex items-center justify-between rounded-xl border px-4 py-3 shadow-[var(--shadow-card)]">
+      <span className="text-muted-foreground text-sm tabular-nums">
+        {acceptedCount} of {totalCount} accepted
+      </span>
+      <div className="flex gap-2">
+        {acceptedCount > 0 ? (
+          <Button variant="outline" size="sm" onClick={handleDeselectAll}>
+            Deselect all
+          </Button>
+        ) : (
           <Button variant="outline" size="sm" onClick={handleAcceptAll}>
             Accept all
           </Button>
-          <Button size="sm" onClick={handleSave} disabled={acceptedCount === 0 || isSaving}>
-            {isSaving ? "Saving..." : `Save accepted (${acceptedCount})`}
-          </Button>
-        </div>
+        )}
+        <Button size="sm" onClick={handleSave} disabled={acceptedCount === 0 || isSaving}>
+          {isSaving ? "Saving..." : `Save accepted (${acceptedCount})`}
+        </Button>
       </div>
+    </div>
+  );
 
-      {acceptedCount === 0 && (
-        <div className="rounded-lg border border-yellow-500/30 bg-yellow-500/10 px-4 py-2 text-sm text-yellow-300">
-          No cards accepted. Use &quot;Accept all&quot; or undo individual cards to select cards for saving.
-        </div>
-      )}
+  return (
+    <div className="space-y-4">
+      {actionBar}
 
       {saveError && (
-        <div className="rounded-lg border border-red-500/30 bg-red-500/10 px-4 py-2 text-sm text-red-300">
+        <div className="rounded-lg border border-[var(--fi-ruby)]/20 bg-[var(--fi-ruby)]/5 px-4 py-2 text-sm text-[var(--fi-ruby)]">
           {saveError}
         </div>
       )}
@@ -123,6 +131,8 @@ export function FlashcardReview({ proposals, generationId, onSaveComplete }: Pro
           />
         ))}
       </div>
+
+      {actionBar}
     </div>
   );
 }

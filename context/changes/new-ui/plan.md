@@ -654,29 +654,29 @@ Restyle the collections grid and the study session (all 4 states: loading, study
 
 #### Automated
 
-- [x] 4.1 Lint passes
-- [x] 4.2 Build succeeds
+- [x] 4.1 Lint passes — 91fd5d4
+- [x] 4.2 Build succeeds — 91fd5d4
 
 #### Manual
 
-- [x] 4.3 Dashboard shows greeting, stat cards, quick actions, due-for-review
-- [x] 4.4 Quick actions navigate to correct pages
-- [x] 4.5 Study buttons link to correct study session URLs
-- [x] 4.6 Responsive collapse on mobile
+- [x] 4.3 Dashboard shows greeting, stat cards, quick actions, due-for-review — 91fd5d4
+- [x] 4.4 Quick actions navigate to correct pages — 91fd5d4
+- [x] 4.5 Study buttons link to correct study session URLs — 91fd5d4
+- [x] 4.6 Responsive collapse on mobile — 91fd5d4
 
 ### Phase 5: Generate & Flashcards Screens
 
 #### Automated
 
-- [ ] 5.1 Lint passes
-- [ ] 5.2 Build succeeds
+- [x] 5.1 Lint passes
+- [x] 5.2 Build succeeds
 
 #### Manual
 
-- [ ] 5.3 Generate: all 5 states render with new styling
-- [ ] 5.4 Flashcards: search, CRUD, pagination, empty states
-- [ ] 5.5 Delete undo timer bar animates
-- [ ] 5.6 Collection dropdown renders correctly
+- [x] 5.3 Generate: all 5 states render with new styling
+- [x] 5.4 Flashcards: search, CRUD, pagination, empty states
+- [x] 5.5 Delete undo timer bar animates
+- [x] 5.6 Collection dropdown renders correctly
 
 ### Phase 6: Collections & Study Session
 
