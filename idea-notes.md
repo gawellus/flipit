@@ -27,9 +27,15 @@ Manualne tworzenie wysokiej jakości fiszek edukacyjnych jest czasochłonne, co 
 
 ### Features
 
-- UI/UX fixes - design jest fatalny, nieczytelny, nieintuicyjny
-- formularz dodawania ręcznego flashcarda wygląda tragicznie
-- decki fiszek - kategorie fiszek powinna być wybierana już podczas tworzenia fiszki
-- jak dodać kolekcję do wygenerowanych przez ai fiszek?
-- nie działa generowanie fiszek, brak błedu - nie wiadomo kto sposowdował błąd
-- reset review session
+
+- [] decki fiszek: 
+  - [] kategorie fiszek powinna być wybierana już podczas tworzenia fiszki
+  - [] jak dodać kolekcję do wygenerowanych przez ai fiszek?
+
+- [x] UI/UX fixes - design jest fatalny, nieczytelny, nieintuicyjny
+- [x] formularz dodawania ręcznego flashcarda wygląda tragicznie
+
+- [x] nie działa generowanie fiszek, brak błedu - nie wiadomo kto sposowdował błąd
+
+
+- [] reset review session

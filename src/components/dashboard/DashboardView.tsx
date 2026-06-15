@@ -1,5 +1,6 @@
 import { useEffect, useState } from "react";
 import type { CollectionWithCounts, PaginatedResponse, Flashcard } from "@/types";
+import { cn } from "@/lib/utils";
 import { Card } from "@/components/ui/card";
 import { Button } from "@/components/ui/button";
 import { Tag } from "@/components/Tag";
@@ -35,7 +36,7 @@ function StatCard({
 }) {
   return (
     <Card className="gap-4 px-6 py-5">
-      <div className={`flex size-10 items-center justify-center rounded-lg ${iconBg}`}>{icon}</div>
+      <div className={cn("flex size-10 items-center justify-center rounded-lg", iconBg)}>{icon}</div>
       <div>
         <p className="text-fi-ink text-[38px] leading-none font-light tracking-[-0.02em] tabular-nums">{value}</p>
         <p className="text-muted-foreground mt-1 text-[13px]">{label}</p>
@@ -61,7 +62,7 @@ function QuickActionCard({
     <a href={href} className="block">
       <Card className="group cursor-pointer gap-0 px-6 py-5 transition-all duration-200 hover:-translate-y-0.5 hover:shadow-[var(--shadow-float)]">
         <div className="flex items-center gap-4">
-          <div className={`flex size-10 shrink-0 items-center justify-center rounded-lg ${iconBg}`}>{icon}</div>
+          <div className={cn("flex size-10 shrink-0 items-center justify-center rounded-lg", iconBg)}>{icon}</div>
           <div className="min-w-0 flex-1">
             <p className="text-fi-ink text-[15px] font-medium">{title}</p>
             <p className="text-muted-foreground text-[13px]">{description}</p>

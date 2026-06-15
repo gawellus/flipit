@@ -1,8 +1,9 @@
-import { useState, useEffect, useCallback } from "react";
+import { useState, useEffect, useCallback, useRef } from "react";
 import { LayoutDashboard, Sparkles, RectangleEllipsis, Layers, Menu, X, LogOut } from "lucide-react";
 import { cn } from "@/lib/utils";
 import { Logo } from "@/components/Logo";
 import { Button } from "@/components/ui/button";
+import { useFocusTrap } from "@/components/hooks/useFocusTrap";
 
 interface TopbarProps {
   user: { email: string } | null;
@@ -23,6 +24,8 @@ function getInitial(email: string): string {
 
 export default function Topbar({ user, pathname, variant = "default" }: TopbarProps) {
   const [mobileOpen, setMobileOpen] = useState(false);
+  const panelRef = useRef<HTMLDivElement>(null);
+  useFocusTrap(panelRef, mobileOpen);
 
   const closeMobile = useCallback(() => {
     setMobileOpen(false);
@@ -110,7 +113,7 @@ export default function Topbar({ user, pathname, variant = "default" }: TopbarPr
       {mobileOpen && user && (
         <div className="fixed inset-0 z-[100]">
           <div className="absolute inset-0 bg-black/40" onClick={closeMobile} aria-hidden="true" />
-          <div className="absolute top-0 right-0 bottom-0 w-72 bg-white shadow-xl">
+          <div ref={panelRef} className="absolute top-0 right-0 bottom-0 w-72 bg-white shadow-xl">
             <div className="border-fi-hairline flex h-16 items-center justify-between border-b px-6">
               <span className="text-fi-ink text-sm font-medium">{user.email}</span>
               <button

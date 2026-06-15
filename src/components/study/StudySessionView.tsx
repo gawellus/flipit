@@ -4,6 +4,7 @@ import type { StudyCard, IntervalPreview } from "@/types";
 import { Card, CardContent } from "@/components/ui/card";
 import { Button } from "@/components/ui/button";
 import { Spinner } from "@/components/Spinner";
+import { formatRelativeTime } from "@/lib/format";
 import { FlashcardDisplay } from "./FlashcardDisplay";
 import { RatingButtons } from "./RatingButtons";
 import { SessionEmpty } from "./SessionEmpty";
@@ -18,17 +19,8 @@ type State =
   | { step: "error"; message: string };
 
 function formatInterval(due: Date): string {
-  const diff = due.getTime() - Date.now();
-  if (diff <= 0) return "<1m";
-
-  const minutes = Math.floor(diff / 60000);
-  if (minutes < 60) return `${minutes}m`;
-
-  const hours = Math.floor(minutes / 60);
-  if (hours < 24) return `${hours}h`;
-
-  const days = Math.floor(hours / 24);
-  return `${days}d`;
+  const result = formatRelativeTime(due.toISOString());
+  return result === "now" ? "<1m" : result;
 }
 
 function computePreviews(card: StudyCard): IntervalPreview[] {
@@ -127,6 +119,10 @@ export default function StudySessionView({ collectionId }: { collectionId: strin
 
       if (nextIndex >= state.cards.length) {
         const dueRes = await fetch(`/api/study/${collectionId}`);
+        if (!dueRes.ok) {
+          const errData = (await dueRes.json()) as { error?: string };
+          throw new Error(errData.error ?? "Failed to fetch next due date");
+        }
         const dueData = (await dueRes.json()) as { nextDue: string | null };
         setState({ step: "complete", reviewedCount: state.cards.length, nextDue: dueData.nextDue });
       } else {

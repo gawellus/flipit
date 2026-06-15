@@ -6,6 +6,7 @@ import { FlashcardItem } from "./FlashcardItem";
 type CardStatus = "pending" | "accepted" | "rejected" | "editing";
 
 interface CardState {
+  id: string;
   proposal: FlashcardProposal;
   status: CardStatus;
 }
@@ -17,7 +18,9 @@ interface Props {
 }
 
 export function FlashcardReview({ proposals, generationId, onSaveComplete }: Props) {
-  const [cards, setCards] = useState<CardState[]>(() => proposals.map((p) => ({ proposal: p, status: "pending" })));
+  const [cards, setCards] = useState<CardState[]>(() =>
+    proposals.map((p) => ({ id: crypto.randomUUID(), proposal: p, status: "pending" })),
+  );
   const [isSaving, setIsSaving] = useState(false);
   const [saveError, setSaveError] = useState<string | null>(null);
 
@@ -107,7 +110,7 @@ export function FlashcardReview({ proposals, generationId, onSaveComplete }: Pro
       <div className="space-y-3">
         {cards.map((card, index) => (
           <FlashcardItem
-            key={index}
+            key={card.id}
             proposal={card.proposal}
             status={card.status}
             onAccept={() => {
