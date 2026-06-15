@@ -639,30 +639,30 @@ Restyle the collections grid and the study session (all 4 states: loading, study
 
 #### Automated
 
-- [x] 3.1 Lint passes
-- [x] 3.2 Build succeeds
+- [x] 3.1 Lint passes — 1e4943e
+- [x] 3.2 Build succeeds — 1e4943e
 
 #### Manual
 
-- [ ] 3.3 Landing matches design: gradient mesh, demo cards, features, steps, CTA band
-- [ ] 3.4 Sign-in matches design: centered card, indigo button, error state
-- [ ] 3.5 Sign-up: live validation, dot indicators, character counter
-- [ ] 3.6 Confirm email: icon circle, info alert
-- [ ] 3.7 All auth pages render correctly on mobile
+- [x] 3.3 Landing matches design: gradient mesh, demo cards, features, steps, CTA band — 1e4943e
+- [x] 3.4 Sign-in matches design: centered card, indigo button, error state — 1e4943e
+- [x] 3.5 Sign-up: live validation, dot indicators, character counter — 1e4943e
+- [x] 3.6 Confirm email: icon circle, info alert — 1e4943e
+- [x] 3.7 All auth pages render correctly on mobile — 1e4943e
 
 ### Phase 4: Dashboard
 
 #### Automated
 
-- [ ] 4.1 Lint passes
-- [ ] 4.2 Build succeeds
+- [x] 4.1 Lint passes
+- [x] 4.2 Build succeeds
 
 #### Manual
 
-- [ ] 4.3 Dashboard shows greeting, stat cards, quick actions, due-for-review
-- [ ] 4.4 Quick actions navigate to correct pages
-- [ ] 4.5 Study buttons link to correct study session URLs
-- [ ] 4.6 Responsive collapse on mobile
+- [x] 4.3 Dashboard shows greeting, stat cards, quick actions, due-for-review
+- [x] 4.4 Quick actions navigate to correct pages
+- [x] 4.5 Study buttons link to correct study session URLs
+- [x] 4.6 Responsive collapse on mobile
 
 ### Phase 5: Generate & Flashcards Screens
 
