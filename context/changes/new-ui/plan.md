@@ -682,13 +682,13 @@ Restyle the collections grid and the study session (all 4 states: loading, study
 
 #### Automated
 
-- [x] 6.1 Lint passes
-- [x] 6.2 Build succeeds
+- [x] 6.1 Lint passes — b804440
+- [x] 6.2 Build succeeds — b804440
 
 #### Manual
 
-- [x] 6.3 Collections: 2-column grid, count pills, study buttons
-- [x] 6.4 Study: flip card with outline style, 3D animation works
-- [x] 6.5 Rating buttons: color-coded hovers, interval previews
-- [x] 6.6 Session complete and empty states render correctly
-- [x] 6.7 Mobile: rating grid collapses to 2x2
+- [x] 6.3 Collections: 2-column grid, count pills, study buttons — b804440
+- [x] 6.4 Study: flip card with outline style, 3D animation works — b804440
+- [x] 6.5 Rating buttons: color-coded hovers, interval previews — b804440
+- [x] 6.6 Session complete and empty states render correctly — b804440
+- [x] 6.7 Mobile: rating grid collapses to 2x2 — b804440

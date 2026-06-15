@@ -1,7 +1,7 @@
 ---
 change_id: new-ui
 title: Implement the final design across all screens
-status: implementing
+status: implemented
 created: 2026-06-14
 updated: 2026-06-15
 
