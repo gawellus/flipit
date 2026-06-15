@@ -1,4 +1,6 @@
+import { Card, CardContent } from "@/components/ui/card";
 import { Button } from "@/components/ui/button";
+import { CheckCircle, Clock } from "lucide-react";
 
 interface SessionEmptyProps {
   nextDue: string | null;
@@ -20,21 +22,33 @@ function formatRelativeTime(isoDate: string): string {
 
 export function SessionEmpty({ nextDue }: SessionEmptyProps) {
   return (
-    <div className="rounded-xl border border-white/10 bg-white/5 p-8 text-center">
-      <p className="text-2xl font-semibold text-green-300">All caught up!</p>
-      {nextDue ? (
-        <p className="mt-2 text-white/60">Next review in {formatRelativeTime(nextDue)}</p>
-      ) : (
-        <p className="mt-2 text-white/60">No cards assigned to this collection yet.</p>
-      )}
-      <div className="mt-6 flex justify-center gap-3">
-        <a href="/study">
-          <Button variant="outline">Back to Collections</Button>
-        </a>
-        <a href="/flashcards">
-          <Button variant="secondary">Add Cards</Button>
-        </a>
-      </div>
-    </div>
+    <Card>
+      <CardContent>
+        <div className="flex flex-col items-center py-12 text-center">
+          <div className="mb-5 flex size-[76px] items-center justify-center rounded-full bg-green-100">
+            <CheckCircle className="size-8 text-green-600" />
+          </div>
+          <h3 className="text-fi-ink text-[22px] font-light tracking-[-0.01em]">All caught up!</h3>
+          {nextDue ? (
+            <p className="text-muted-foreground mt-2 flex items-center gap-1.5 text-[14px]">
+              <Clock className="size-3.5" />
+              Next review in {formatRelativeTime(nextDue)}
+            </p>
+          ) : (
+            <p className="text-muted-foreground mt-2 text-[15px]">No cards assigned to this collection yet.</p>
+          )}
+          <div className="mt-6 flex gap-3">
+            <a href="/study">
+              <Button variant="secondary">Back to collections</Button>
+            </a>
+            {!nextDue && (
+              <a href="/flashcards">
+                <Button>Add cards</Button>
+              </a>
+            )}
+          </div>
+        </div>
+      </CardContent>
+    </Card>
   );
 }

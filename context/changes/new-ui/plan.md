@@ -668,27 +668,27 @@ Restyle the collections grid and the study session (all 4 states: loading, study
 
 #### Automated
 
-- [x] 5.1 Lint passes
-- [x] 5.2 Build succeeds
+- [x] 5.1 Lint passes — c222de8
+- [x] 5.2 Build succeeds — c222de8
 
 #### Manual
 
-- [x] 5.3 Generate: all 5 states render with new styling
-- [x] 5.4 Flashcards: search, CRUD, pagination, empty states
-- [x] 5.5 Delete undo timer bar animates
-- [x] 5.6 Collection dropdown renders correctly
+- [x] 5.3 Generate: all 5 states render with new styling — c222de8
+- [x] 5.4 Flashcards: search, CRUD, pagination, empty states — c222de8
+- [x] 5.5 Delete undo timer bar animates — c222de8
+- [x] 5.6 Collection dropdown renders correctly — c222de8
 
 ### Phase 6: Collections & Study Session
 
 #### Automated
 
-- [ ] 6.1 Lint passes
-- [ ] 6.2 Build succeeds
+- [x] 6.1 Lint passes
+- [x] 6.2 Build succeeds
 
 #### Manual
 
-- [ ] 6.3 Collections: 2-column grid, count pills, study buttons
-- [ ] 6.4 Study: flip card with outline style, 3D animation works
-- [ ] 6.5 Rating buttons: color-coded hovers, interval previews
-- [ ] 6.6 Session complete and empty states render correctly
-- [ ] 6.7 Mobile: rating grid collapses to 2x2
+- [x] 6.3 Collections: 2-column grid, count pills, study buttons
+- [x] 6.4 Study: flip card with outline style, 3D animation works
+- [x] 6.5 Rating buttons: color-coded hovers, interval previews
+- [x] 6.6 Session complete and empty states render correctly
+- [x] 6.7 Mobile: rating grid collapses to 2x2

@@ -1,10 +1,14 @@
 import { useCallback, useEffect, useState } from "react";
 import { fsrs, Rating } from "ts-fsrs";
 import type { StudyCard, IntervalPreview } from "@/types";
+import { Card, CardContent } from "@/components/ui/card";
+import { Button } from "@/components/ui/button";
+import { Spinner } from "@/components/Spinner";
 import { FlashcardDisplay } from "./FlashcardDisplay";
 import { RatingButtons } from "./RatingButtons";
 import { SessionEmpty } from "./SessionEmpty";
 import { SessionComplete } from "./SessionComplete";
+import { ChevronLeft } from "lucide-react";
 
 type State =
   | { step: "loading" }
@@ -135,26 +139,46 @@ export default function StudySessionView({ collectionId }: { collectionId: strin
     }
   }
 
+  const progress =
+    state.step === "studying" ? ((state.currentIndex + (state.flipped ? 0.5 : 0)) / state.cards.length) * 100 : 0;
+
   return (
-    <div className="mt-4">
-      <h1 className="mb-6 bg-gradient-to-r from-blue-200 to-purple-200 bg-clip-text text-3xl font-bold text-transparent">
-        Study Session
-      </h1>
+    <div>
+      <a
+        href="/study"
+        className="text-muted-foreground hover:text-fi-ink mb-6 inline-flex items-center gap-1 text-sm transition-colors"
+      >
+        <ChevronLeft className="size-4" />
+        Back to collections
+      </a>
 
       {state.step === "loading" && (
-        <div className="flex flex-col items-center gap-4 py-16 text-white/70">
-          <div className="size-8 animate-spin rounded-full border-2 border-purple-400 border-t-transparent" />
-          <p>Loading cards...</p>
-        </div>
+        <Card>
+          <CardContent>
+            <div className="flex flex-col items-center gap-4 py-16">
+              <Spinner size={36} />
+              <p className="text-muted-foreground text-[15px]">Loading cards...</p>
+            </div>
+          </CardContent>
+        </Card>
       )}
 
       {state.step === "empty" && <SessionEmpty nextDue={state.nextDue} />}
 
       {state.step === "studying" && (
         <div className="space-y-6">
-          <p className="text-center text-sm text-white/50">
-            Card {state.currentIndex + 1} of {state.cards.length}
-          </p>
+          <div className="flex items-center gap-4">
+            <span className="text-muted-foreground shrink-0 text-sm tabular-nums">
+              Card {state.currentIndex + 1} of {state.cards.length}
+            </span>
+            <div className="h-2 flex-1 overflow-hidden rounded-full bg-[var(--fi-canvas-soft)]">
+              <div
+                className="to-primary h-full rounded-full bg-gradient-to-r from-[var(--fi-primary-deep)] transition-all duration-300"
+                style={{ width: `${progress}%` }}
+              />
+            </div>
+          </div>
+
           <FlashcardDisplay
             front={state.cards[state.currentIndex].front}
             back={state.cards[state.currentIndex].back}
@@ -170,15 +194,29 @@ export default function StudySessionView({ collectionId }: { collectionId: strin
       {state.step === "complete" && <SessionComplete reviewedCount={state.reviewedCount} nextDue={state.nextDue} />}
 
       {state.step === "error" && (
-        <div className="rounded-xl border border-red-500/30 bg-red-500/10 p-8 text-center">
-          <p className="text-red-300">{state.message}</p>
-          <button
-            onClick={handleRetry}
-            className="mt-4 rounded-lg border border-white/20 bg-white/10 px-4 py-2 text-sm text-white transition-colors hover:bg-white/20"
-          >
-            Try again
-          </button>
-        </div>
+        <Card>
+          <CardContent>
+            <div className="flex flex-col items-center gap-3 py-12 text-center">
+              <div className="flex size-[76px] items-center justify-center rounded-full bg-[var(--fi-ruby)]/12">
+                <svg className="size-8 text-[var(--fi-ruby)]" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+                  <path
+                    strokeLinecap="round"
+                    strokeLinejoin="round"
+                    strokeWidth={1.5}
+                    d="M12 9v3.75m9-.75a9 9 0 1 1-18 0 9 9 0 0 1 18 0zm-9 3.75h.008v.008H12v-.008z"
+                  />
+                </svg>
+              </div>
+              <h3 className="text-fi-ink text-[22px] font-light tracking-[-0.01em]">Something went wrong</h3>
+              <p className="text-muted-foreground max-w-sm text-[15px]">{state.message}</p>
+              <div className="mt-3">
+                <Button variant="outline" onClick={handleRetry}>
+                  Try again
+                </Button>
+              </div>
+            </div>
+          </CardContent>
+        </Card>
       )}
     </div>
   );
