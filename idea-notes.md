@@ -37,5 +37,8 @@ Manualne tworzenie wysokiej jakości fiszek edukacyjnych jest czasochłonne, co 
 
 - [x] nie działa generowanie fiszek, brak błedu - nie wiadomo kto sposowdował błąd
 
+- [x] login/logout tweaks
 
 - [] reset review session
+
+- [] reszta faz

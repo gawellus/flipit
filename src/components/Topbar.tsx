@@ -3,6 +3,14 @@ import { LayoutDashboard, Sparkles, RectangleEllipsis, Layers, Menu, X, LogOut }
 import { cn } from "@/lib/utils";
 import { Logo } from "@/components/Logo";
 import { Button } from "@/components/ui/button";
+import {
+  DropdownMenu,
+  DropdownMenuContent,
+  DropdownMenuItem,
+  DropdownMenuLabel,
+  DropdownMenuSeparator,
+  DropdownMenuTrigger,
+} from "@/components/ui/dropdown-menu";
 import { useFocusTrap } from "@/components/hooks/useFocusTrap";
 
 interface TopbarProps {
@@ -82,10 +90,32 @@ export default function Topbar({ user, pathname, variant = "default" }: TopbarPr
         <div className="ml-auto flex items-center gap-4">
           {user ? (
             <>
-              <span className="text-muted-foreground hidden text-sm min-[861px]:block">{user.email}</span>
-              <div className="bg-fi-brand-dark hidden size-9 items-center justify-center rounded-full text-sm font-medium text-white min-[861px]:flex">
-                {getInitial(user.email)}
-              </div>
+              <DropdownMenu>
+                <DropdownMenuTrigger asChild>
+                  <button
+                    type="button"
+                    className="bg-fi-brand-dark hover:ring-primary/30 hidden size-9 cursor-pointer items-center justify-center rounded-full text-sm font-medium text-white transition-shadow hover:ring-2 focus-visible:ring-2 focus-visible:ring-offset-2 focus-visible:outline-none min-[861px]:flex"
+                    aria-label="Account menu"
+                  >
+                    {getInitial(user.email)}
+                  </button>
+                </DropdownMenuTrigger>
+                <DropdownMenuContent align="end" className="w-56">
+                  <DropdownMenuLabel className="font-normal">
+                    <span className="text-muted-foreground text-xs">Signed in as</span>
+                    <p className="truncate text-sm font-medium">{user.email}</p>
+                  </DropdownMenuLabel>
+                  <DropdownMenuSeparator />
+                  <DropdownMenuItem asChild>
+                    <form method="POST" action="/api/auth/signout" className="w-full">
+                      <button type="submit" className="flex w-full items-center gap-2">
+                        <LogOut className="size-4" />
+                        Sign out
+                      </button>
+                    </form>
+                  </DropdownMenuItem>
+                </DropdownMenuContent>
+              </DropdownMenu>
               <button
                 type="button"
                 onClick={() => {
