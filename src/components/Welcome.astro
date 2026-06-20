@@ -4,6 +4,7 @@ import Footer from "@/components/Footer.astro";
 import { GradientMesh } from "@/components/GradientMesh";
 import { Tag } from "@/components/Tag";
 import { Button } from "@/components/ui/button";
+import { DemoFlashcard } from "@/components/DemoFlashcard";
 ---
 
 <div class="bg-background min-h-screen">
@@ -75,51 +76,9 @@ import { Button } from "@/components/ui/button";
           <p class="text-fi-ink-mute mt-6 text-sm">Question</p>
           <p class="text-fi-ink mt-1 text-lg font-light">What is chlorophyll.</p>
         </div>
-        <!-- Front card -->
-        <div
-          class="absolute top-4 left-0 w-[360px] rounded-xl border border-[var(--fi-hairline)] bg-white p-6 shadow-[var(--shadow-float)]"
-        >
-          <div class="flex items-center justify-between">
-            <span
-              class="bg-primary/12 text-fi-primary-deep inline-flex items-center gap-1.5 rounded-full px-2.5 py-1 text-[11px] font-normal uppercase"
-            >
-              <svg
-                width="12"
-                height="12"
-                viewBox="0 0 24 24"
-                fill="none"
-                stroke="currentColor"
-                stroke-width="2"
-                class="inline"
-              >
-                <path
-                  d="M9.937 15.5A2 2 0 0 0 8.5 14.063l-6.135-1.582a.5.5 0 0 1 0-.962L8.5 9.936A2 2 0 0 0 9.937 8.5l1.582-6.135a.5.5 0 0 1 .963 0L14.063 8.5A2 2 0 0 0 15.5 9.937l6.135 1.581a.5.5 0 0 1 0 .964L15.5 14.063a2 2 0 0 0-1.437 1.437l-1.582 6.135a.5.5 0 0 1-.963 0z"
-                ></path>
-              </svg>
-              AI
-            </span>
-            <span class="text-fi-ink-mute text-xs">Card 1 of 12</span>
-          </div>
-          <p class="text-fi-ink-mute mt-6 text-xs tracking-wider uppercase">Question</p>
-          <p class="text-fi-ink mt-2 text-xl leading-snug font-light">What is the powerhouse of the cell?</p>
-          <button
-            class="text-fi-ink-mute hover:border-primary hover:text-primary mt-8 flex w-full items-center justify-center gap-2 rounded-lg border border-[var(--fi-hairline)] py-3 text-sm transition-colors"
-          >
-            <svg
-              width="16"
-              height="16"
-              viewBox="0 0 24 24"
-              fill="none"
-              stroke="currentColor"
-              stroke-width="2"
-              stroke-linecap="round"
-              stroke-linejoin="round"
-            >
-              <path d="M21 12a9 9 0 1 1-9-9c2.52 0 4.93 1 6.74 2.74L21 8"></path>
-              <path d="M21 3v5h-5"></path>
-            </svg>
-            Reveal answer
-          </button>
+        <!-- Interactive front card -->
+        <div class="absolute top-4 left-0">
+          <DemoFlashcard client:load />
         </div>
       </div>
     </div>
