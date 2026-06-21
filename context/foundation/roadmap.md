@@ -3,7 +3,7 @@ project: FlipIt
 version: 1
 status: draft
 created: 2026-05-28
-updated: 2026-06-15
+updated: 2026-06-21
 prd_version: 1
 main_goal: speed
 top_blocker: time
@@ -32,7 +32,7 @@ Spaced repetition works, but creating high-quality flashcards is a time-consumin
 | S-01 | ai-flashcard-generation | paste text, generate AI flashcards, review/edit/accept/reject, and save to collection       | —                | US-01, FR-001, FR-002, FR-003, FR-004 | done     |
 | S-03 | sr-study-session        | study saved flashcards with spaced repetition scheduling and rate recall                    | S-01             | FR-009, FR-010                        | done     |
 | S-02 | flashcard-crud          | manually create a flashcard, browse collection with text search, edit and delete flashcards | S-01             | FR-005, FR-006, FR-007, FR-008        | done     |
-| S-04 | collection-assignment   | choose a target collection when generating AI flashcards, creating manually, or editing     | S-01, S-02       | —                                     | proposed |
+| S-04 | collection-assignment   | choose a target collection when generating AI flashcards, creating manually, or editing     | S-01, S-02       | —                                     | done     |
 | S-05 | bulk-flashcard-actions  | select multiple flashcards and bulk-delete or bulk-change collection                        | S-02             | —                                     | proposed |
 | S-06 | new-ui                  | see the final visual design across all screens (responsive, animated, polished)             | S-01, S-02, S-03 | —                                     | done     |
 
@@ -113,7 +113,7 @@ No foundations required. Auth and frontend are present in the baseline. The flas
 - **Blockers:** —
 - **Unknowns:** —
 - **Risk:** Low. Collections table and `collection_id` FK already exist. Main work is UI: a shared collection picker component reused in three places.
-- **Status:** proposed
+- **Status:** done
 
 ### S-05: Bulk flashcard actions
 
@@ -171,3 +171,4 @@ No blocking roadmap-level questions. PRD `## Open Questions` reports zero unreso
 - **S-02: user can manually create a flashcard (front/back), browse their collection with basic text search, edit an existing flashcard, and delete a flashcard** — Archived 2026-06-07 → `context/archive/2026-06-03-flashcard-crud/`. Lesson: —.
 - **S-03: user can start a study session that presents flashcards using spaced repetition scheduling and rate their recall to feed the SR algorithm** — Archived 2026-06-07 → `context/archive/2026-06-04-sr-study-session/`. Lesson: —.
 - **S-06: user sees the final visual design across all 9 screens — responsive layouts, 3D card-flip animation, source badges (AI/manual), delete-with-undo timers, mobile-friendly topbar, character counters, and a cohesive design system — as specified in `context/design/new-ui.md`** — Archived 2026-06-15 → `context/archive/2026-06-14-new-ui/`. Lesson: —.
+- **S-04: user can select a target collection when saving AI-generated flashcards (picker in the review toolbar), when creating a flashcard manually (dropdown in the create form), and when editing a single flashcard (dropdown in edit mode)** — Archived 2026-06-21 → `context/archive/2026-06-07-collection-assignment/`. Lesson: —.

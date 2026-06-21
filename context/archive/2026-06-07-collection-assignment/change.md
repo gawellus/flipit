@@ -1,11 +1,11 @@
 ---
 change_id: collection-assignment
 title: Collection assignment
-status: impl_reviewed
+status: archived
 created: 2026-06-07
 updated: 2026-06-21
 
-archived_at: null
+archived_at: 2026-06-21T11:23:59Z
 ---
 
 ## Notes
