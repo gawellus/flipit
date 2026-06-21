@@ -1,7 +1,14 @@
 import type { APIRoute } from "astro";
 import { z } from "zod";
 import { createClient } from "@/lib/supabase";
-import { createFlashcards, listFlashcards, updateFlashcard, deleteFlashcard } from "@/lib/services/flashcards";
+import {
+  createFlashcards,
+  listFlashcards,
+  updateFlashcard,
+  deleteFlashcard,
+  deleteFlashcards,
+  updateFlashcardsCollection,
+} from "@/lib/services/flashcards";
 import { NotFoundError } from "@/lib/errors";
 
 export const SaveFlashcardsSchema = z
@@ -46,6 +53,15 @@ export const UpdateFlashcardSchema = z
 
 export const DeleteFlashcardSchema = z.object({
   id: z.uuid("id must be a valid UUID"),
+});
+
+export const BulkDeleteSchema = z.object({
+  ids: z.array(z.uuid("each id must be a valid UUID")).min(1).max(50),
+});
+
+export const BulkUpdateCollectionSchema = z.object({
+  ids: z.array(z.uuid("each id must be a valid UUID")).min(1).max(50),
+  collection_id: z.uuid("collection_id must be a valid UUID").nullable(),
 });
 
 export const prerender = false;
@@ -173,6 +189,33 @@ export const PATCH: APIRoute = async (context) => {
     });
   }
 
+  const supabase = createClient(context.request.headers, context.cookies);
+  if (!supabase) {
+    return new Response(JSON.stringify({ error: "Supabase is not configured" }), {
+      status: 500,
+      headers: { "Content-Type": "application/json" },
+    });
+  }
+
+  const bulkValidation = BulkUpdateCollectionSchema.safeParse(body);
+  if (bulkValidation.success) {
+    try {
+      const { ids, collection_id } = bulkValidation.data;
+      const updatedCount = await updateFlashcardsCollection(supabase, context.locals.user.id, ids, collection_id);
+
+      return new Response(JSON.stringify({ updated_count: updatedCount }), {
+        status: 200,
+        headers: { "Content-Type": "application/json" },
+      });
+    } catch (err) {
+      const message = err instanceof Error ? err.message : "Failed to update flashcards";
+      return new Response(JSON.stringify({ error: message }), {
+        status: 500,
+        headers: { "Content-Type": "application/json" },
+      });
+    }
+  }
+
   const validation = UpdateFlashcardSchema.safeParse(body);
   if (!validation.success) {
     return new Response(
@@ -182,14 +225,6 @@ export const PATCH: APIRoute = async (context) => {
       }),
       { status: 400, headers: { "Content-Type": "application/json" } },
     );
-  }
-
-  const supabase = createClient(context.request.headers, context.cookies);
-  if (!supabase) {
-    return new Response(JSON.stringify({ error: "Supabase is not configured" }), {
-      status: 500,
-      headers: { "Content-Type": "application/json" },
-    });
   }
 
   try {
@@ -228,6 +263,32 @@ export const DELETE: APIRoute = async (context) => {
     });
   }
 
+  const supabase = createClient(context.request.headers, context.cookies);
+  if (!supabase) {
+    return new Response(JSON.stringify({ error: "Supabase is not configured" }), {
+      status: 500,
+      headers: { "Content-Type": "application/json" },
+    });
+  }
+
+  const bulkValidation = BulkDeleteSchema.safeParse(body);
+  if (bulkValidation.success) {
+    try {
+      const deletedCount = await deleteFlashcards(supabase, context.locals.user.id, bulkValidation.data.ids);
+
+      return new Response(JSON.stringify({ deleted_count: deletedCount }), {
+        status: 200,
+        headers: { "Content-Type": "application/json" },
+      });
+    } catch (err) {
+      const message = err instanceof Error ? err.message : "Failed to delete flashcards";
+      return new Response(JSON.stringify({ error: message }), {
+        status: 500,
+        headers: { "Content-Type": "application/json" },
+      });
+    }
+  }
+
   const validation = DeleteFlashcardSchema.safeParse(body);
   if (!validation.success) {
     return new Response(
@@ -237,14 +298,6 @@ export const DELETE: APIRoute = async (context) => {
       }),
       { status: 400, headers: { "Content-Type": "application/json" } },
     );
-  }
-
-  const supabase = createClient(context.request.headers, context.cookies);
-  if (!supabase) {
-    return new Response(JSON.stringify({ error: "Supabase is not configured" }), {
-      status: 500,
-      headers: { "Content-Type": "application/json" },
-    });
   }
 
   try {

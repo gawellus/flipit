@@ -108,3 +108,33 @@ export async function deleteFlashcard(supabase: SupabaseClient, userId: string, 
     throw new Error(`Failed to delete flashcard: ${error.message}`);
   }
 }
+
+export async function deleteFlashcards(supabase: SupabaseClient, userId: string, ids: string[]): Promise<number> {
+  const { data, error } = await supabase.from("flashcards").delete().in("id", ids).eq("user_id", userId).select("id");
+
+  if (error) {
+    throw new Error(`Failed to delete flashcards: ${error.message}`);
+  }
+
+  return data.length;
+}
+
+export async function updateFlashcardsCollection(
+  supabase: SupabaseClient,
+  userId: string,
+  ids: string[],
+  collectionId: string | null,
+): Promise<number> {
+  const { data, error } = await supabase
+    .from("flashcards")
+    .update({ collection_id: collectionId })
+    .in("id", ids)
+    .eq("user_id", userId)
+    .select("id");
+
+  if (error) {
+    throw new Error(`Failed to update flashcards collection: ${error.message}`);
+  }
+
+  return data.length;
+}
