@@ -30,7 +30,10 @@ export function FlashcardReview({ proposals, generationId, onSaveComplete }: Pro
   useEffect(() => {
     let cancelled = false;
     fetch("/api/collections")
-      .then((res) => res.json() as Promise<Collection[]>)
+      .then((res) => {
+        if (!res.ok) throw new Error("Failed to fetch collections");
+        return res.json() as Promise<Collection[]>;
+      })
       .then((data) => {
         if (!cancelled) setCollections(data);
       })
