@@ -134,6 +134,7 @@ export default function FlashcardsView() {
       {isFormOpen && (
         <div className="mb-4">
           <CreateFlashcardForm
+            collections={collections}
             onCreated={handleCreated}
             onClose={() => {
               setIsFormOpen(false);

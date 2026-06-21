@@ -1,6 +1,7 @@
-import { useState } from "react";
-import type { FlashcardProposal } from "@/types";
+import { useState, useEffect } from "react";
+import type { Collection, FlashcardProposal } from "@/types";
 import { Button } from "@/components/ui/button";
+import { CollectionPicker } from "@/components/collections/CollectionPicker";
 import { FlashcardItem } from "./FlashcardItem";
 
 type CardStatus = "pending" | "accepted" | "rejected" | "editing";
@@ -23,6 +24,23 @@ export function FlashcardReview({ proposals, generationId, onSaveComplete }: Pro
   );
   const [isSaving, setIsSaving] = useState(false);
   const [saveError, setSaveError] = useState<string | null>(null);
+  const [collections, setCollections] = useState<Collection[]>([]);
+  const [selectedCollectionId, setSelectedCollectionId] = useState<string | null>(null);
+
+  useEffect(() => {
+    let cancelled = false;
+    fetch("/api/collections")
+      .then((res) => res.json() as Promise<Collection[]>)
+      .then((data) => {
+        if (!cancelled) setCollections(data);
+      })
+      .catch((_err: unknown) => {
+        // Collections are optional — silently ignore fetch failures
+      });
+    return () => {
+      cancelled = true;
+    };
+  }, []);
 
   const acceptedCount = cards.filter((c) => c.status === "accepted").length;
   const totalCount = cards.length;
@@ -56,6 +74,7 @@ export function FlashcardReview({ proposals, generationId, onSaveComplete }: Pro
         headers: { "Content-Type": "application/json" },
         body: JSON.stringify({
           generation_id: generationId,
+          collection_id: selectedCollectionId,
           flashcards: accepted.map((c) => ({ front: c.proposal.front, back: c.proposal.back })),
         }),
       });
@@ -80,6 +99,7 @@ export function FlashcardReview({ proposals, generationId, onSaveComplete }: Pro
       <span className="text-muted-foreground text-sm tabular-nums">
         {acceptedCount} of {totalCount} accepted
       </span>
+      <CollectionPicker collections={collections} value={selectedCollectionId} onChange={setSelectedCollectionId} />
       <div className="flex gap-2">
         {acceptedCount > 0 ? (
           <Button variant="outline" size="sm" onClick={handleDeselectAll}>

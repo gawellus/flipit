@@ -1,15 +1,19 @@
 import { useState } from "react";
+import type { Collection } from "@/types";
 import { Button } from "@/components/ui/button";
 import { Textarea } from "@/components/ui/textarea";
+import { CollectionPicker } from "@/components/collections/CollectionPicker";
 
 interface Props {
+  collections: Collection[];
   onCreated: () => void;
   onClose: () => void;
 }
 
-export function CreateFlashcardForm({ onCreated, onClose }: Props) {
+export function CreateFlashcardForm({ collections, onCreated, onClose }: Props) {
   const [front, setFront] = useState("");
   const [back, setBack] = useState("");
+  const [collectionId, setCollectionId] = useState<string | null>(null);
   const [isSaving, setIsSaving] = useState(false);
   const [error, setError] = useState<string | null>(null);
 
@@ -23,6 +27,7 @@ export function CreateFlashcardForm({ onCreated, onClose }: Props) {
         headers: { "Content-Type": "application/json" },
         body: JSON.stringify({
           source: "manual",
+          collection_id: collectionId,
           flashcards: [{ front: front.trim(), back: back.trim() }],
         }),
       });
@@ -35,6 +40,7 @@ export function CreateFlashcardForm({ onCreated, onClose }: Props) {
 
       setFront("");
       setBack("");
+      setCollectionId(null);
       onClose();
       onCreated();
     } catch {
@@ -47,6 +53,7 @@ export function CreateFlashcardForm({ onCreated, onClose }: Props) {
   function handleCancel() {
     setFront("");
     setBack("");
+    setCollectionId(null);
     setError(null);
     onClose();
   }
@@ -83,6 +90,10 @@ export function CreateFlashcardForm({ onCreated, onClose }: Props) {
           placeholder="Answer or definition..."
           className="min-h-[80px]"
         />
+      </div>
+      <div>
+        <label className="text-fi-ink-secondary mb-1 block text-[13px]">Collection</label>
+        <CollectionPicker collections={collections} value={collectionId} onChange={setCollectionId} />
       </div>
       {error && <p className="text-sm text-[var(--fi-ruby)]">{error}</p>}
       <div className="flex justify-end gap-3">

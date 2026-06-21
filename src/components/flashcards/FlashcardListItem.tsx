@@ -5,6 +5,7 @@ import { Button } from "@/components/ui/button";
 import { Textarea } from "@/components/ui/textarea";
 import { cn } from "@/lib/utils";
 import { Pencil, Trash2, Sparkles, PenLine } from "lucide-react";
+import { CollectionPicker } from "@/components/collections/CollectionPicker";
 
 interface Props {
   flashcard: Flashcard;
@@ -188,18 +189,11 @@ export function FlashcardListItem({ flashcard, collections, onUpdated, onDeleted
             <p className="text-fi-ink text-[17px] font-light">{flashcard.front}</p>
             <p className="text-fi-ink-secondary text-[14.5px]">{flashcard.back}</p>
             <div className="flex items-center gap-2 pt-1">
-              <select
-                value={flashcard.collection_id ?? ""}
-                onChange={(e) => void handleCollectionChange(e.target.value || null)}
-                className="border-fi-hairline text-fi-ink-secondary rounded-full border bg-transparent px-3 py-1 text-xs"
-              >
-                <option value="">No collection</option>
-                {collections.map((c) => (
-                  <option key={c.id} value={c.id}>
-                    {c.name}
-                  </option>
-                ))}
-              </select>
+              <CollectionPicker
+                collections={collections}
+                value={flashcard.collection_id}
+                onChange={(id) => void handleCollectionChange(id)}
+              />
             </div>
           </div>
           <div className="flex shrink-0 flex-col gap-1">

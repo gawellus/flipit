@@ -263,31 +263,31 @@ No performance concerns. The collections list is small (user-scoped), already fe
 
 #### Manual
 
-- [ ] 1.6 Existing flashcard creation (generate + manual) still works without passing collection_id
+- [x] 1.6 Existing flashcard creation (generate + manual) still works without passing collection_id
 
 ### Phase 2: Shared CollectionPicker component
 
 #### Automated
 
-- [x] 2.1 Type checking passes after creating CollectionPicker component
-- [x] 2.2 Build succeeds with new component
+- [x] 2.1 Type checking passes after creating CollectionPicker component — 36b514b
+- [x] 2.2 Build succeeds with new component — 36b514b
 
 #### Manual
 
-- [ ] 2.3 Component renders correctly (verified in Phase 3 integration)
+- [x] 2.3 Component renders correctly (verified in Phase 3 integration)
 
 ### Phase 3: Wire CollectionPicker into all three flows
 
 #### Automated
 
-- [ ] 3.1 Type checking passes after wiring picker into FlashcardReview, CreateFlashcardForm, and FlashcardListItem
-- [ ] 3.2 Build succeeds with all three integrations
+- [x] 3.1 Type checking passes after wiring picker into FlashcardReview, CreateFlashcardForm, and FlashcardListItem
+- [x] 3.2 Build succeeds with all three integrations
 
 #### Manual
 
-- [ ] 3.3 AI generation: generate cards, select a collection in toolbar, save — cards appear in that collection
-- [ ] 3.4 AI generation: generate cards, leave picker on "None", save — cards have no collection
-- [ ] 3.5 Manual create: create a card with a collection selected — card appears with that collection
-- [ ] 3.6 Manual create: create a card with "None" — card has no collection
-- [ ] 3.7 Edit flow: change a card's collection via the picker — change persists on refresh
-- [ ] 3.8 Edit flow: set a card's collection to "None" — collection_id is cleared
+- [x] 3.3 AI generation: generate cards, select a collection in toolbar, save — cards appear in that collection
+- [x] 3.4 AI generation: generate cards, leave picker on "None", save — cards have no collection
+- [x] 3.5 Manual create: create a card with a collection selected — card appears with that collection
+- [x] 3.6 Manual create: create a card with "None" — card has no collection
+- [x] 3.7 Edit flow: change a card's collection via the picker — change persists on refresh
+- [x] 3.8 Edit flow: set a card's collection to "None" — collection_id is cleared
