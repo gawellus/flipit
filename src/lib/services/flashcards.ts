@@ -17,6 +17,7 @@ export async function createFlashcards(
     back: card.back,
     source: card.source,
     generation_id: card.generation_id ?? null,
+    collection_id: card.collection_id ?? null,
   }));
 
   const { data, error } = await supabase.from("flashcards").insert(rows).select();

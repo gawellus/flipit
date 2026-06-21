@@ -94,6 +94,33 @@ describe("SaveFlashcardsSchema", () => {
     expect(result.success).toBe(false);
   });
 
+  it("passes with valid collection_id UUID", () => {
+    const result = SaveFlashcardsSchema.safeParse({
+      source: "manual",
+      collection_id: VALID_UUID,
+      flashcards: [validCard],
+    });
+    expect(result.success).toBe(true);
+  });
+
+  it("passes with null collection_id", () => {
+    const result = SaveFlashcardsSchema.safeParse({
+      source: "manual",
+      collection_id: null,
+      flashcards: [validCard],
+    });
+    expect(result.success).toBe(true);
+  });
+
+  it("fails with invalid collection_id string", () => {
+    const result = SaveFlashcardsSchema.safeParse({
+      source: "manual",
+      collection_id: "not-a-uuid",
+      flashcards: [validCard],
+    });
+    expect(result.success).toBe(false);
+  });
+
   it("defaults source to 'ai' when omitted", () => {
     const result = SaveFlashcardsSchema.safeParse({
       generation_id: VALID_UUID,

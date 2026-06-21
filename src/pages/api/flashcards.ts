@@ -7,6 +7,7 @@ import { NotFoundError } from "@/lib/errors";
 export const SaveFlashcardsSchema = z
   .object({
     generation_id: z.uuid("generation_id must be a valid UUID").optional(),
+    collection_id: z.uuid("collection_id must be a valid UUID").nullable().optional(),
     source: z.enum(["ai", "manual"]).default("ai"),
     flashcards: z
       .array(
@@ -92,6 +93,7 @@ export const POST: APIRoute = async (context) => {
       back: f.back,
       source: validation.data.source,
       generation_id: validation.data.generation_id,
+      collection_id: validation.data.collection_id ?? null,
     }));
 
     const saved = await createFlashcards(supabase, context.locals.user.id, cards);

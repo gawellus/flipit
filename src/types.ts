@@ -20,6 +20,7 @@ export interface CreateFlashcardInput {
   back: string;
   source: "ai" | "manual";
   generation_id?: string;
+  collection_id?: string | null;
 }
 
 export interface PaginatedResponse<T> {

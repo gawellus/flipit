@@ -88,12 +88,27 @@ Add optional `collection_id` to the flashcard creation path so cards can be assi
 
 **Contract**: The row mapping in `createFlashcards` adds `collection_id: card.collection_id ?? null`.
 
+#### 5. Update existing tests for collection_id
+
+**File**: `src/lib/services/flashcards.test.ts`
+
+**Intent**: The `createFlashcards` insert assertion (line 46-48) asserts the exact payload shape without `collection_id`. Adding `collection_id` to the row mapping will break it. Update to expect the new field.
+
+**Contract**: Update the `.insert()` assertion to include `collection_id: null` in the expected row object.
+
+**File**: `src/pages/api/flashcards.test.ts`
+
+**Intent**: `SaveFlashcardsSchema` tests don't cover the new `collection_id` field. Add coverage for valid UUID, null, and invalid UUID.
+
+**Contract**: Add 3 tests to the `SaveFlashcardsSchema` describe block: (1) passes with valid `collection_id` UUID, (2) passes with `collection_id: null`, (3) fails with invalid `collection_id` string.
+
 ### Success Criteria:
 
 #### Automated Verification:
 
 - Type checking passes: `npm run lint`
 - Build succeeds: `npm run build`
+- Existing tests updated and passing (`npm test`): `createFlashcards` insert assertion includes `collection_id: null`, `SaveFlashcardsSchema` tests cover valid UUID, null, and invalid `collection_id`
 - POST `/api/flashcards` with `{ source: "manual", collection_id: "<uuid>", flashcards: [...] }` creates cards with the specified `collection_id`
 - POST without `collection_id` still creates cards with `collection_id: null` (backward compatible)
 
@@ -115,7 +130,7 @@ Extract the collection dropdown pattern into a reusable `CollectionPicker` compo
 
 #### 1. Create CollectionPicker component
 
-**File**: `src/components/ui/CollectionPicker.tsx`
+**File**: `src/components/collections/CollectionPicker.tsx`
 
 **Intent**: A controlled select component that renders the list of collections with a "None" option. Accepts `collections`, `value` (current collection_id or null), and `onChange` callback.
 
@@ -158,9 +173,9 @@ Add the `CollectionPicker` to the AI generation review toolbar and manual create
 
 **File**: `src/components/generate/FlashcardReview.tsx`
 
-**Intent**: Add a `CollectionPicker` to the sticky review toolbar so all accepted cards are saved to the selected collection.
+**Intent**: Add a `CollectionPicker` to the review action bar so all accepted cards are saved to the selected collection.
 
-**Contract**: Component fetches collections via `GET /api/collections` on mount. Holds `selectedCollectionId` state (default: `null`). Picker renders in the sticky toolbar between the count label and the action buttons. `handleSave` includes `collection_id: selectedCollectionId` in the POST payload.
+**Contract**: Component fetches collections via `GET /api/collections` on mount. Holds `selectedCollectionId` state (default: `null`). Picker renders inside the `actionBar` JSX variable (between the count label `<span>` and the buttons `<div>`). The action bar is rendered twice (top and bottom of the card list) — since it's a shared JSX variable, the picker will appear in both locations automatically. `handleSave` includes `collection_id: selectedCollectionId` in the POST payload.
 
 #### 2. Add picker to CreateFlashcardForm (manual create)
 
@@ -174,9 +189,9 @@ Add the `CollectionPicker` to the AI generation review toolbar and manual create
 
 **File**: `src/components/flashcards/FlashcardListItem.tsx`
 
-**Intent**: Replace the inline `<select>` (lines 191-202) and the associated `Badge` (lines 203-207) with the shared `CollectionPicker` component for consistent UX.
+**Intent**: Replace the inline `<select>` (lines 191-202) with the shared `CollectionPicker` component for consistent UX.
 
-**Contract**: `CollectionPicker` with `value={flashcard.collection_id}`, `collections={collections}`, `onChange={handleCollectionChange}`. Remove the raw `<select>` element and the redundant `currentCollection` Badge that follows it.
+**Contract**: `CollectionPicker` with `value={flashcard.collection_id}`, `collections={collections}`, `onChange={handleCollectionChange}`. Remove the raw `<select>` element and its wrapper `<div>` (lines 190-203).
 
 ### Success Criteria:
 
@@ -202,7 +217,8 @@ Add the `CollectionPicker` to the AI generation review toolbar and manual create
 
 ### Unit Tests:
 
-- No new unit tests required — the changes are thin wiring (type field, Zod field, prop threading). Existing patterns in the codebase don't include component-level unit tests.
+- Update `createFlashcards` insert assertion in `flashcards.test.ts` to include `collection_id: null`
+- Add 3 `SaveFlashcardsSchema` tests for `collection_id`: valid UUID, null, invalid string
 
 ### Integration Tests:
 
@@ -239,12 +255,15 @@ No performance concerns. The collections list is small (user-scoped), already fe
 
 #### Automated
 
-- [ ] 1.1 Type checking passes after adding collection_id to CreateFlashcardInput and SaveFlashcardsSchema
-- [ ] 1.2 Build succeeds with collection_id threaded through POST handler and service
+- [x] 1.1 Type checking passes after adding collection_id to CreateFlashcardInput and SaveFlashcardsSchema
+- [x] 1.2 Build succeeds with collection_id threaded through POST handler and service
+- [x] 1.3 Existing tests updated and passing: createFlashcards insert assertion includes collection_id, SaveFlashcardsSchema tests cover collection_id
+- [x] 1.4 POST with collection_id creates cards with the specified collection_id
+- [x] 1.5 POST without collection_id still creates cards with collection_id null (backward compatible)
 
 #### Manual
 
-- [ ] 1.3 POST with collection_id creates assigned cards; POST without collection_id creates unassigned cards
+- [ ] 1.6 Existing flashcard creation (generate + manual) still works without passing collection_id
 
 ### Phase 2: Shared CollectionPicker component
 
@@ -252,6 +271,10 @@ No performance concerns. The collections list is small (user-scoped), already fe
 
 - [ ] 2.1 Type checking passes after creating CollectionPicker component
 - [ ] 2.2 Build succeeds with new component
+
+#### Manual
+
+- [ ] 2.3 Component renders correctly (verified in Phase 3 integration)
 
 ### Phase 3: Wire CollectionPicker into all three flows
 
@@ -262,7 +285,9 @@ No performance concerns. The collections list is small (user-scoped), already fe
 
 #### Manual
 
-- [ ] 3.3 AI generation save assigns cards to selected collection
-- [ ] 3.4 Manual create assigns card to selected collection
-- [ ] 3.5 Edit flow collection change persists correctly
-- [ ] 3.6 "None" option works in all three flows (cards unassigned)
+- [ ] 3.3 AI generation: generate cards, select a collection in toolbar, save — cards appear in that collection
+- [ ] 3.4 AI generation: generate cards, leave picker on "None", save — cards have no collection
+- [ ] 3.5 Manual create: create a card with a collection selected — card appears with that collection
+- [ ] 3.6 Manual create: create a card with "None" — card has no collection
+- [ ] 3.7 Edit flow: change a card's collection via the picker — change persists on refresh
+- [ ] 3.8 Edit flow: set a card's collection to "None" — collection_id is cleared
