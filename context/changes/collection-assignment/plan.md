@@ -255,11 +255,11 @@ No performance concerns. The collections list is small (user-scoped), already fe
 
 #### Automated
 
-- [x] 1.1 Type checking passes after adding collection_id to CreateFlashcardInput and SaveFlashcardsSchema
-- [x] 1.2 Build succeeds with collection_id threaded through POST handler and service
-- [x] 1.3 Existing tests updated and passing: createFlashcards insert assertion includes collection_id, SaveFlashcardsSchema tests cover collection_id
-- [x] 1.4 POST with collection_id creates cards with the specified collection_id
-- [x] 1.5 POST without collection_id still creates cards with collection_id null (backward compatible)
+- [x] 1.1 Type checking passes after adding collection_id to CreateFlashcardInput and SaveFlashcardsSchema — 978c77d
+- [x] 1.2 Build succeeds with collection_id threaded through POST handler and service — 978c77d
+- [x] 1.3 Existing tests updated and passing: createFlashcards insert assertion includes collection_id, SaveFlashcardsSchema tests cover collection_id — 978c77d
+- [x] 1.4 POST with collection_id creates cards with the specified collection_id — 978c77d
+- [x] 1.5 POST without collection_id still creates cards with collection_id null (backward compatible) — 978c77d
 
 #### Manual
 
@@ -269,8 +269,8 @@ No performance concerns. The collections list is small (user-scoped), already fe
 
 #### Automated
 
-- [ ] 2.1 Type checking passes after creating CollectionPicker component
-- [ ] 2.2 Build succeeds with new component
+- [x] 2.1 Type checking passes after creating CollectionPicker component
+- [x] 2.2 Build succeeds with new component
 
 #### Manual
 
