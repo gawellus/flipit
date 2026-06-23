@@ -4,11 +4,13 @@ import { Tag } from "@/components/Tag";
 import { Spinner } from "@/components/Spinner";
 import { EmptyState } from "@/components/EmptyState";
 import { Button } from "@/components/ui/button";
+import { Checkbox } from "@/components/ui/checkbox";
 import { Layers, Plus } from "lucide-react";
 import { SearchInput } from "./SearchInput";
 import { CreateFlashcardForm } from "./CreateFlashcardForm";
 import { FlashcardListItem } from "./FlashcardListItem";
 import { PaginationControls } from "./PaginationControls";
+import { BulkActionBar } from "./BulkActionBar";
 
 async function fetchCards(currentPage: number, currentSearch: string) {
   const params = new URLSearchParams({
@@ -38,6 +40,7 @@ export default function FlashcardsView() {
   const [refreshKey, setRefreshKey] = useState(0);
   const [collections, setCollections] = useState<Collection[]>([]);
   const [isFormOpen, setIsFormOpen] = useState(false);
+  const [selectedIds, setSelectedIds] = useState<Set<string>>(new Set());
 
   useEffect(() => {
     let cancelled = false;
@@ -80,6 +83,7 @@ export default function FlashcardsView() {
   const refresh = useCallback(() => {
     setIsLoading(true);
     setError(null);
+    setSelectedIds(new Set());
     setRefreshKey((k) => k + 1);
   }, []);
 
@@ -88,6 +92,7 @@ export default function FlashcardsView() {
     setPage(1);
     setIsLoading(true);
     setError(null);
+    setSelectedIds(new Set());
   }
 
   function handleCreated() {
@@ -95,6 +100,7 @@ export default function FlashcardsView() {
     setPage(1);
     setIsLoading(true);
     setError(null);
+    setSelectedIds(new Set());
     setRefreshKey((k) => k + 1);
   }
 
@@ -102,7 +108,28 @@ export default function FlashcardsView() {
     setPage(p);
     setIsLoading(true);
     setError(null);
+    setSelectedIds(new Set());
   }
+
+  function toggleSelect(id: string) {
+    setSelectedIds((prev) => {
+      const next = new Set(prev);
+      if (next.has(id)) next.delete(id);
+      else next.add(id);
+      return next;
+    });
+  }
+
+  function selectAll() {
+    setSelectedIds(new Set(flashcards.map((c) => c.id)));
+  }
+
+  function deselectAll() {
+    setSelectedIds(new Set());
+  }
+
+  const hasSelection = selectedIds.size > 0;
+  const allSelected = flashcards.length > 0 && selectedIds.size === flashcards.length;
 
   return (
     <div>
@@ -186,6 +213,32 @@ export default function FlashcardsView() {
 
       {!isLoading && !error && totalCount > 0 && (
         <>
+          <div className="mb-3 flex items-center gap-3">
+            <Checkbox
+              checked={allSelected}
+              onCheckedChange={() => {
+                if (allSelected) deselectAll();
+                else selectAll();
+              }}
+              aria-label={allSelected ? "Deselect all" : "Select all"}
+            />
+            <span className="text-muted-foreground text-sm">
+              {hasSelection ? `${selectedIds.size} selected` : `Select all (${flashcards.length})`}
+            </span>
+          </div>
+
+          {hasSelection && (
+            <div className="mb-3">
+              <BulkActionBar
+                selectedCount={selectedIds.size}
+                collections={collections}
+                onMove={() => undefined}
+                onDelete={() => undefined}
+                isLoading={false}
+              />
+            </div>
+          )}
+
           <div className="space-y-3">
             {flashcards.map((card) => (
               <FlashcardListItem
@@ -194,6 +247,11 @@ export default function FlashcardsView() {
                 collections={collections}
                 onUpdated={refresh}
                 onDeleted={refresh}
+                isSelected={selectedIds.has(card.id)}
+                onToggleSelect={() => {
+                  toggleSelect(card.id);
+                }}
+                hasSelection={hasSelection}
               />
             ))}
           </div>

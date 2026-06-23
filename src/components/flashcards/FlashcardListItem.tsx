@@ -3,6 +3,7 @@ import type { Collection, Flashcard } from "@/types";
 import { Card, CardContent } from "@/components/ui/card";
 import { Button } from "@/components/ui/button";
 import { Textarea } from "@/components/ui/textarea";
+import { Checkbox } from "@/components/ui/checkbox";
 import { cn } from "@/lib/utils";
 import { Pencil, Trash2, Sparkles, PenLine } from "lucide-react";
 import { CollectionPicker } from "@/components/collections/CollectionPicker";
@@ -12,11 +13,22 @@ interface Props {
   collections: Collection[];
   onUpdated: () => void;
   onDeleted: () => void;
+  isSelected: boolean;
+  onToggleSelect: () => void;
+  hasSelection: boolean;
 }
 
 type Mode = "view" | "editing" | "confirming-delete";
 
-export function FlashcardListItem({ flashcard, collections, onUpdated, onDeleted }: Props) {
+export function FlashcardListItem({
+  flashcard,
+  collections,
+  onUpdated,
+  onDeleted,
+  isSelected,
+  onToggleSelect,
+  hasSelection,
+}: Props) {
   const [mode, setMode] = useState<Mode>("view");
   const [editFront, setEditFront] = useState(flashcard.front);
   const [editBack, setEditBack] = useState(flashcard.back);
@@ -31,6 +43,7 @@ export function FlashcardListItem({ flashcard, collections, onUpdated, onDeleted
   }, []);
 
   function handleStartEdit() {
+    if (hasSelection) return;
     setEditFront(flashcard.front);
     setEditBack(flashcard.back);
     setError(null);
@@ -69,6 +82,7 @@ export function FlashcardListItem({ flashcard, collections, onUpdated, onDeleted
   }
 
   function handleDeleteClick() {
+    if (hasSelection) return;
     setMode("confirming-delete");
     confirmTimerRef.current = setTimeout(() => {
       setMode("view");
@@ -171,9 +185,12 @@ export function FlashcardListItem({ flashcard, collections, onUpdated, onDeleted
   }
 
   return (
-    <Card className="relative overflow-hidden">
+    <Card className={cn("relative overflow-hidden", isSelected && "border-primary ring-primary/20 ring-2")}>
       <CardContent>
         <div className="flex gap-4">
+          <div className="flex shrink-0 items-start pt-1">
+            <Checkbox checked={isSelected} onCheckedChange={onToggleSelect} aria-label="Select flashcard" />
+          </div>
           <div className="min-w-0 flex-1 space-y-2">
             <span
               className={cn(
@@ -188,30 +205,34 @@ export function FlashcardListItem({ flashcard, collections, onUpdated, onDeleted
             </span>
             <p className="text-fi-ink text-[17px] font-light">{flashcard.front}</p>
             <p className="text-fi-ink-secondary text-[14.5px]">{flashcard.back}</p>
-            <div className="flex items-center gap-2 pt-1">
-              <CollectionPicker
-                collections={collections}
-                value={flashcard.collection_id}
-                onChange={(id) => void handleCollectionChange(id)}
-              />
+            {!hasSelection && (
+              <div className="flex items-center gap-2 pt-1">
+                <CollectionPicker
+                  collections={collections}
+                  value={flashcard.collection_id}
+                  onChange={(id) => void handleCollectionChange(id)}
+                />
+              </div>
+            )}
+          </div>
+          {!hasSelection && (
+            <div className="flex shrink-0 flex-col gap-1">
+              <button
+                onClick={handleStartEdit}
+                className="text-muted-foreground hover:text-fi-ink hover:bg-fi-canvas-soft rounded-lg p-2 transition-colors"
+                aria-label="Edit flashcard"
+              >
+                <Pencil className="size-4" />
+              </button>
+              <button
+                onClick={handleDeleteClick}
+                className="text-muted-foreground rounded-lg p-2 transition-colors hover:bg-[var(--fi-ruby)]/5 hover:text-[var(--fi-ruby)]"
+                aria-label="Delete flashcard"
+              >
+                <Trash2 className="size-4" />
+              </button>
             </div>
-          </div>
-          <div className="flex shrink-0 flex-col gap-1">
-            <button
-              onClick={handleStartEdit}
-              className="text-muted-foreground hover:text-fi-ink hover:bg-fi-canvas-soft rounded-lg p-2 transition-colors"
-              aria-label="Edit flashcard"
-            >
-              <Pencil className="size-4" />
-            </button>
-            <button
-              onClick={handleDeleteClick}
-              className="text-muted-foreground rounded-lg p-2 transition-colors hover:bg-[var(--fi-ruby)]/5 hover:text-[var(--fi-ruby)]"
-              aria-label="Delete flashcard"
-            >
-              <Trash2 className="size-4" />
-            </button>
-          </div>
+          )}
         </div>
         {error && <p className="mt-2 text-sm text-[var(--fi-ruby)]">{error}</p>}
       </CardContent>
