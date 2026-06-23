@@ -336,17 +336,17 @@ Wire up the bulk toolbar actions to the API. Add a confirmation dialog for bulk 
 
 #### Automated
 
-- [x] 3.1 TypeScript compiles: `npx tsc --noEmit`
-- [x] 3.2 Linting passes: `npm run lint`
-- [x] 3.3 Build succeeds: `npm run build`
+- [x] 3.1 TypeScript compiles: `npx tsc --noEmit` — 57091a2
+- [x] 3.2 Linting passes: `npm run lint` — 57091a2
+- [x] 3.3 Build succeeds: `npm run build` — 57091a2
 
 #### Manual
 
-- [ ] 3.4 Bulk delete shows confirmation dialog and deletes on confirm
-- [ ] 3.5 Cancel delete dialog preserves selection
-- [ ] 3.6 Bulk move changes collection for selected cards
-- [ ] 3.7 Bulk move to "No collection" unassigns cards
-- [ ] 3.8 Loading state disables toolbar buttons during API call
-- [ ] 3.9 Error state shown on API failure, selection preserved
-- [ ] 3.10 Single-card delete works when no selection active
-- [ ] 3.11 Single-card collection change works when no selection active
+- [x] 3.4 Bulk delete shows confirmation dialog and deletes on confirm — 57091a2
+- [x] 3.5 Cancel delete dialog preserves selection — 57091a2
+- [x] 3.6 Bulk move changes collection for selected cards — 57091a2
+- [x] 3.7 Bulk move to "No collection" unassigns cards — 57091a2
+- [x] 3.8 Loading state disables toolbar buttons during API call — 57091a2
+- [x] 3.9 Error state shown on API failure, selection preserved — 57091a2
+- [x] 3.10 Single-card delete works when no selection active — 57091a2
+- [x] 3.11 Single-card collection change works when no selection active — 57091a2

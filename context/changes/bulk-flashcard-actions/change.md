@@ -1,9 +1,9 @@
 ---
 change_id: bulk-flashcard-actions
 title: Bulk flashcard actions
-status: implementing
+status: implemented
 created: 2026-06-21
-updated: 2026-06-21
+updated: 2026-06-23
 archived_at: null
 ---
 
