@@ -1,10 +1,10 @@
 ---
 change_id: bulk-flashcard-actions
 title: Bulk flashcard actions
-status: impl_reviewed
+status: archived
 created: 2026-06-21
 updated: 2026-06-23
-archived_at: null
+archived_at: 2026-06-23T20:00:00Z
 ---
 
 ## Notes
