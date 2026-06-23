@@ -305,11 +305,11 @@ Wire up the bulk toolbar actions to the API. Add a confirmation dialog for bulk 
 
 #### Manual
 
-- [ ] 1.4 Bulk DELETE returns `{ deleted_count }` for valid IDs
-- [ ] 1.5 Single DELETE still works (backwards compatible)
-- [ ] 1.6 Bulk PATCH returns `{ updated_count }` for collection change
-- [ ] 1.7 Single PATCH still works (backwards compatible)
-- [ ] 1.8 Auth guard returns 401 without cookie
+- [x] 1.4 Bulk DELETE returns `{ deleted_count }` for valid IDs — 257fdaf
+- [x] 1.5 Single DELETE still works (backwards compatible) — 257fdaf
+- [x] 1.6 Bulk PATCH returns `{ updated_count }` for collection change — 257fdaf
+- [x] 1.7 Single PATCH still works (backwards compatible) — 257fdaf
+- [x] 1.8 Auth guard returns 401 without cookie — 257fdaf
 
 ### Phase 2: UI — Selection State + Bulk Toolbar
 
@@ -321,16 +321,16 @@ Wire up the bulk toolbar actions to the API. Add a confirmation dialog for bulk 
 
 #### Manual
 
-- [ ] 2.4 Checkboxes visible on each flashcard card
-- [ ] 2.5 Clicking a checkbox selects/deselects the card
-- [ ] 2.6 Selecting any card reveals the bulk action toolbar
-- [ ] 2.7 Toolbar shows the correct selected count
-- [ ] 2.8 Select-all checkbox selects all cards on current page
-- [ ] 2.9 Deselecting all cards hides the toolbar
-- [ ] 2.10 Page navigation clears selection
-- [ ] 2.11 Search clears selection
-- [ ] 2.12 Per-card edit/delete hidden when any card is selected
-- [ ] 2.13 Per-card edit/delete reappear when selection is cleared
+- [x] 2.4 Checkboxes visible on each flashcard card — 1d1dea7
+- [x] 2.5 Clicking a checkbox selects/deselects the card — 1d1dea7
+- [x] 2.6 Selecting any card reveals the bulk action toolbar — 1d1dea7
+- [x] 2.7 Toolbar shows the correct selected count — 1d1dea7
+- [x] 2.8 Select-all checkbox selects all cards on current page — 1d1dea7
+- [x] 2.9 Deselecting all cards hides the toolbar — 1d1dea7
+- [x] 2.10 Page navigation clears selection — 1d1dea7
+- [x] 2.11 Search clears selection — 1d1dea7
+- [x] 2.12 Per-card edit/delete hidden when any card is selected — 1d1dea7
+- [x] 2.13 Per-card edit/delete reappear when selection is cleared — 1d1dea7
 
 ### Phase 3: Confirmation Dialog + API Integration
 
