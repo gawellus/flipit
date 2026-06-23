@@ -8,7 +8,9 @@ export function DemoFlashcard() {
     <div className="perspective-[1600px]">
       <div
         className={`relative h-[280px] w-[360px] cursor-pointer transition-transform duration-[600ms] [transition-timing-function:cubic-bezier(.4,.05,.2,1)] [transform-style:preserve-3d] ${flipped ? "[transform:rotateY(180deg)]" : ""}`}
-        onClick={() => setFlipped((f) => !f)}
+        onClick={() => {
+          setFlipped((f) => !f);
+        }}
         onKeyDown={(e) => {
           if (e.key === " " || e.key === "Enter") {
             e.preventDefault();
