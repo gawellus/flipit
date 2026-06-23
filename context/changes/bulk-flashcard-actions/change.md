@@ -1,7 +1,7 @@
 ---
 change_id: bulk-flashcard-actions
 title: Bulk flashcard actions
-status: implemented
+status: impl_reviewed
 created: 2026-06-21
 updated: 2026-06-23
 archived_at: null

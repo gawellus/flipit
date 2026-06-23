@@ -55,14 +55,18 @@ export const DeleteFlashcardSchema = z.object({
   id: z.uuid("id must be a valid UUID"),
 });
 
-export const BulkDeleteSchema = z.object({
-  ids: z.array(z.uuid("each id must be a valid UUID")).min(1).max(50),
-});
+export const BulkDeleteSchema = z
+  .object({
+    ids: z.array(z.uuid("each id must be a valid UUID")).min(1).max(50),
+  })
+  .strict();
 
-export const BulkUpdateCollectionSchema = z.object({
-  ids: z.array(z.uuid("each id must be a valid UUID")).min(1).max(50),
-  collection_id: z.uuid("collection_id must be a valid UUID").nullable(),
-});
+export const BulkUpdateCollectionSchema = z
+  .object({
+    ids: z.array(z.uuid("each id must be a valid UUID")).min(1).max(50),
+    collection_id: z.uuid("collection_id must be a valid UUID").nullable(),
+  })
+  .strict();
 
 export const prerender = false;
 

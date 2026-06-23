@@ -37,6 +37,7 @@ export function BulkActionBar({ selectedCount, collections, onMove, onDelete, is
           disabled={isLoading}
           onClick={() => {
             onMove(moveCollectionId);
+            setMoveCollectionId(null);
           }}
         >
           Move
