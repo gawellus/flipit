@@ -315,9 +315,9 @@ Wire up the bulk toolbar actions to the API. Add a confirmation dialog for bulk 
 
 #### Automated
 
-- [x] 2.1 TypeScript compiles: `npx tsc --noEmit`
-- [x] 2.2 Linting passes: `npm run lint`
-- [x] 2.3 Build succeeds: `npm run build`
+- [x] 2.1 TypeScript compiles: `npx tsc --noEmit` — 1d1dea7
+- [x] 2.2 Linting passes: `npm run lint` — 1d1dea7
+- [x] 2.3 Build succeeds: `npm run build` — 1d1dea7
 
 #### Manual
 
@@ -336,9 +336,9 @@ Wire up the bulk toolbar actions to the API. Add a confirmation dialog for bulk 
 
 #### Automated
 
-- [ ] 3.1 TypeScript compiles: `npx tsc --noEmit`
-- [ ] 3.2 Linting passes: `npm run lint`
-- [ ] 3.3 Build succeeds: `npm run build`
+- [x] 3.1 TypeScript compiles: `npx tsc --noEmit`
+- [x] 3.2 Linting passes: `npm run lint`
+- [x] 3.3 Build succeeds: `npm run build`
 
 #### Manual
 

@@ -41,6 +41,7 @@ export default function FlashcardsView() {
   const [collections, setCollections] = useState<Collection[]>([]);
   const [isFormOpen, setIsFormOpen] = useState(false);
   const [selectedIds, setSelectedIds] = useState<Set<string>>(new Set());
+  const [isBulkLoading, setIsBulkLoading] = useState(false);
 
   useEffect(() => {
     let cancelled = false;
@@ -126,6 +127,49 @@ export default function FlashcardsView() {
 
   function deselectAll() {
     setSelectedIds(new Set());
+  }
+
+  async function handleBulkDelete() {
+    setIsBulkLoading(true);
+    try {
+      const res = await fetch("/api/flashcards", {
+        method: "DELETE",
+        headers: { "Content-Type": "application/json" },
+        body: JSON.stringify({ ids: Array.from(selectedIds) }),
+      });
+      if (!res.ok) {
+        const data = (await res.json()) as { error?: string };
+        throw new Error(data.error ?? "Failed to delete flashcards");
+      }
+      setSelectedIds(new Set());
+      setPage(1);
+      refresh();
+    } catch (err: unknown) {
+      setError(err instanceof Error ? err.message : "Bulk delete failed. Please try again.");
+    } finally {
+      setIsBulkLoading(false);
+    }
+  }
+
+  async function handleBulkMove(collectionId: string | null) {
+    setIsBulkLoading(true);
+    try {
+      const res = await fetch("/api/flashcards", {
+        method: "PATCH",
+        headers: { "Content-Type": "application/json" },
+        body: JSON.stringify({ ids: Array.from(selectedIds), collection_id: collectionId }),
+      });
+      if (!res.ok) {
+        const data = (await res.json()) as { error?: string };
+        throw new Error(data.error ?? "Failed to move flashcards");
+      }
+      setSelectedIds(new Set());
+      refresh();
+    } catch (err: unknown) {
+      setError(err instanceof Error ? err.message : "Bulk move failed. Please try again.");
+    } finally {
+      setIsBulkLoading(false);
+    }
   }
 
   const hasSelection = selectedIds.size > 0;
@@ -232,9 +276,9 @@ export default function FlashcardsView() {
               <BulkActionBar
                 selectedCount={selectedIds.size}
                 collections={collections}
-                onMove={() => undefined}
-                onDelete={() => undefined}
-                isLoading={false}
+                onMove={handleBulkMove}
+                onDelete={handleBulkDelete}
+                isLoading={isBulkLoading}
               />
             </div>
           )}

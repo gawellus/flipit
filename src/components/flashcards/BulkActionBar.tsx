@@ -1,6 +1,17 @@
 import type { Collection } from "@/types";
 import { Button } from "@/components/ui/button";
 import { CollectionPicker } from "@/components/collections/CollectionPicker";
+import {
+  AlertDialog,
+  AlertDialogAction,
+  AlertDialogCancel,
+  AlertDialogContent,
+  AlertDialogDescription,
+  AlertDialogFooter,
+  AlertDialogHeader,
+  AlertDialogTitle,
+  AlertDialogTrigger,
+} from "@/components/ui/alert-dialog";
 import { Trash2 } from "lucide-react";
 import { useState } from "react";
 
@@ -31,10 +42,28 @@ export function BulkActionBar({ selectedCount, collections, onMove, onDelete, is
           Move
         </Button>
       </div>
-      <Button size="sm" variant="destructive" disabled={isLoading} onClick={onDelete}>
-        <Trash2 className="size-3.5" />
-        Delete ({selectedCount})
-      </Button>
+      <AlertDialog>
+        <AlertDialogTrigger asChild>
+          <Button size="sm" variant="destructive" disabled={isLoading}>
+            <Trash2 className="size-3.5" />
+            Delete ({selectedCount})
+          </Button>
+        </AlertDialogTrigger>
+        <AlertDialogContent>
+          <AlertDialogHeader>
+            <AlertDialogTitle>
+              Delete {selectedCount} flashcard{selectedCount !== 1 ? "s" : ""}?
+            </AlertDialogTitle>
+            <AlertDialogDescription>This action cannot be undone.</AlertDialogDescription>
+          </AlertDialogHeader>
+          <AlertDialogFooter>
+            <AlertDialogCancel>Cancel</AlertDialogCancel>
+            <AlertDialogAction variant="destructive" onClick={onDelete}>
+              Delete
+            </AlertDialogAction>
+          </AlertDialogFooter>
+        </AlertDialogContent>
+      </AlertDialog>
     </div>
   );
 }
