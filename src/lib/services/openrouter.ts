@@ -40,7 +40,7 @@ export async function generateFlashcards(sourceText: string): Promise<FlashcardP
 
   if (!response.ok) {
     const body = await response.text();
-    throw new Error(`OpenRouter API error (${response.status}): ${body}`);
+    throw new Error(`OpenRouter API error (${response.status}): ${body.slice(0, 500)}`);
   }
 
   const data = (await response.json()) as {
@@ -52,7 +52,11 @@ export async function generateFlashcards(sourceText: string): Promise<FlashcardP
     throw new Error("OpenRouter returned an empty response");
   }
 
-  return parseFlashcards(content);
+  try {
+    return parseFlashcards(content);
+  } catch (e) {
+    throw new Error(`${(e as Error).message} — raw LLM response: ${content.slice(0, 500)}`);
+  }
 }
 
 export function parseFlashcards(raw: string): FlashcardProposal[] {

@@ -32,9 +32,11 @@ export default function GenerateView() {
         generation_id?: string;
         flashcards?: FlashcardProposal[];
         error?: string;
+        detail?: string;
       };
 
       if (!res.ok) {
+        if (data.detail) console.error("[GenerateView] LLM error detail:", data.detail);
         setState({ step: "error", message: data.error ?? "Generation failed" });
         return;
       }

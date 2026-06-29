@@ -49,9 +49,10 @@ export const POST: APIRoute = async (context) => {
       headers: { "Content-Type": "application/json" },
     });
   } catch (err) {
+    const detail = err instanceof Error ? err.message : String(err);
     // eslint-disable-next-line no-console
-    console.error("[generations] LLM flashcard generation failed:", err);
-    return new Response(JSON.stringify({ error: "Flashcard generation failed. Please try again." }), {
+    console.error("[generations] LLM flashcard generation failed:", detail);
+    return new Response(JSON.stringify({ error: "Flashcard generation failed. Please try again.", detail }), {
       status: 500,
       headers: { "Content-Type": "application/json" },
     });
