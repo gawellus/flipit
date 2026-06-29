@@ -3,7 +3,8 @@ import { defineConfig, devices } from "@playwright/test";
 export default defineConfig({
   testDir: "./playwright",
   timeout: 30 * 1000,
-  fullyParallel: true,
+  fullyParallel: false,
+  workers: 1,
   reporter: "list",
   use: {
     baseURL: "http://localhost:4321", // Twój port z Vite / Astro
@@ -20,7 +21,7 @@ export default defineConfig({
       name: "chromium",
       use: {
         ...devices["Desktop Chrome"],
-        storageState: "playwright/.auth/auth.json",
+        storageState: "playwright/.auth/user.json",
       },
       dependencies: ["setup"], // Powiązanie projektów
     },

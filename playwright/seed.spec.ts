@@ -13,8 +13,9 @@ test("created deck persists after page reload", async ({ page }) => {
   await page.reload();
   await expect(page.getByRole("heading", { name: deckName })).toBeVisible();
 
-  // Cleanup
+  // Cleanup — icon button opens confirm, then click "Delete"
   const card = page.locator('[data-slot="card"]').filter({ has: page.getByRole("heading", { name: deckName }) });
+  await card.getByRole("button", { name: "Delete collection" }).click();
   await card.getByRole("button", { name: "Delete" }).click();
   await expect(page.getByRole("heading", { name: deckName })).not.toBeVisible();
 });

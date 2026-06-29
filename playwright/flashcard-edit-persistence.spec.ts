@@ -43,7 +43,7 @@ test("edited flashcard front text persists after page reload", async ({ page }) 
 
   // Cleanup
   const editedCard = page.locator('[data-slot="card"]').filter({ hasText: editedFront });
-  await editedCard.getByRole("button", { name: "Delete" }).click();
-  await editedCard.getByRole("button", { name: "Confirm delete?" }).click();
+  await editedCard.getByRole("button", { name: "Delete flashcard" }).click();
+  await editedCard.getByRole("button", { name: "Delete", exact: true }).click();
   await expect(page.getByText(editedFront)).not.toBeVisible();
 });

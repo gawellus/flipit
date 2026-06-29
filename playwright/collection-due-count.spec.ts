@@ -50,14 +50,15 @@ test("collection due count reflects assigned card with due SR state", async ({ p
   // Cleanup: delete the flashcard, then delete the collection
   await page.goto("/flashcards");
   const cardToDelete = page.locator('[data-slot="card"]').filter({ hasText: cardFront });
-  await cardToDelete.getByRole("button", { name: "Delete" }).click();
-  await cardToDelete.getByRole("button", { name: "Confirm delete?" }).click();
+  await cardToDelete.getByRole("button", { name: "Delete flashcard" }).click();
+  await cardToDelete.getByRole("button", { name: "Delete", exact: true }).click();
   await expect(page.getByText(cardFront)).not.toBeVisible();
 
   await page.goto("/study");
   const collectionToDelete = page
     .locator('[data-slot="card"]')
     .filter({ has: page.getByRole("heading", { name: collectionName }) });
+  await collectionToDelete.getByRole("button", { name: "Delete collection" }).click();
   await collectionToDelete.getByRole("button", { name: "Delete" }).click();
   await expect(page.getByRole("heading", { name: collectionName })).not.toBeVisible();
 });
