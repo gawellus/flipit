@@ -240,6 +240,7 @@ export default function CollectionsView() {
                           size="icon"
                           variant="ghost"
                           className="text-muted-foreground hover:text-fi-ruby size-8"
+                          aria-label="Delete collection"
                           onClick={() => {
                             setConfirmDeleteId(collection.id);
                           }}
