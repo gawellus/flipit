@@ -1,7 +1,7 @@
 {
   "$schema": "node_modules/wrangler/config-schema.json",
   "name": "flipit",
-  "main": "@astrojs/cloudflare/entrypoints/server",
+  "main": "./src/worker.ts",
   "compatibility_date": "2026-05-08",
   "compatibility_flags": ["nodejs_compat"],
   "assets": {
@@ -11,5 +11,9 @@
   },
   "observability": {
     "enabled": true,
+  },
+  // Ping Supabase every 3 days to prevent free-tier project pausing
+  "triggers": {
+    "crons": ["0 0 */3 * *"],
   },
 }
