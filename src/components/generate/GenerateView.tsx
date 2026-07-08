@@ -36,6 +36,7 @@ export default function GenerateView() {
       };
 
       if (!res.ok) {
+        // eslint-disable-next-line no-console
         if (data.detail) console.error("[GenerateView] LLM error detail:", data.detail);
         setState({ step: "error", message: data.error ?? "Generation failed" });
         return;
